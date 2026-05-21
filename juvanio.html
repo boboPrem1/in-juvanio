@@ -1,0 +1,3348 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Juvanio · Backend Architect</title>
+  <meta name="description"
+    content="Portfolio de Amouzougan Kangni Juvanio, Ingénieur Senior Spécialisé Backend & Sécurité. Créateur de Tenxyte.">
+  <meta property="og:title" content="Juvanio · Backend Architect">
+  <meta property="og:description"
+    content="Portfolio de Amouzougan Kangni Juvanio, Ingénieur Senior Spécialisé Backend & Sécurité. Créateur de Tenxyte.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://juvanio.com/">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,300&family=JetBrains+Mono:wght@300;400;500&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --bg: #080a0f;
+      --surface: #0d1017;
+      --surface2: #121820;
+      --accent: #00e5c3;
+      --accent2: #ff4d6d;
+      --accent3: #ffd166;
+      --text: #e8eaf0;
+      --muted: #7a859c;
+      --border: rgba(255, 255, 255, 0.06);
+      --glow: rgba(0, 229, 195, 0.15);
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Mono', monospace;
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--bg);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--surface2);
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--muted);
+    }
+
+    @media (pointer: coarse) {
+      body {
+        cursor: auto;
+      }
+
+      .cursor,
+      .cursor-ring {
+        display: none !important;
+      }
+    }
+
+    /* Custom Cursor */
+    .cursor {
+      position: fixed;
+      width: 12px;
+      height: 12px;
+      background: var(--accent);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: transform 0.1s, width 0.2s, height 0.2s, background 0.2s;
+      mix-blend-mode: difference;
+    }
+
+    .cursor-ring {
+      position: fixed;
+      width: 40px;
+      height: 40px;
+      border: 1px solid rgba(0, 229, 195, 0.5);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      transition: transform 0.15s ease-out, width 0.3s, height 0.3s;
+    }
+
+    .cursor.hover {
+      width: 20px;
+      height: 20px;
+      background: var(--accent2);
+    }
+
+    .cursor-ring.hover {
+      width: 60px;
+      height: 60px;
+      border-color: var(--accent2);
+    }
+
+    /* Noise overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyBAMAAADsEZWCAAAAGFBMVEUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/m1t4AAAACHRSTlMAMwBmMwBmMy9iG+QAAAA6SURBVDjLY2AYBaNgOAIxMTAyMjIwMjIwMDAyMjAwMDAxMTEwMDExMTEwMDAwMDAwMDAwMDAwMIIEAJ/KBEw8Y4QWAAAAAElFTkSuQmCC");
+      background-repeat: repeat;
+      pointer-events: none;
+      z-index: 9997;
+      opacity: 0.05;
+    }
+
+    /* ══════════════════════════════════
+       BOOT SEQUENCE OVERLAY
+    ══════════════════════════════════ */
+    .boot-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      background: var(--bg);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 10vw;
+      font-family: 'JetBrains Mono', 'DM Mono', monospace;
+      font-size: clamp(12px, 1.5vw, 16px);
+      color: var(--accent);
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+
+    .boot-overlay.done {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .boot-line {
+      opacity: 0;
+      transform: translateX(-10px);
+      margin-bottom: 6px;
+      white-space: nowrap;
+    }
+
+    .boot-line .ok {
+      color: var(--accent);
+    }
+
+    .boot-line .fail {
+      color: var(--accent2);
+    }
+
+    .boot-line .warn {
+      color: var(--accent3);
+    }
+
+    .boot-line .dim {
+      color: var(--muted);
+    }
+
+    .boot-cursor {
+      display: inline-block;
+      width: 8px;
+      height: 16px;
+      background: var(--accent);
+      animation: bootBlink 0.5s step-end infinite;
+      vertical-align: text-bottom;
+      margin-left: 4px;
+    }
+
+    @keyframes bootBlink {
+      50% {
+        opacity: 0;
+      }
+    }
+
+    .boot-progress {
+      width: 300px;
+      max-width: 60vw;
+      height: 2px;
+      background: var(--surface2);
+      margin-top: 20px;
+      border-radius: 1px;
+      overflow: hidden;
+      opacity: 0;
+    }
+
+    .boot-progress-fill {
+      height: 100%;
+      width: 0;
+      background: var(--accent);
+      transition: width 0.3s ease;
+    }
+
+    /* ══════════════════════════════════
+       NAV
+    ══════════════════════════════════ */
+    nav {
+      position: fixed;
+      top: 0;
+      right: 0;
+      z-index: 100;
+      padding: 24px 48px;
+      display: flex;
+      gap: 32px;
+      align-items: center;
+    }
+
+    nav a {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.3s;
+      cursor: none;
+    }
+
+    nav a:hover {
+      color: var(--accent);
+    }
+
+    /* API MODE TOGGLE */
+    .api-toggle {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-left: 16px;
+      padding-left: 20px;
+      border-left: 1px solid var(--border);
+    }
+
+    .api-toggle-label {
+      font-size: 9px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
+      transition: color 0.3s;
+    }
+
+    .api-toggle-label.active {
+      color: var(--accent);
+    }
+
+    .api-toggle-switch {
+      position: relative;
+      width: 36px;
+      height: 18px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      cursor: none;
+      transition: all 0.3s;
+    }
+
+    .api-toggle-switch::after {
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--muted);
+      transition: all 0.3s;
+    }
+
+    .api-toggle-switch.active {
+      background: rgba(0, 229, 195, 0.15);
+      border-color: var(--accent);
+    }
+
+    .api-toggle-switch.active::after {
+      left: 20px;
+      background: var(--accent);
+      box-shadow: 0 0 8px var(--glow);
+    }
+
+    /* ══════════════════════════════════
+       API MODE VIEW
+    ══════════════════════════════════ */
+    .api-view {
+      display: none;
+      min-height: 100vh;
+      padding: 100px 80px 80px;
+      font-family: 'JetBrains Mono', 'DM Mono', monospace;
+    }
+
+    .api-view.visible {
+      display: block;
+    }
+
+    .api-endpoint {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 8px;
+      letter-spacing: 1px;
+    }
+
+    .api-endpoint .method {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .api-status {
+      font-size: 11px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .api-status-code {
+      background: rgba(0, 229, 195, 0.1);
+      color: var(--accent);
+      padding: 3px 10px;
+      border: 1px solid rgba(0, 229, 195, 0.2);
+      font-size: 11px;
+      letter-spacing: 1px;
+    }
+
+    .api-status-text {
+      color: var(--muted);
+      font-size: 10px;
+      letter-spacing: 1px;
+    }
+
+    .api-json {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 32px;
+      font-size: 12.5px;
+      line-height: 1.8;
+      overflow-x: auto;
+      white-space: pre;
+      color: var(--text);
+      position: relative;
+    }
+
+    .api-json .json-key {
+      color: var(--accent2);
+    }
+
+    .api-json .json-string {
+      color: var(--accent3);
+    }
+
+    .api-json .json-number {
+      color: var(--accent);
+    }
+
+    .api-json .json-bool {
+      color: #c792ea;
+    }
+
+    .api-json .json-null {
+      color: var(--muted);
+    }
+
+    .api-json .json-bracket {
+      color: var(--muted);
+    }
+
+    .api-copy-btn {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 1px;
+      padding: 6px 12px;
+      cursor: none;
+      transition: all 0.3s;
+      text-transform: uppercase;
+    }
+
+    .api-copy-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* UI VIEW (main content) */
+    .ui-view {
+      display: block;
+    }
+
+    .ui-view.hidden {
+      display: none;
+    }
+
+    /* ══════════════════════════════════
+       HERO
+    ══════════════════════════════════ */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #networkCanvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0, 229, 195, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 229, 195, 0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      animation: gridPulse 8s ease-in-out infinite;
+    }
+
+    @keyframes gridPulse {
+
+      0%,
+      100% {
+        opacity: 0.6;
+      }
+
+      50% {
+        opacity: 1;
+      }
+    }
+
+    .hero-left {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 80px 60px 80px 80px;
+    }
+
+    .hero-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 3px;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 32px;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.3s ease forwards;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .hero-tag::before {
+      content: '';
+      width: 40px;
+      height: 1px;
+      background: var(--accent);
+      display: inline-block;
+    }
+
+    .hero-name {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(52px, 6vw, 88px);
+      font-weight: 800;
+      line-height: 0.95;
+      letter-spacing: -2px;
+      margin-bottom: 8px;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.5s ease forwards;
+    }
+
+    .hero-name .line1 {
+      display: block;
+      color: var(--text);
+    }
+
+    .hero-name .line2 {
+      display: block;
+      color: var(--accent);
+      font-style: italic;
+    }
+
+    .hero-name .line3 {
+      display: block;
+      color: var(--text);
+    }
+
+    .hero-title {
+      font-family: 'DM Mono', monospace;
+      font-size: 13px;
+      color: var(--muted);
+      margin: 28px 0 40px;
+      line-height: 1.8;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.7s ease forwards;
+    }
+
+    .hero-title span {
+      color: var(--accent3);
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.9s ease forwards;
+    }
+
+    .btn {
+      padding: 14px 28px;
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: none;
+      cursor: none;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--bg);
+      font-weight: 500;
+    }
+
+    .btn-primary::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--accent2);
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+      z-index: -1;
+    }
+
+    .btn-primary:hover::after {
+      transform: translateX(0);
+    }
+
+    .btn-primary:hover {
+      color: white;
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .hero-right {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-visual {
+      position: relative;
+      width: 500px;
+      height: 500px;
+    }
+
+    .hero-photo-frame {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2px solid var(--accent);
+      box-shadow: 0 0 60px var(--glow), 0 0 120px rgba(0, 229, 195, 0.05);
+      animation: float 6s ease-in-out infinite;
+      z-index: 3;
+    }
+
+    .hero-photo-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(20%) contrast(1.1);
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translate(-50%, -52%);
+      }
+
+      50% {
+        transform: translate(-50%, -48%);
+      }
+    }
+
+    /* Terminal logs behind photo */
+    .hero-terminal-bg {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 420px;
+      height: 420px;
+      border: 1px solid var(--border);
+      background: rgba(13, 16, 23, 0.8);
+      overflow: hidden;
+      z-index: 1;
+      border-radius: 4px;
+    }
+
+    .hero-terminal-bg::before {
+      content: '● ● ●';
+      position: absolute;
+      top: 8px;
+      left: 12px;
+      font-size: 6px;
+      letter-spacing: 4px;
+      color: var(--muted);
+    }
+
+    .terminal-scroll {
+      position: absolute;
+      top: 24px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 16px 14px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9.5px;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.15);
+      overflow: hidden;
+      mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
+    }
+
+    .terminal-line {
+      margin-bottom: 6px;
+      word-wrap: break-word;
+      opacity: 0.5;
+    }
+
+    /* Data flow dots around photo */
+    .data-ring {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      border: 1px solid rgba(0, 229, 195, 0.1);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 2;
+    }
+
+    .data-ring-1 {
+      width: 340px;
+      height: 340px;
+    }
+
+    .data-ring-2 {
+      width: 400px;
+      height: 400px;
+      border-color: rgba(255, 77, 109, 0.08);
+    }
+
+    .data-ring-3 {
+      width: 460px;
+      height: 460px;
+      border-color: rgba(255, 209, 102, 0.06);
+    }
+
+    .data-packet {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      top: -2px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .data-ring-1 .data-packet {
+      background: var(--accent);
+      box-shadow: 0 0 8px var(--accent);
+    }
+
+    .data-ring-2 .data-packet {
+      background: var(--accent2);
+      box-shadow: 0 0 8px var(--accent2);
+    }
+
+    .data-ring-3 .data-packet {
+      background: var(--accent3);
+      box-shadow: 0 0 8px var(--accent3);
+    }
+
+    .data-ring-1 {
+      animation: dataOrbit 12s linear infinite;
+    }
+
+    .data-ring-2 {
+      animation: dataOrbit 18s linear infinite reverse;
+    }
+
+    .data-ring-3 {
+      animation: dataOrbit 24s linear infinite;
+    }
+
+    @keyframes dataOrbit {
+      from {
+        transform: translate(-50%, -50%) rotate(0deg);
+      }
+
+      to {
+        transform: translate(-50%, -50%) rotate(360deg);
+      }
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 40px;
+      left: 80px;
+      font-size: 10px;
+      letter-spacing: 3px;
+      color: var(--muted);
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      z-index: 2;
+      animation: fadeUp 0.8s 1.2s ease forwards;
+      opacity: 0;
+    }
+
+    .hero-scroll::after {
+      content: '';
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, var(--accent), transparent);
+      display: block;
+      animation: scrollLine 2s ease-in-out infinite;
+    }
+
+    @keyframes scrollLine {
+      0% {
+        transform: scaleY(0);
+        transform-origin: top;
+      }
+
+      50% {
+        transform: scaleY(1);
+        transform-origin: top;
+      }
+
+      51% {
+        transform: scaleY(1);
+        transform-origin: bottom;
+      }
+
+      100% {
+        transform: scaleY(0);
+        transform-origin: bottom;
+      }
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ══════════════════════════════════
+       SECTION BASE
+    ══════════════════════════════════ */
+    section {
+      padding: 120px 80px;
+      position: relative;
+    }
+
+    .section-label {
+      font-size: 10px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .section-label::before {
+      content: attr(data-num);
+      font-size: 10px;
+      color: var(--muted);
+    }
+
+    .section-title {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(36px, 4vw, 56px);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -1px;
+      margin-bottom: 64px;
+    }
+
+    /* ══════════════════════════════════
+       TENXYTE — ARCHITECTURE BLUEPRINT
+    ══════════════════════════════════ */
+    .tenxyte {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .tenxyte-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 40px;
+      margin-bottom: 64px;
+    }
+
+    .tenxyte-header-left {
+      max-width: 560px;
+    }
+
+    .tenxyte-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(0, 229, 195, 0.08);
+      border: 1px solid rgba(0, 229, 195, 0.2);
+      padding: 8px 16px;
+      border-radius: 2px;
+      font-size: 10px;
+      letter-spacing: 3px;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    .tenxyte-badge::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+      animation: blink 1.5s infinite;
+    }
+
+    @keyframes blink {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.2;
+      }
+    }
+
+    .tenxyte-title {
+      font-family: 'Fraunces', serif;
+      font-size: 52px;
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -2px;
+      margin-bottom: 20px;
+    }
+
+    .tenxyte-title .highlight {
+      color: var(--accent);
+      font-style: italic;
+    }
+
+    .tenxyte-desc {
+      color: var(--muted);
+      line-height: 1.9;
+      font-size: 13px;
+      margin-bottom: 32px;
+    }
+
+    .tenxyte-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      margin-bottom: 32px;
+    }
+
+    .stat-item {
+      background: var(--bg);
+      padding: 20px;
+      text-align: center;
+    }
+
+    .stat-num {
+      font-family: 'Fraunces', serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--accent);
+      display: block;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .stat-label {
+      font-size: 9px;
+      letter-spacing: 2px;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    /* Architecture Diagram */
+    .arch-diagram {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      position: relative;
+    }
+
+    .arch-layer {
+      display: grid;
+      gap: 2px;
+      background: var(--border);
+    }
+
+    .arch-layer-1 {
+      grid-template-columns: 1fr;
+    }
+
+    .arch-layer-2 {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    .arch-layer-3 {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .arch-layer-4 {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    .arch-block {
+      background: var(--surface);
+      padding: 20px 24px;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.4s ease;
+      cursor: default;
+    }
+
+    .arch-block::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 3px;
+      height: 100%;
+      background: var(--accent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .arch-block:hover::before {
+      opacity: 1;
+    }
+
+    .arch-block:hover {
+      background: var(--surface2);
+    }
+
+    .arch-block-label {
+      font-size: 9px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .arch-block-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .arch-block-desc {
+      font-size: 10px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .arch-block-tag {
+      display: inline-block;
+      margin-top: 8px;
+      font-size: 8px;
+      letter-spacing: 2px;
+      padding: 2px 8px;
+      border: 1px solid rgba(0, 229, 195, 0.15);
+      color: var(--accent);
+      background: rgba(0, 229, 195, 0.05);
+    }
+
+    /* AIRS block special pulse */
+    .arch-block.airs {
+      position: relative;
+    }
+
+    .arch-block.airs::after {
+      content: '';
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent2);
+      box-shadow: 0 0 12px var(--accent2);
+      animation: airsPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes airsPulse {
+
+      0%,
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+
+      50% {
+        transform: scale(1.5);
+        opacity: 0.4;
+      }
+    }
+
+    /* Arrow connectors between layers */
+    .arch-arrow {
+      text-align: center;
+      padding: 6px 0;
+      background: var(--surface);
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: 2px;
+    }
+
+    /* ══════════════════════════════════
+       SKILLS — SERVER RACK STYLE
+    ══════════════════════════════════ */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+
+    .skill-card {
+      background: var(--surface);
+      padding: 28px 20px;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.3s;
+      cursor: default;
+    }
+
+    .skill-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s;
+    }
+
+    .skill-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .skill-card:hover {
+      background: var(--surface2);
+    }
+
+    /* Server rack header with LEDs */
+    .skill-rack-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .skill-rack-leds {
+      display: flex;
+      gap: 4px;
+    }
+
+    .led {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      animation: ledBlink 3s ease-in-out infinite;
+    }
+
+    .led-green {
+      background: var(--accent);
+      box-shadow: 0 0 4px var(--accent);
+    }
+
+    .led-red {
+      background: var(--accent2);
+      box-shadow: 0 0 4px var(--accent2);
+      animation-delay: 0.5s;
+    }
+
+    .led-yellow {
+      background: var(--accent3);
+      box-shadow: 0 0 4px var(--accent3);
+      animation-delay: 1s;
+    }
+
+    @keyframes ledBlink {
+
+      0%,
+      90%,
+      100% {
+        opacity: 1;
+      }
+
+      95% {
+        opacity: 0.3;
+      }
+    }
+
+    .skill-rack-id {
+      font-size: 8px;
+      letter-spacing: 2px;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-left: auto;
+    }
+
+    .skill-card-icon {
+      font-size: 22px;
+      display: inline-block;
+    }
+
+    .skill-card-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--text);
+    }
+
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+
+    .skill-tag {
+      font-size: 9px;
+      letter-spacing: 1px;
+      padding: 3px 7px;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      transition: all 0.3s;
+    }
+
+    .skill-card:hover .skill-tag {
+      border-color: rgba(0, 229, 195, 0.2);
+      color: var(--text);
+    }
+
+    /* ══════════════════════════════════
+       EXPERIENCE — GIT TIMELINE
+    ══════════════════════════════════ */
+    .experience {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+    }
+
+    .git-timeline {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .git-timeline::before {
+      content: '';
+      position: absolute;
+      left: 200px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: var(--surface2);
+    }
+
+    .git-commit {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      position: relative;
+      opacity: 0;
+      transform: translateX(-20px);
+      transition: all 0.6s ease;
+    }
+
+    .git-commit.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .git-meta {
+      padding: 32px 28px 32px 0;
+      text-align: right;
+    }
+
+    .git-hash {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 1px;
+      color: var(--accent3);
+      margin-bottom: 4px;
+      opacity: 0.7;
+    }
+
+    .git-date {
+      font-size: 10px;
+      letter-spacing: 2px;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .git-company {
+      font-family: 'Fraunces', serif;
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.2;
+    }
+
+    .git-content {
+      padding: 32px 0 32px 48px;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+    }
+
+    /* Git node (commit dot) */
+    .git-content::before {
+      content: '';
+      position: absolute;
+      left: -6px;
+      top: 40px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--bg);
+      border: 2px solid var(--accent);
+      box-shadow: 0 0 12px var(--glow);
+      z-index: 2;
+    }
+
+    /* Branch line from dot */
+    .git-content::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 47px;
+      width: 36px;
+      height: 1px;
+      background: linear-gradient(to right, var(--accent), transparent);
+    }
+
+    .git-role {
+      font-family: 'Syne', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .git-role-badge {
+      font-size: 8px;
+      letter-spacing: 2px;
+      padding: 2px 8px;
+      border: 1px solid var(--accent2);
+      color: var(--accent2);
+      background: rgba(255, 77, 109, 0.08);
+    }
+
+    .git-desc {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 14px;
+    }
+
+    .git-changes {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .git-change {
+      font-size: 11px;
+      color: var(--text);
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      opacity: 0.8;
+      transition: opacity 0.2s;
+    }
+
+    .git-change:hover {
+      opacity: 1;
+    }
+
+    .git-change-prefix {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      flex-shrink: 0;
+      font-weight: 600;
+    }
+
+    .git-change-prefix.add {
+      color: var(--accent);
+    }
+
+    .git-change-prefix.mod {
+      color: var(--accent3);
+    }
+
+    /* ══════════════════════════════════
+       FORMATION
+    ══════════════════════════════════ */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .feature-row {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--border);
+      transition: background 0.3s;
+      cursor: default;
+    }
+
+    .feature-row:last-child {
+      border-bottom: none;
+    }
+
+    .feature-row:hover {
+      background: rgba(0, 229, 195, 0.05);
+    }
+
+    .feature-icon {
+      width: 36px;
+      height: 36px;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+      transition: border-color 0.3s;
+    }
+
+    .feature-row:hover .feature-icon {
+      border-color: var(--accent);
+    }
+
+    .feature-info {
+      flex: 1;
+    }
+
+    .feature-name {
+      font-size: 12px;
+      color: var(--text);
+      margin-bottom: 2px;
+    }
+
+    .feature-desc {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .feature-tag {
+      font-size: 9px;
+      letter-spacing: 2px;
+      color: var(--accent);
+      background: rgba(0, 229, 195, 0.08);
+      padding: 3px 8px;
+      border: 1px solid rgba(0, 229, 195, 0.15);
+      white-space: nowrap;
+    }
+
+    .tenxyte-features {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+    }
+
+    /* ══════════════════════════════════
+       LANGUAGES
+    ══════════════════════════════════ */
+    .langs {
+      display: flex;
+      gap: 24px;
+      margin-top: 48px;
+      flex-wrap: wrap;
+    }
+
+    .lang-item {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      min-width: 80px;
+    }
+
+    .lang-name {
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text);
+    }
+
+    .lang-bar {
+      height: 2px;
+      background: var(--surface2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .lang-fill {
+      height: 100%;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 1s ease;
+    }
+
+    .lang-item.visible .lang-fill {
+      transform: scaleX(1);
+    }
+
+    .lang-level {
+      font-size: 9px;
+      color: var(--muted);
+      letter-spacing: 1px;
+    }
+
+    /* ══════════════════════════════════
+       CONTACT — TERMINAL STYLE
+    ══════════════════════════════════ */
+    .contact {
+      min-height: 60vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact-bg {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 60% at 50% 100%, rgba(0, 229, 195, 0.08), transparent);
+    }
+
+    .contact-title {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(48px, 8vw, 100px);
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -3px;
+      color: var(--text);
+      position: relative;
+      z-index: 1;
+      margin-bottom: 24px;
+    }
+
+    .contact-title span {
+      color: var(--accent);
+      font-style: italic;
+    }
+
+    .contact-sub {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 32px;
+      position: relative;
+      z-index: 1;
+      letter-spacing: 1px;
+    }
+
+    .contact-terminal {
+      position: relative;
+      z-index: 1;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 0;
+      width: 100%;
+      max-width: 620px;
+      text-align: left;
+      overflow: hidden;
+    }
+
+    .contact-terminal-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface2);
+    }
+
+    .contact-terminal-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    .contact-terminal-dot.r {
+      background: #ff5f57;
+    }
+
+    .contact-terminal-dot.y {
+      background: #febc2e;
+    }
+
+    .contact-terminal-dot.g {
+      background: #28c840;
+    }
+
+    .contact-terminal-title {
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: 1px;
+      margin-left: 8px;
+    }
+
+    .contact-terminal-body {
+      padding: 20px 24px;
+    }
+
+    .contact-cmd {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      padding: 8px 0;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      text-decoration: none;
+      color: var(--text);
+      transition: color 0.3s;
+      cursor: none;
+    }
+
+    .contact-cmd:hover {
+      color: var(--accent);
+    }
+
+    .contact-cmd:hover .cmd-prompt {
+      color: var(--accent);
+    }
+
+    .cmd-prompt {
+      color: var(--accent);
+      margin-right: 8px;
+      flex-shrink: 0;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .cmd-command {
+      color: var(--accent3);
+      margin-right: 6px;
+    }
+
+    .cmd-arg {
+      color: var(--muted);
+    }
+
+    .contact-cmd:hover .cmd-arg {
+      color: var(--accent);
+    }
+
+    .contact-cv-dl {
+      margin-top: 32px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ══════════════════════════════════
+       MARQUEE
+    ══════════════════════════════════ */
+    .marquee-section {
+      overflow: hidden;
+      padding: 24px 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    .marquee-track {
+      display: flex;
+      gap: 0;
+      animation: marquee 25s linear infinite;
+      white-space: nowrap;
+    }
+
+    .marquee-item {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      padding: 0 40px;
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .marquee-item::after {
+      content: '✦';
+      color: var(--accent);
+      font-size: 8px;
+    }
+
+    @keyframes marquee {
+      from {
+        transform: translateX(0);
+      }
+
+      to {
+        transform: translateX(-50%);
+      }
+    }
+
+    /* ══════════════════════════════════
+       FOOTER
+    ══════════════════════════════════ */
+    footer {
+      padding: 32px 80px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 10px;
+      letter-spacing: 2px;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    /* ══════════════════════════════════
+       NAV HAMBURGER (mobile)
+    ══════════════════════════════════ */
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 40px;
+      height: 40px;
+      background: transparent;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      gap: 5px;
+      z-index: 200;
+      position: fixed;
+      top: 20px;
+      right: 20px;
+    }
+
+    .nav-toggle span {
+      display: block;
+      width: 22px;
+      height: 1.5px;
+      background: var(--text);
+      transition: all 0.3s ease;
+      transform-origin: center;
+    }
+
+    .nav-toggle.open span:nth-child(1) {
+      transform: translateY(6.5px) rotate(45deg);
+    }
+
+    .nav-toggle.open span:nth-child(2) {
+      opacity: 0;
+      transform: scaleX(0);
+    }
+
+    .nav-toggle.open span:nth-child(3) {
+      transform: translateY(-6.5px) rotate(-45deg);
+    }
+
+    /* ══════════════════════════════════
+       RESPONSIVE
+    ══════════════════════════════════ */
+    @media (max-width: 1024px) {
+      .hero-left {
+        padding: 80px 40px 80px 48px;
+      }
+
+      section {
+        padding: 100px 48px;
+      }
+
+      footer {
+        padding: 32px 48px;
+      }
+
+      .skills-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .tenxyte-title {
+        font-size: 40px;
+      }
+
+      .arch-layer-2,
+      .arch-layer-4 {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .nav-toggle {
+        display: flex;
+      }
+
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 40px;
+        background: rgba(8, 10, 15, 0.97);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        padding: 0;
+        transform: translateX(100%);
+        transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+        z-index: 150;
+      }
+
+      nav.open {
+        transform: translateX(0);
+      }
+
+      nav a {
+        font-size: 16px;
+        letter-spacing: 4px;
+        color: var(--text);
+        opacity: 0;
+        transform: translateY(20px);
+        transition: color 0.3s, opacity 0.4s, transform 0.4s;
+      }
+
+      nav.open a {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      nav.open a:nth-child(1) {
+        transition-delay: 0.1s;
+      }
+
+      nav.open a:nth-child(2) {
+        transition-delay: 0.15s;
+      }
+
+      nav.open a:nth-child(3) {
+        transition-delay: 0.2s;
+      }
+
+      nav.open a:nth-child(4) {
+        transition-delay: 0.25s;
+      }
+
+      nav.open a:nth-child(5) {
+        transition-delay: 0.3s;
+      }
+
+      .api-toggle {
+        display: none;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-right {
+        display: none;
+      }
+
+      .hero-left {
+        padding: 100px 28px 80px;
+        justify-content: center;
+      }
+
+      .hero-scroll {
+        left: 28px;
+        bottom: 28px;
+      }
+
+      section {
+        padding: 72px 28px;
+      }
+
+      .section-title {
+        margin-bottom: 40px;
+      }
+
+      .tenxyte-header {
+        flex-direction: column;
+      }
+
+      .tenxyte-title {
+        font-size: 36px;
+      }
+
+      .tenxyte-stats {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .arch-layer-2,
+      .arch-layer-3,
+      .arch-layer-4 {
+        grid-template-columns: 1fr;
+      }
+
+      .skills-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .git-timeline::before {
+        left: 0;
+      }
+
+      .git-commit {
+        grid-template-columns: 1fr;
+      }
+
+      .git-meta {
+        padding: 28px 0 8px;
+        text-align: left;
+      }
+
+      .git-content {
+        padding: 8px 0 28px 24px;
+      }
+
+      .git-content::before {
+        top: 12px;
+        left: -6px;
+      }
+
+      .git-content::after {
+        top: 19px;
+        width: 18px;
+      }
+
+      .two-col {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .feature-tag {
+        display: none;
+      }
+
+      footer {
+        padding: 28px;
+        flex-direction: column;
+        gap: 12px;
+        text-align: center;
+      }
+
+      .api-view {
+        padding: 80px 20px 40px;
+      }
+
+      .api-json {
+        padding: 16px;
+        font-size: 10px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .hero-left {
+        padding: 90px 20px 72px;
+      }
+
+      .hero-name {
+        font-size: clamp(38px, 11vw, 72px);
+        letter-spacing: -1px;
+      }
+
+      .hero-title {
+        font-size: 11.5px;
+        margin: 20px 0 32px;
+      }
+
+      .hero-tag {
+        font-size: 10px;
+        margin-bottom: 20px;
+      }
+
+      .hero-cta {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .btn {
+        text-align: center;
+        width: 100%;
+        padding: 14px 20px;
+      }
+
+      section {
+        padding: 56px 20px;
+      }
+
+      .section-title {
+        font-size: clamp(28px, 9vw, 56px);
+        margin-bottom: 32px;
+      }
+
+      .tenxyte-title {
+        font-size: clamp(28px, 9vw, 52px);
+      }
+
+      .tenxyte-stats {
+        grid-template-columns: 1fr;
+        gap: 1px;
+      }
+
+      .skills-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .skill-card[style*="grid-column"] {
+        grid-column: auto !important;
+      }
+
+      .skill-card {
+        padding: 24px 20px;
+      }
+
+      .contact-title {
+        font-size: clamp(32px, 10vw, 100px);
+        letter-spacing: -2px;
+      }
+
+      .contact-sub {
+        font-size: 11px;
+        margin-bottom: 24px;
+      }
+
+      .contact-terminal {
+        margin: 0 -20px;
+        border-left: none;
+        border-right: none;
+      }
+
+      .contact-cmd {
+        font-size: 10px;
+      }
+
+      .feature-row {
+        padding: 14px 16px;
+        gap: 12px;
+      }
+
+      .feature-icon {
+        width: 30px;
+        height: 30px;
+        font-size: 14px;
+      }
+
+      .feature-name {
+        font-size: 11px;
+      }
+
+      .feature-desc {
+        font-size: 10px;
+      }
+
+      .langs {
+        gap: 16px;
+      }
+
+      footer {
+        padding: 24px 20px;
+        font-size: 9px;
+        gap: 10px;
+      }
+    }
+
+    @media (max-width: 380px) {
+      .hero-name {
+        font-size: 34px;
+      }
+
+      .hero-left {
+        padding: 80px 16px 64px;
+      }
+
+      section {
+        padding: 48px 16px;
+      }
+
+      nav a {
+        font-size: 14px;
+        gap: 32px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ══════════════════════════════════
+       BOOT SEQUENCE
+  ══════════════════════════════════ -->
+  <div class="boot-overlay" id="bootOverlay">
+    <div class="boot-line" id="bl0"><span class="dim">[ 0.000]</span> Initializing <span class="ok">Secure
+        Environment</span>...</div>
+    <div class="boot-line" id="bl1"><span class="dim">[ 0.142]</span> Loading kernel modules <span class="dim">— TLS
+        1.3, AES-256</span></div>
+    <div class="boot-line" id="bl2"><span class="dim">[ 0.318]</span> <span class="ok">[ OK ]</span> Auth Engine <span
+        class="dim">(JWT · RBAC · 2FA)</span></div>
+    <div class="boot-line" id="bl3"><span class="dim">[ 0.487]</span> <span class="ok">[ OK ]</span> AIRS Module <span
+        class="dim">— AI Responsibility & Security</span></div>
+    <div class="boot-line" id="bl4"><span class="dim">[ 0.612]</span> <span class="ok">[ OK ]</span> Database adapters
+      <span class="dim">(PostgreSQL · MongoDB · MySQL)</span></div>
+    <div class="boot-line" id="bl5"><span class="dim">[ 0.734]</span> <span class="warn">[SCAN ]</span> Running OWASP
+      compliance checks...</div>
+    <div class="boot-line" id="bl6"><span class="dim">[ 0.891]</span> <span class="ok">[PASS ]</span> All 2,300+ tests
+      green</div>
+    <div class="boot-line" id="bl7"><span class="dim">[ 1.024]</span> <span class="ok">[ OK ]</span> Deploying to
+      production <span class="dim">— CI/CD pipeline</span></div>
+    <div class="boot-line" id="bl8"><span class="dim">[ 1.200]</span> <span class="ok">ACCESS GRANTED</span> — Welcome
+      to <span class="ok">juvanio.node</span><span class="boot-cursor"></span></div>
+    <div class="boot-progress" id="bootProgress">
+      <div class="boot-progress-fill" id="bootFill"></div>
+    </div>
+  </div>
+
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- NAV -->
+  <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+  <nav id="mainNav">
+    <a href="#about">Profil</a>
+    <a href="#tenxyte">Tenxyte</a>
+    <a href="#skills">Skills</a>
+    <a href="#experience">Expérience</a>
+    <a href="#contact">Contact</a>
+    <div class="api-toggle" id="apiToggle">
+      <span class="api-toggle-label active" id="labelUI">UI</span>
+      <div class="api-toggle-switch" id="apiSwitch" role="switch" aria-checked="false" tabindex="0"></div>
+      <span class="api-toggle-label" id="labelAPI">API</span>
+    </div>
+  </nav>
+
+  <!-- ══════════════════════════════════
+       API VIEW
+  ══════════════════════════════════ -->
+  <div class="api-view" id="apiView">
+    <div class="api-endpoint"><span class="method">GET</span> /api/v1/juvanio/profile</div>
+    <div class="api-status">
+      <span class="api-status-code">200 OK</span>
+      <span class="api-status-text">application/json · 1.2ms</span>
+    </div>
+    <div class="api-json" id="apiJson">
+      <button class="api-copy-btn" id="apiCopyBtn" onclick="copyApiJson()">Copier</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════
+       UI VIEW (main content)
+  ══════════════════════════════════ -->
+  <div class="ui-view" id="uiView">
+    <main>
+      <!-- HERO -->
+      <section class="hero" id="about">
+        <div class="hero-grid"></div>
+        <canvas id="networkCanvas"></canvas>
+
+        <div class="hero-left">
+          <div class="hero-tag">Backend Architect · DevSecOps · AI-Ready</div>
+          <h1 class="hero-name">
+            <span class="line1">Amouzougan</span>
+            <span class="line2">Kangni</span>
+            <span class="line3">Juvanio</span>
+          </h1>
+          <p class="hero-title">
+            Ingénieur Senior Spécialisé Backend &amp; Sécurité<br>
+            <span>Django · NestJS · Laravel · DevSecOps</span><br>
+            Fondateur de <span>Tenxyte</span> — Framework Open Source<br><br>
+            Habitué à intervenir en autonomie complète — de la conception à la mise en production — aussi bien en solo
+            qu'en <span style="color: var(--accent2);">leadership technique d'équipe</span>.
+          </p>
+          <div class="hero-cta">
+            <a href="mailto:jamouzougan@gmail.com" class="btn btn-primary">Me contacter</a>
+            <a href="G_Curriculum_Vitae.pdf" download class="btn btn-ghost">Télécharger CV</a>
+            <a href="#experience" class="btn btn-ghost">Voir l'expérience</a>
+          </div>
+        </div>
+
+        <div class="hero-right">
+          <div class="hero-visual">
+            <div class="hero-terminal-bg">
+              <div class="terminal-scroll" id="terminalScroll"></div>
+            </div>
+
+            <div class="data-ring data-ring-1">
+              <div class="data-packet"></div>
+            </div>
+            <div class="data-ring data-ring-2">
+              <div class="data-packet"></div>
+            </div>
+            <div class="data-ring data-ring-3">
+              <div class="data-packet"></div>
+            </div>
+
+            <div class="hero-photo-frame">
+              <img src="azerty.jpg" alt="Amouzougan Kangni Juvanio">
+            </div>
+          </div>
+        </div>
+
+        <a href="#tenxyte" class="hero-scroll" style="text-decoration:none;">Scroll</a>
+      </section>
+
+      <!-- MARQUEE -->
+      <div class="marquee-section">
+        <div class="marquee-track">
+          <span class="marquee-item">Django</span>
+          <span class="marquee-item">NestJS</span>
+          <span class="marquee-item">Laravel</span>
+          <span class="marquee-item">FastAPI</span>
+          <span class="marquee-item">React.js</span>
+          <span class="marquee-item">PostgreSQL</span>
+          <span class="marquee-item">Docker</span>
+          <span class="marquee-item">AWS</span>
+          <span class="marquee-item">CI/CD</span>
+          <span class="marquee-item">OWASP</span>
+          <span class="marquee-item">ISO 27001</span>
+          <span class="marquee-item">DDD</span>
+          <span class="marquee-item">Clean Architecture</span>
+          <span class="marquee-item">Django</span>
+          <span class="marquee-item">NestJS</span>
+          <span class="marquee-item">Laravel</span>
+          <span class="marquee-item">FastAPI</span>
+          <span class="marquee-item">React.js</span>
+          <span class="marquee-item">PostgreSQL</span>
+          <span class="marquee-item">Docker</span>
+          <span class="marquee-item">AWS</span>
+          <span class="marquee-item">CI/CD</span>
+          <span class="marquee-item">OWASP</span>
+          <span class="marquee-item">ISO 27001</span>
+          <span class="marquee-item">DDD</span>
+          <span class="marquee-item">Clean Architecture</span>
+        </div>
+      </div>
+
+      <!-- ══════════════════════════════════
+           TENXYTE — ARCHITECTURE BLUEPRINT
+      ══════════════════════════════════ -->
+      <section class="tenxyte" id="tenxyte">
+        <div class="tenxyte-header">
+          <div class="tenxyte-header-left">
+            <div class="tenxyte-badge">Projet Phare · Open Source</div>
+            <h2 class="tenxyte-title">Ten<span class="highlight">xyte</span></h2>
+            <p class="tenxyte-desc">
+              Framework Python open-source d'authentification &amp; sécurité production-ready. Conçu pour des backends
+              exposés à des agents IA, avec un module AIRS dédié à la sécurité des interactions entre IA et systèmes
+              critiques.
+            </p>
+            <div class="tenxyte-stats">
+              <div class="stat-item">
+                <span class="stat-num">2 300+</span>
+                <span class="stat-label">Tests Auto.</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-num">~100%</span>
+                <span class="stat-label">Couverture</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-num">PyPi</span>
+                <span class="stat-label">Publié</span>
+              </div>
+            </div>
+            <div class="hero-cta">
+              <a href="https://pypi.org/project/tenxyte/" target="_blank" class="btn btn-primary">PyPi Package</a>
+              <a href="https://tenxyte.readthedocs.io" target="_blank" class="btn btn-ghost">Documentation</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- ARCHITECTURE DIAGRAM -->
+        <div class="section-label" data-num="⬡">Architecture Blueprint</div>
+        <div class="arch-diagram">
+          <!-- Layer 1: Client -->
+          <div class="arch-layer arch-layer-1">
+            <div class="arch-block">
+              <div class="arch-block-label">Layer 0 — Entrypoint</div>
+              <div class="arch-block-name">Client / Agent IA</div>
+              <div class="arch-block-desc">Frontend, Mobile App, LLM Agent, Service Externe</div>
+              <span class="arch-block-tag">HTTPS · TLS 1.3</span>
+            </div>
+          </div>
+
+          <div class="arch-arrow">▼ ▼ ▼</div>
+
+          <!-- Layer 2: Middleware -->
+          <div class="arch-layer arch-layer-2">
+            <div class="arch-block">
+              <div class="arch-block-label">Middleware</div>
+              <div class="arch-block-name">🔐 Auth Engine</div>
+              <div class="arch-block-desc">JWT · RBAC · 2FA · WebAuthn</div>
+              <span class="arch-block-tag">AUTH</span>
+            </div>
+            <div class="arch-block airs">
+              <div class="arch-block-label">Middleware — AI Security</div>
+              <div class="arch-block-name">🤖 Module AIRS</div>
+              <div class="arch-block-desc">Prompt injection defense, rate limiting par intent, audit trail IA</div>
+              <span class="arch-block-tag"
+                style="color:var(--accent2);border-color:rgba(255,77,109,0.3);background:rgba(255,77,109,0.08)">AI-READY</span>
+            </div>
+            <div class="arch-block">
+              <div class="arch-block-label">Middleware</div>
+              <div class="arch-block-name">🛡️ Security Layer</div>
+              <div class="arch-block-desc">OWASP · CORS · Rate Limit · CSRF · XSS</div>
+              <span class="arch-block-tag">SECURITY</span>
+            </div>
+          </div>
+
+          <div class="arch-arrow">▼ ▼ ▼</div>
+
+          <!-- Layer 3: Core -->
+          <div class="arch-layer arch-layer-3">
+            <div class="arch-block">
+              <div class="arch-block-label">Core</div>
+              <div class="arch-block-name">⚙️ API Gateway</div>
+              <div class="arch-block-desc">REST APIs · OpenAPI · Validation · Serialization</div>
+              <span class="arch-block-tag">CORE</span>
+            </div>
+            <div class="arch-block">
+              <div class="arch-block-label">Core</div>
+              <div class="arch-block-name">🧩 Business Logic</div>
+              <div class="arch-block-desc">Clean Architecture · DDD · SOLID · Services</div>
+              <span class="arch-block-tag">DOMAIN</span>
+            </div>
+          </div>
+
+          <div class="arch-arrow">▼ ▼ ▼</div>
+
+          <!-- Layer 4: Data -->
+          <div class="arch-layer arch-layer-4">
+            <div class="arch-block">
+              <div class="arch-block-label">Persistence</div>
+              <div class="arch-block-name">🗄️ PostgreSQL</div>
+              <div class="arch-block-desc">Primary store</div>
+              <span class="arch-block-tag">SQL</span>
+            </div>
+            <div class="arch-block">
+              <div class="arch-block-label">Persistence</div>
+              <div class="arch-block-name">🍃 MongoDB</div>
+              <div class="arch-block-desc">Document store</div>
+              <span class="arch-block-tag">NOSQL</span>
+            </div>
+            <div class="arch-block">
+              <div class="arch-block-label">Persistence</div>
+              <div class="arch-block-name">🐬 MySQL</div>
+              <div class="arch-block-desc">Relational store</div>
+              <span class="arch-block-tag">SQL</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════
+           SKILLS — SERVER RACK
+      ══════════════════════════════════ -->
+      <section id="skills">
+        <div class="section-label" data-num="02">Compétences</div>
+        <h2 class="section-title">Boîte à<br><em style="font-family:'Fraunces',serif;color:var(--accent);">outils</em>
+        </h2>
+        <div class="skills-grid">
+          <div class="skill-card">
+            <div class="skill-rack-header">
+              <div class="skill-rack-leds">
+                <div class="led led-green"></div>
+                <div class="led led-green"></div>
+                <div class="led led-yellow"></div>
+              </div>
+              <span class="skill-rack-id">RACK-01</span>
+            </div>
+            <span class="skill-card-icon">🏗️</span>
+            <div class="skill-card-title">Architecture</div>
+            <div class="skill-tags">
+              <span class="skill-tag">Microservices</span>
+              <span class="skill-tag">DDD</span>
+              <span class="skill-tag">Algorithmes</span>
+              <span class="skill-tag">Clean Arch.</span>
+              <span class="skill-tag">SOLID</span>
+              <span class="skill-tag">TDD</span>
+              <span class="skill-tag">REST API</span>
+              <span class="skill-tag">OpenAPI</span>
+            </div>
+          </div>
+          <div class="skill-card">
+            <div class="skill-rack-header">
+              <div class="skill-rack-leds">
+                <div class="led led-red"></div>
+                <div class="led led-green"></div>
+                <div class="led led-green"></div>
+              </div>
+              <span class="skill-rack-id">RACK-02</span>
+            </div>
+            <span class="skill-card-icon">🔒</span>
+            <div class="skill-card-title">Sécurité</div>
+            <div class="skill-tags">
+              <span class="skill-tag">OWASP</span>
+              <span class="skill-tag">ISO 27001</span>
+              <span class="skill-tag">SOC2</span>
+              <span class="skill-tag">GDPR</span>
+              <span class="skill-tag">AML/KYC</span>
+              <span class="skill-tag">JWT</span>
+              <span class="skill-tag">RBAC</span>
+              <span class="skill-tag">2FA</span>
+            </div>
+          </div>
+          <div class="skill-card">
+            <div class="skill-rack-header">
+              <div class="skill-rack-leds">
+                <div class="led led-green"></div>
+                <div class="led led-green"></div>
+                <div class="led led-green"></div>
+              </div>
+              <span class="skill-rack-id">RACK-03</span>
+            </div>
+            <span class="skill-card-icon">⚙️</span>
+            <div class="skill-card-title">Backend</div>
+            <div class="skill-tags">
+              <span class="skill-tag">Python</span>
+              <span class="skill-tag">Django</span>
+              <span class="skill-tag">FastAPI</span>
+              <span class="skill-tag">Node.js</span>
+              <span class="skill-tag">NestJS</span>
+              <span class="skill-tag">Express</span>
+              <span class="skill-tag">PHP</span>
+              <span class="skill-tag">Laravel</span>
+              <span class="skill-tag">TypeScript</span>
+            </div>
+          </div>
+          <div class="skill-card">
+            <div class="skill-rack-header">
+              <div class="skill-rack-leds">
+                <div class="led led-green"></div>
+                <div class="led led-yellow"></div>
+                <div class="led led-green"></div>
+              </div>
+              <span class="skill-rack-id">RACK-04</span>
+            </div>
+            <span class="skill-card-icon">☁️</span>
+            <div class="skill-card-title">Cloud &amp; DevOps</div>
+            <div class="skill-tags">
+              <span class="skill-tag">AWS EC2/S3/LightSail</span>
+              <span class="skill-tag">AWS IAM/SES</span>
+              <span class="skill-tag">Docker</span>
+              <span class="skill-tag">Linux</span>
+              <span class="skill-tag">Nginx</span>
+              <span class="skill-tag">GitHub Actions</span>
+              <span class="skill-tag">GitLab</span>
+              <span class="skill-tag">Agile/Scrum</span>
+              <span class="skill-tag">Jenkins</span>
+              <span class="skill-tag">Kubernetes</span>
+              <span class="skill-tag">Terraform</span>
+            </div>
+          </div>
+          <div class="skill-card">
+            <div class="skill-rack-header">
+              <div class="skill-rack-leds">
+                <div class="led led-green"></div>
+                <div class="led led-green"></div>
+                <div class="led led-yellow"></div>
+              </div>
+              <span class="skill-rack-id">RACK-05</span>
+            </div>
+            <span class="skill-card-icon">🗄️</span>
+            <div class="skill-card-title">Bases de données</div>
+            <div class="skill-tags">
+              <span class="skill-tag">PostgreSQL</span>
+              <span class="skill-tag">MySQL</span>
+              <span class="skill-tag">MongoDB</span>
+              <span class="skill-tag">Modélisation</span>
+              <span class="skill-tag">Optimisation</span>
+            </div>
+          </div>
+          <div class="skill-card">
+            <div class="skill-rack-header">
+              <div class="skill-rack-leds">
+                <div class="led led-green"></div>
+                <div class="led led-green"></div>
+                <div class="led led-green"></div>
+              </div>
+              <span class="skill-rack-id">RACK-06</span>
+            </div>
+            <span class="skill-card-icon">🖥️</span>
+            <div class="skill-card-title">Frontend</div>
+            <div class="skill-tags">
+              <span class="skill-tag">React.js</span>
+              <span class="skill-tag">Next.js</span>
+              <span class="skill-tag">Vue.js</span>
+              <span class="skill-tag">Redux</span>
+              <span class="skill-tag">Tailwind</span>
+              <span class="skill-tag">TypeORM</span>
+            </div>
+          </div>
+          <div class="skill-card" style="grid-column: span 2;">
+            <div class="skill-rack-header">
+              <div class="skill-rack-leds">
+                <div class="led led-green"></div>
+                <div class="led led-green"></div>
+                <div class="led led-green"></div>
+              </div>
+              <span class="skill-rack-id">RACK-07</span>
+            </div>
+            <span class="skill-card-icon">🌍</span>
+            <div class="skill-card-title">Langues</div>
+            <div class="langs" id="langsSection">
+              <div class="lang-item">
+                <span class="lang-name">Éwé</span>
+                <div class="lang-bar">
+                  <div class="lang-fill" style="width:100%"></div>
+                </div>
+                <span class="lang-level">Natif</span>
+              </div>
+              <div class="lang-item">
+                <span class="lang-name">Français</span>
+                <div class="lang-bar">
+                  <div class="lang-fill" style="width:100%"></div>
+                </div>
+                <span class="lang-level">Officiel</span>
+              </div>
+              <div class="lang-item">
+                <span class="lang-name">Anglais</span>
+                <div class="lang-bar">
+                  <div class="lang-fill" style="width:85%"></div>
+                </div>
+                <span class="lang-level">Professionnel</span>
+              </div>
+              <div class="lang-item">
+                <span class="lang-name">Allemand</span>
+                <div class="lang-bar">
+                  <div class="lang-fill" style="width:20%"></div>
+                </div>
+                <span class="lang-level">Débutant</span>
+              </div>
+            </div>
+            <div style="margin-top: 32px; border-top: 1px solid var(--border); padding-top: 24px;">
+              <div class="skill-card-title"
+                style="font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 16px;">
+                Loisirs & Centres d'intérêt</div>
+              <div class="skill-tags">
+                <span class="skill-tag">Musique</span>
+                <span class="skill-tag">Écriture</span>
+                <span class="skill-tag">Lecture</span>
+                <span class="skill-tag">Danse</span>
+                <span class="skill-tag">Mangas</span>
+                <span class="skill-tag">Arts Martiaux</span>
+                <span class="skill-tag">Gymnastique</span>
+                <span class="skill-tag">Sports (Football, Basket)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════
+           EXPERIENCE — GIT TIMELINE
+      ══════════════════════════════════ -->
+      <section class="experience" id="experience">
+        <div class="section-label" data-num="03">Parcours</div>
+        <h2 class="section-title">Expérience<br><em
+            style="font-family:'Fraunces',serif;color:var(--accent);">Professionnelle</em></h2>
+
+        <div class="git-timeline">
+
+          <div class="git-commit">
+            <div class="git-meta">
+              <div class="git-hash">a7f3e1d</div>
+              <span class="git-date">Sept. 2025 → Auj.</span>
+              <div class="git-company">Tenxyte</div>
+            </div>
+            <div class="git-content">
+              <div class="git-role">Founder & <span
+                  style="color:var(--accent);border-bottom:1px dashed var(--accent);">Lead Engineer</span></div>
+              <p class="git-desc">Conception d'un framework open-source Python dédié à l'architecture backend AI-ready
+                production-grade.</p>
+              <div class="git-changes">
+                <div class="git-change"><span class="git-change-prefix add">+</span> Conception orientée expérience
+                  développeur (DX) et mise en œuvre de patterns backend scalables</div>
+                <div class="git-change"><span class="git-change-prefix add">+</span> Abstractions framework pour la
+                  gestion des APIs et flux d'authentification avancés</div>
+                <div class="git-change"><span class="git-change-prefix add">+</span> Module AIRS — protection contre
+                  prompt injection, rate limiting par intent, audit trail IA</div>
+                <div class="git-change"><span class="git-change-prefix add">+</span> Suite complète : 2 300+ tests
+                  unitaires, intégration et validation multi-DB</div>
+                <div class="git-change"><span class="git-change-prefix add">+</span> Publication PyPi + documentation
+                  complète sur ReadTheDocs</div>
+                <div class="git-change"><span class="git-change-prefix add">+</span> Pipelines CI/CD pour qualité,
+                  stabilité et déploiement continu</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="git-commit">
+            <div class="git-meta">
+              <div class="git-hash">c9b2d4f</div>
+              <span class="git-date">Août 2025 → Jan. 2026</span>
+              <div class="git-company">MTN Bénin</div>
+            </div>
+            <div class="git-content">
+              <div class="git-role">Développeur Consultant Fullstack</div>
+              <p class="git-desc">Solutions numériques internes à forte exigence de performance et fiabilité — Systèmes
+                Télécoms &amp; Gestion Contractuelle.</p>
+              <div class="git-changes">
+                <div class="git-change"><span class="git-change-prefix add">+</span> Application USSD pour consultation
+                  des consommations télécoms (voix, data, SMS)</div>
+                <div class="git-change"><span class="git-change-prefix add">+</span> Backend Python de surveillance et
+                  notification de trafic</div>
+                <div class="git-change"><span class="git-change-prefix add">+</span> Plateforme de gestion du cycle de
+                  vie des contrats — workflows multi-acteurs, gestion d'états complexes</div>
+                <div class="git-change"><span class="git-change-prefix add">+</span> Déploiement et optimisation de
+                  services backend avec exigences de performance élevées</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="git-commit">
+            <div class="git-meta">
+              <div class="git-hash">e1a8f5c</div>
+              <span class="git-date">Oct. 2023 → Juil. 2025</span>
+              <div class="git-company">Expand in Africa</div>
+            </div>
+            <div class="git-content">
+              <div class="git-role">Développeur Fullstack & <span
+                  style="color:var(--accent2);border-bottom:1px dashed var(--accent2);">CTO</span> — Remote <span
+                  class="git-role-badge">LEAD</span></div>
+              <p class="git-desc">Responsable technique de plusieurs plateformes numériques africaines.</p>
+              <div class="git-changes">
+                <div class="git-change"><span class="git-change-prefix add">+</span> possible.africa — plateforme
+                  digitale avec front-office, back-office et APIs sécurisées</div>
+                <div class="git-change"><span class="git-change-prefix add">+</span> CRM avancé (Pyramide Africa) —
+                  pipelines commerciaux, intégrations API, automatisation emails</div>
+                <div class="git-change"><span class="git-change-prefix mod">M</span> Architecture applicative,
+                  déploiement cloud et sécurité end-to-end</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="git-commit">
+            <div class="git-meta">
+              <div class="git-hash">b4d7e2a</div>
+              <span class="git-date">Jan. 2024 → Juil. 2024</span>
+              <div class="git-company">Holam</div>
+            </div>
+            <div class="git-content">
+              <div class="git-role">Développeur Fullstack & <span
+                  style="color:var(--accent2);border-bottom:1px dashed var(--accent2);">CTO</span> — Mission Parallèle
+                <span class="git-role-badge">LEAD</span></div>
+              <p class="git-desc">Backend et back-office de l'application mobile de signalement urbain.</p>
+              <div class="git-changes">
+                <div class="git-change"><span class="git-change-prefix add">+</span> APIs sécurisées pour la gestion
+                  d'incidents urbains</div>
+                <div class="git-change"><span class="git-change-prefix add">+</span> Back Office avancé avec Laravel
+                  Filament</div>
+                <div class="git-change"><span class="git-change-prefix add">+</span> Services de géolocalisation et
+                  triangulation GPS</div>
+                <div class="git-change"><span class="git-change-prefix add">+</span> Système OTP mobile + intégration
+                  paiements FedaPay</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="git-commit">
+            <div class="git-meta">
+              <div class="git-hash">f2c9a1b</div>
+              <span class="git-date">Avr. → Oct. 2023</span>
+              <div class="git-company">Pandore</div>
+            </div>
+            <div class="git-content">
+              <div class="git-role">Développeur Fullstack</div>
+              <div class="git-changes">
+                <div class="git-change"><span class="git-change-prefix add">+</span> Back-office et APIs de
+                  possible.africa</div>
+                <div class="git-change"><span class="git-change-prefix add">+</span> Projets web React, Node.js et
+                  Drupal en environnement agile</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="git-commit">
+            <div class="git-meta">
+              <div class="git-hash">d8e4b3f</div>
+              <span class="git-date">Oct. 2022 → Mars 2023</span>
+              <div class="git-company">Tarzan · LoveAfrica · ElyDesign</div>
+            </div>
+            <div class="git-content">
+              <div class="git-role">Développeur Fullstack</div>
+              <div class="git-changes">
+                <div class="git-change"><span class="git-change-prefix add">+</span> Back-office Tarzan Mall — Laravel
+                  &amp; Livewire (CRUD, rôles, chat intégré)</div>
+                <div class="git-change"><span class="git-change-prefix mod">M</span> Refonte plateforme restaurants —
+                  React, Next.js, MySQL, Redux, TypeORM</div>
+                <div class="git-change"><span class="git-change-prefix add">+</span> Déploiement Vercel &amp; AWS
+                  LightSail en cadre agile</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="git-commit">
+            <div class="git-meta">
+              <div class="git-hash">a1b2c3d</div>
+              <span class="git-date">Oct. → Nov. 2020</span>
+              <div class="git-company">Nunyalab · Tech4Rights</div>
+            </div>
+            <div class="git-content">
+              <div class="git-role">Développeur Mobile (Hackathon)</div>
+              <div class="git-changes">
+                <div class="git-change"><span class="git-change-prefix add">+</span> Développement d'application mobile
+                  (Spécifications, tests, correction de bugs)</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════
+           FORMATION
+      ══════════════════════════════════ -->
+      <section id="formation" style="border-top: 1px solid var(--border);">
+        <div class="section-label" data-num="04">Formation</div>
+        <h2 class="section-title">Études &amp;<br><em
+            style="font-family:'Fraunces',serif;color:var(--accent3);">Certifications</em></h2>
+
+        <div class="two-col">
+          <div>
+            <div class="tenxyte-features">
+              <div class="feature-row">
+                <div class="feature-icon">🎓</div>
+                <div class="feature-info">
+                  <div class="feature-name">Développeur Web &amp; Mobile — Certifié</div>
+                  <div class="feature-desc">Energy Generation / Simplon.co — Fév.–Nov. 2022<br>HTML5, CSS3, JS, PHP,
+                    Node.js, React, Laravel, Agile</div>
+                </div>
+                <span class="feature-tag" style="color:var(--accent3);border-color:rgba(255,209,102,0.2)">CERTIF</span>
+              </div>
+              <div class="feature-row">
+                <div class="feature-icon">⚡</div>
+                <div class="feature-info">
+                  <div class="feature-name">JavaScript Developer</div>
+                  <div class="feature-desc">freeCodeCamp — Fév.–Avr. 2022<br>ES6, Algorithmique, POO, Programmation
+                    fonctionnelle</div>
+                </div>
+                <span class="feature-tag" style="color:var(--accent3);border-color:rgba(255,209,102,0.2)">CERTIF</span>
+              </div>
+              <div class="feature-row">
+                <div class="feature-icon">📚</div>
+                <div class="feature-info">
+                  <div class="feature-name">Licence Comptabilité–Contrôle–Audit</div>
+                  <div class="feature-desc">Université de Lomé — 2018–2021<br>Reconversion tech réussie</div>
+                </div>
+                <span class="feature-tag" style="color:var(--accent3);border-color:rgba(255,209,102,0.2)">LICENCE</span>
+              </div>
+              <div class="feature-row">
+                <div class="feature-icon">🏅</div>
+                <div class="feature-info">
+                  <div class="feature-name">Baccalauréat G2 — Mention Assez Bien</div>
+                  <div class="feature-desc">Institut Polytechnique du Golfe — 2015–2018<br>Comptabilité &amp; Gestion
+                  </div>
+                </div>
+                <span class="feature-tag" style="color:var(--accent3);border-color:rgba(255,209,102,0.2)">BAC</span>
+              </div>
+              <div class="feature-row">
+                <div class="feature-icon">📊</div>
+                <div class="feature-info">
+                  <div class="feature-name">Formation SAGE 100 Comptabilité</div>
+                  <div class="feature-desc">CIGC — Oct.–Nov. 2021</div>
+                </div>
+                <span class="feature-tag" style="color:var(--accent3);border-color:rgba(255,209,102,0.2)">CERTIF</span>
+              </div>
+            </div>
+          </div>
+          <div>
+            <p style="font-size:12px;color:var(--muted);margin-bottom:24px;letter-spacing:1px;line-height:1.8;">
+              Formation continue depuis 2019 — autoformation rigoureuse en parallèle des missions professionnelles.
+            </p>
+            <div class="tenxyte-features">
+              <div class="feature-row">
+                <div class="feature-icon">📖</div>
+                <div class="feature-info">
+                  <div class="feature-name">Grokking Algorithms</div>
+                  <div class="feature-desc">Aditya Bhargava</div>
+                </div>
+              </div>
+              <div class="feature-row">
+                <div class="feature-icon">📖</div>
+                <div class="feature-info">
+                  <div class="feature-name">Clean Code</div>
+                  <div class="feature-desc">Robert C. Martin</div>
+                </div>
+              </div>
+              <div class="feature-row">
+                <div class="feature-icon">📖</div>
+                <div class="feature-info">
+                  <div class="feature-name">Architecture Patterns</div>
+                  <div class="feature-desc">Harry Percival &amp; Bob Gregory</div>
+                </div>
+              </div>
+              <div class="feature-row">
+                <div class="feature-icon">🌐</div>
+                <div class="feature-info">
+                  <div class="feature-name">Sololearn · OpenClassrooms · freeCodeCamp</div>
+                  <div class="feature-desc">HTML, CSS, JS, PHP, Python, Java, SQL, C, C++, Angular, Ionic, Laravel…
+                  </div>
+                </div>
+              </div>
+              <div class="feature-row">
+                <div class="feature-icon">🏆</div>
+                <div class="feature-info">
+                  <div class="feature-name">Open Code Academy — Summer Camp</div>
+                  <div class="feature-desc">Woelab — Août 2017<br>Initiation intensive à la programmation</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════
+           CONTACT — TERMINAL STYLE
+      ══════════════════════════════════ -->
+      <section class="contact" id="contact">
+        <div class="contact-bg"></div>
+        <h2 class="contact-title">Travaillons<br><span>ensemble</span></h2>
+        <p class="contact-sub">Disponible pour missions freelance, CDI ou collaborations techniques</p>
+
+        <div class="contact-terminal">
+          <div class="contact-terminal-header">
+            <div class="contact-terminal-dot r"></div>
+            <div class="contact-terminal-dot y"></div>
+            <div class="contact-terminal-dot g"></div>
+            <span class="contact-terminal-title">juvanio@secure-node ~ /contact</span>
+          </div>
+          <div class="contact-terminal-body">
+            <a href="mailto:jamouzougan@gmail.com" class="contact-cmd">
+              <span class="cmd-prompt">❯</span>
+              <span class="cmd-command">mail</span>
+              <span class="cmd-arg">jamouzougan@gmail.com</span>
+            </a>
+            <a href="tel:+22896858912" class="contact-cmd">
+              <span class="cmd-prompt">❯</span>
+              <span class="cmd-command">call</span>
+              <span class="cmd-arg">+228 96 85 89 12</span>
+            </a>
+            <a href="https://www.linkedin.com/in/kangni-juvanio-amouzougan-709918189/" target="_blank"
+              class="contact-cmd">
+              <span class="cmd-prompt">❯</span>
+              <span class="cmd-command">open</span>
+              <span class="cmd-arg">linkedin://kangni-juvanio-amouzougan-709918189</span>
+            </a>
+            <a href="https://pypi.org/project/tenxyte/" target="_blank" class="contact-cmd">
+              <span class="cmd-prompt">❯</span>
+              <span class="cmd-command">pip install</span>
+              <span class="cmd-arg">tenxyte</span>
+            </a>
+            <a href="https://github.com/boboprem1" target="_blank" class="contact-cmd">
+              <span class="cmd-prompt">❯</span>
+              <span class="cmd-command">git clone</span>
+              <span class="cmd-arg">github.com/boboprem1</span>
+            </a>
+          </div>
+        </div>
+        <div class="contact-cv-dl">
+          <a href="G_Curriculum_Vitae.pdf" download class="btn btn-primary" style="display:inline-block;">Télécharger
+            mon CV (PDF)</a>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <span>© 2026 Amouzougan Kangni Juvanio</span>
+    <span>Backend Architect · <a href="https://github.com/boboprem1" target="_blank"
+        style="color:var(--muted);text-decoration:none;">GitHub</a></span>
+    <span>Lomé, Togo 🇹🇬</span>
+  </footer>
+
+  <script>
+    // ══════════════════════════════════
+    // BOOT SEQUENCE
+    // ══════════════════════════════════
+    (function bootSequence() {
+      const overlay = document.getElementById('bootOverlay');
+      const lines = overlay.querySelectorAll('.boot-line');
+      const progress = document.getElementById('bootProgress');
+      const fill = document.getElementById('bootFill');
+
+      let i = 0;
+      const delays = [100, 200, 180, 200, 160, 220, 180, 200, 300];
+
+      function showLine() {
+        if (i >= lines.length) {
+          fill.style.width = '100%';
+          setTimeout(() => { overlay.classList.add('done'); }, 400);
+          return;
+        }
+        lines[i].style.opacity = '1';
+        lines[i].style.transform = 'translateX(0)';
+        lines[i].style.transition = 'opacity 0.15s, transform 0.15s';
+
+        if (i === 0) {
+          progress.style.opacity = '1';
+          progress.style.transition = 'opacity 0.3s';
+        }
+        fill.style.width = ((i + 1) / lines.length * 100) + '%';
+
+        i++;
+        setTimeout(showLine, delays[i - 1] || 150);
+      }
+      setTimeout(showLine, 300);
+    })();
+
+    // ══════════════════════════════════
+    // CUSTOM CURSOR
+    // ══════════════════════════════════
+    const cursor = document.getElementById('cursor');
+    const ring = document.getElementById('cursorRing');
+    let cx = 0, cy = 0, mx = 0, my = 0, rx = 0, ry = 0;
+
+    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+
+    function animateRing() {
+      cx += (mx - cx) * 0.5; cy += (my - cy) * 0.5;
+      cursor.style.left = cx + 'px'; cursor.style.top = cy + 'px';
+      rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
+      ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+      requestAnimationFrame(animateRing);
+    }
+    animateRing();
+
+    document.querySelectorAll('a, button, .skill-card, .feature-row, .git-commit, .arch-block, .contact-cmd, .api-toggle-switch').forEach(el => {
+      el.addEventListener('mouseenter', () => { cursor.classList.add('hover'); ring.classList.add('hover'); });
+      el.addEventListener('mouseleave', () => { cursor.classList.remove('hover'); ring.classList.remove('hover'); });
+    });
+
+    // ══════════════════════════════════
+    // HAMBURGER MENU
+    // ══════════════════════════════════
+    const navToggle = document.getElementById('navToggle');
+    const mainNav = document.getElementById('mainNav');
+    navToggle.addEventListener('click', () => {
+      const isOpen = navToggle.classList.toggle('open');
+      mainNav.classList.toggle('open', isOpen);
+      navToggle.setAttribute('aria-expanded', isOpen);
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    });
+    mainNav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navToggle.classList.remove('open');
+        mainNav.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      });
+    });
+
+    // ══════════════════════════════════
+    // API MODE TOGGLE
+    // ══════════════════════════════════
+    const apiSwitch = document.getElementById('apiSwitch');
+    const apiView = document.getElementById('apiView');
+    const uiView = document.getElementById('uiView');
+    const labelUI = document.getElementById('labelUI');
+    const labelAPI = document.getElementById('labelAPI');
+    let apiMode = false;
+
+    function toggleApiMode() {
+      apiMode = !apiMode;
+      apiSwitch.classList.toggle('active', apiMode);
+      apiSwitch.setAttribute('aria-checked', apiMode);
+      apiView.classList.toggle('visible', apiMode);
+      uiView.classList.toggle('hidden', apiMode);
+      labelUI.classList.toggle('active', !apiMode);
+      labelAPI.classList.toggle('active', apiMode);
+
+      if (apiMode) {
+        renderApiJson();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+    apiSwitch.addEventListener('click', toggleApiMode);
+    apiSwitch.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleApiMode(); } });
+
+    function renderApiJson() {
+      const data = {
+        status: "success",
+        data: {
+          identity: {
+            name: "Amouzougan Kangni Juvanio",
+            title: "Ingénieur Senior Spécialisé Backend & Sécurité",
+            positioning: "Backend Architect · DevSecOps · AI-Ready",
+            location: "Lomé, Togo 🇹🇬",
+            available: true,
+            leadership: "Habitué à intervenir en autonomie complète — de la conception à la mise en production — aussi bien en solo qu'en leadership technique d'équipe."
+          },
+          flagship_project: {
+            name: "Tenxyte",
+            type: "Framework Python Open Source",
+            description: "Authentification & sécurité production-ready pour backends AI-Ready",
+            modules: ["Auth Engine (JWT/RBAC/2FA)", "WebAuthn", "AIRS (AI Responsibility & Security)", "Multi-DB Support"],
+            tests: "2,300+",
+            coverage: "~100%",
+            links: { pypi: "https://pypi.org/project/tenxyte/", docs: "https://tenxyte.readthedocs.io" }
+          },
+          skills: {
+            architecture: ["Microservices", "DDD", "Clean Architecture", "SOLID", "TDD", "REST API", "OpenAPI", "Algorithmes"],
+            security: ["OWASP", "ISO 27001", "SOC2", "GDPR", "AML/KYC", "JWT", "RBAC", "2FA"],
+            backend: ["Python", "Django", "FastAPI", "Node.js", "NestJS", "Express", "PHP", "Laravel", "TypeScript"],
+            cloud_devops: ["AWS (EC2/S3/LightSail/IAM/SES)", "Docker", "Linux", "Nginx", "GitHub Actions", "GitLab", "Jenkins", "Kubernetes", "Terraform", "Agile/Scrum"],
+            databases: ["PostgreSQL", "MySQL", "MongoDB"],
+            frontend: ["React.js", "Next.js", "Vue.js", "Redux", "Tailwind"]
+          },
+          experience: [
+            { period: "Sept. 2025 → Aujourd'hui", company: "Tenxyte", role: "Founder & Lead Engineer", type: "open_source" },
+            { period: "Août 2025 → Jan. 2026", company: "MTN Bénin", role: "Développeur Consultant Fullstack", type: "telecom" },
+            { period: "Oct. 2023 → Juil. 2025", company: "Expand in Africa", role: "Développeur Fullstack & CTO", type: "remote" },
+            { period: "Jan. 2024 → Juil. 2024", company: "Holam", role: "Développeur Fullstack & CTO", type: "parallel" },
+            { period: "Avr. → Oct. 2023", company: "Pandore", role: "Développeur Fullstack", type: "agile" },
+            { period: "Oct. 2022 → Mars 2023", company: "Tarzan · LoveAfrica · ElyDesign", role: "Développeur Fullstack", type: "multi" },
+            { period: "Oct. → Nov. 2020", company: "Nunyalab · Tech4Rights", role: "Développeur Mobile (Hackathon)", type: "hackathon" }
+          ],
+          languages: [
+            { lang: "Éwé", level: "Natif" },
+            { lang: "Français", level: "Officiel" },
+            { lang: "Anglais", level: "Professionnel" },
+            { lang: "Allemand", level: "Débutant" }
+          ],
+          contact: {
+            email: "jamouzougan@gmail.com",
+            phone: "+228 96 85 89 12",
+            linkedin: "linkedin.com/in/kangni-juvanio-amouzougan-709918189",
+            github: "github.com/boboprem1",
+            pypi: "pypi.org/project/tenxyte"
+          }
+        },
+        meta: { api_version: "1.0.0", response_time_ms: 1.2, generated_at: new Date().toISOString() }
+      };
+
+      const json = JSON.stringify(data, null, 2);
+      const container = document.getElementById('apiJson');
+      const copyBtn = container.querySelector('.api-copy-btn');
+
+      // Syntax highlight
+      const highlighted = json
+        .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+        .replace(/"([^"]+)":/g, '<span class="json-key">"$1"</span>:')
+        .replace(/: "([^"]*)"(,?)/g, ': <span class="json-string">"$1"</span>$2')
+        .replace(/: (\d+\.?\d*)(,?)/g, ': <span class="json-number">$1</span>$2')
+        .replace(/: (true|false)(,?)/g, ': <span class="json-bool">$1</span>$2')
+        .replace(/: (null)(,?)/g, ': <span class="json-null">$1</span>$2')
+        .replace(/[\[\]{}]/g, '<span class="json-bracket">$&</span>');
+
+      container.innerHTML = highlighted;
+      container.prepend(copyBtn);
+    }
+
+    function copyApiJson() {
+      const data = document.getElementById('apiJson').textContent.replace('Copier', '').trim();
+      navigator.clipboard.writeText(data).then(() => {
+        const btn = document.getElementById('apiCopyBtn');
+        btn.textContent = '✓ Copié';
+        setTimeout(() => { btn.textContent = 'Copier'; }, 1500);
+      });
+    }
+
+    // ══════════════════════════════════
+    // INTERSECTION OBSERVERS
+    // ══════════════════════════════════
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), entry.target.dataset.delay || 0);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.git-commit').forEach((el, i) => {
+      el.dataset.delay = i * 100;
+      observer.observe(el);
+    });
+
+    const langObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.querySelectorAll('.lang-item').forEach((item, i) => {
+            setTimeout(() => item.classList.add('visible'), i * 150);
+          });
+        }
+      });
+    }, { threshold: 0.3 });
+
+    const langsSection = document.getElementById('langsSection');
+    if (langsSection) langObserver.observe(langsSection);
+
+    // ══════════════════════════════════
+    // HERO GRID PARALLAX
+    // ══════════════════════════════════
+    const heroGrid = document.querySelector('.hero-grid');
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY;
+      if (heroGrid) heroGrid.style.transform = `translateY(${y * 0.3}px)`;
+    });
+
+    // ══════════════════════════════════
+    // TERMINAL SCROLL BEHIND PHOTO
+    // ══════════════════════════════════
+    // ══════════════════════════════════
+    // TERMINAL LOG GENERATOR
+    // ══════════════════════════════════
+    (function fillTerminal() {
+      const el = document.getElementById('terminalScroll');
+      if (!el) return;
+      const logLines = [
+        '<span style="color:var(--accent)">[INFO ]</span> Auth.JWT — Token issued for user_8a3f',
+        '<span style="color:var(--muted)">[DEBUG]</span> RBAC — Role check: admin → ALLOW',
+        '<span style="color:var(--accent)">[INFO ]</span> AIRS.Sentinel — Prompt scan: CLEAN',
+        '<span style="color:var(--muted)">[DEBUG]</span> DB.Pool — Connection acquired (pg:5432)',
+        '<span style="color:var(--accent)">[INFO ]</span> API.Gateway — POST /auth/login 200 12ms',
+        '<span style="color:var(--accent3)">[WARN ]</span> RateLimit — Intent "delete" near threshold',
+        '<span style="color:var(--accent)">[INFO ]</span> WebAuthn — Credential verified OK',
+        '<span style="color:var(--muted)">[DEBUG]</span> Cache.Redis — HIT session:a8f3e1',
+        '<span style="color:var(--accent)">[INFO ]</span> AIRS.AuditTrail — Action logged: ai_query',
+        '<span style="color:var(--accent)">[INFO ]</span> CI/CD — Pipeline #847 passed (2,312 tests)',
+        '<span style="color:var(--muted)">[DEBUG]</span> TLS — Handshake complete (TLS 1.3)',
+        '<span style="color:var(--accent)">[INFO ]</span> Deploy — Container pushed to registry',
+        '<span style="color:var(--muted)">[DEBUG]</span> Auth.2FA — TOTP verified for user_c7d2',
+        '<span style="color:var(--accent)">[INFO ]</span> OWASP — Injection scan: PASS',
+        '<span style="color:var(--muted)">[DEBUG]</span> DB.Mongo — Document indexed (users)',
+        '<span style="color:var(--accent)">[INFO ]</span> API.Gateway — GET /api/v1/users 200 3ms',
+        '<span style="color:var(--accent3)">[WARN ]</span> Memory — Heap at 72% capacity',
+        '<span style="color:var(--accent)">[INFO ]</span> Auth.Session — Refresh token rotated',
+        '<span style="color:var(--muted)">[DEBUG]</span> CORS — Origin allowed: *.tenxyte.io',
+        '<span style="color:var(--accent)">[INFO ]</span> AIRS.Guard — AI rate limit: 45/100 req/min'
+      ];
+
+      let index = 0;
+      function addLog() {
+        const line = document.createElement('div');
+        line.className = 'terminal-line';
+        line.innerHTML = logLines[index % logLines.length];
+        line.style.opacity = '0';
+        line.style.transform = 'translateY(10px)';
+        line.style.transition = 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
+
+        el.appendChild(line);
+
+        void line.offsetWidth; // Force reflow
+        line.style.opacity = '1';
+        line.style.transform = 'translateY(0)';
+        el.scrollTop = el.scrollHeight;
+
+        if (el.children.length > 30) {
+          el.removeChild(el.firstChild);
+        }
+
+        index++;
+        const delay = Math.random() * 800 + 200; // Random delay between 200ms and 1000ms
+        setTimeout(addLog, delay);
+      }
+
+      // Initial fill
+      for (let i = 0; i < 15; i++) {
+        const line = document.createElement('div');
+        line.className = 'terminal-line';
+        line.innerHTML = logLines[i % logLines.length];
+        el.appendChild(line);
+        index++;
+      }
+      el.scrollTop = el.scrollHeight;
+
+      setTimeout(addLog, 1000);
+    })();
+
+    // ══════════════════════════════════
+    // NETWORK NODES CANVAS
+    // ══════════════════════════════════
+    (function networkEffect() {
+      const canvas = document.getElementById('networkCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const hero = canvas.closest('.hero');
+      let W, H;
+      let mouseX = -1000, mouseY = -1000;
+
+      function resize() {
+        W = hero.offsetWidth;
+        H = hero.offsetHeight;
+        canvas.width = W * devicePixelRatio;
+        canvas.height = H * devicePixelRatio;
+        ctx.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
+      }
+
+      const isMobile = window.innerWidth <= 600;
+      const NODE_COUNT = isMobile ? 30 : 70;
+      const CONNECTION_DIST = isMobile ? 120 : 160;
+      const MOUSE_RADIUS = 200;
+      const nodes = [];
+
+      class Node {
+        constructor() {
+          this.x = Math.random() * (W || 1440);
+          this.y = Math.random() * (H || 900);
+          this.vx = (Math.random() - 0.5) * 0.3;
+          this.vy = (Math.random() - 0.5) * 0.3;
+          this.radius = 1.5 + Math.random() * 1.5;
+          this.baseAlpha = 0.15 + Math.random() * 0.35;
+        }
+        update() {
+          this.x += this.vx;
+          this.y += this.vy;
+          if (this.x < 0 || this.x > W) this.vx *= -1;
+          if (this.y < 0 || this.y > H) this.vy *= -1;
+        }
+      }
+
+      function initNodes() {
+        nodes.length = 0;
+        for (let i = 0; i < NODE_COUNT; i++) nodes.push(new Node());
+      }
+
+      // Data packets traveling along connections
+      const packets = [];
+      class Packet {
+        constructor(fromNode, toNode) {
+          this.from = fromNode;
+          this.to = toNode;
+          this.t = 0;
+          this.speed = 0.01 + Math.random() * 0.02;
+          this.color = ['#00e5c3', '#ff4d6d', '#ffd166'][Math.floor(Math.random() * 3)];
+        }
+        update() {
+          this.t += this.speed;
+          return this.t < 1;
+        }
+        draw(ctx) {
+          const x = this.from.x + (this.to.x - this.from.x) * this.t;
+          const y = this.from.y + (this.to.y - this.from.y) * this.t;
+          ctx.beginPath();
+          ctx.arc(x, y, 2, 0, Math.PI * 2);
+          ctx.fillStyle = this.color;
+          ctx.shadowColor = this.color;
+          ctx.shadowBlur = 6;
+          ctx.fill();
+          ctx.shadowBlur = 0;
+        }
+      }
+
+      let packetTimer = 0;
+
+      function animate() {
+        ctx.clearRect(0, 0, W, H);
+
+        // Update nodes
+        for (const n of nodes) n.update();
+
+        // Draw connections
+        for (let i = 0; i < nodes.length; i++) {
+          for (let j = i + 1; j < nodes.length; j++) {
+            const dx = nodes[i].x - nodes[j].x;
+            const dy = nodes[i].y - nodes[j].y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < CONNECTION_DIST) {
+              const alpha = (1 - dist / CONNECTION_DIST) * 0.15;
+              ctx.beginPath();
+              ctx.moveTo(nodes[i].x, nodes[i].y);
+              ctx.lineTo(nodes[j].x, nodes[j].y);
+              ctx.strokeStyle = `rgba(0, 229, 195, ${alpha})`;
+              ctx.lineWidth = 0.5;
+              ctx.stroke();
+            }
+          }
+        }
+
+        // Mouse interaction — glow connections near mouse
+        for (const n of nodes) {
+          const dx = n.x - mouseX;
+          const dy = n.y - mouseY;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < MOUSE_RADIUS) {
+            const alpha = (1 - dist / MOUSE_RADIUS) * 0.4;
+            ctx.beginPath();
+            ctx.arc(n.x, n.y, n.radius + 2, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(0, 229, 195, ${alpha})`;
+            ctx.fill();
+          }
+        }
+
+        // Draw nodes
+        for (const n of nodes) {
+          ctx.beginPath();
+          ctx.arc(n.x, n.y, n.radius, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(0, 229, 195, ${n.baseAlpha})`;
+          ctx.fill();
+        }
+
+        // Spawn data packets
+        packetTimer++;
+        if (packetTimer % 60 === 0 && nodes.length > 1) {
+          const from = nodes[Math.floor(Math.random() * nodes.length)];
+          let to = nodes[Math.floor(Math.random() * nodes.length)];
+          const dx = from.x - to.x;
+          const dy = from.y - to.y;
+          if (Math.sqrt(dx * dx + dy * dy) < CONNECTION_DIST * 1.5) {
+            packets.push(new Packet(from, to));
+          }
+        }
+
+        // Update & draw packets
+        for (let i = packets.length - 1; i >= 0; i--) {
+          if (!packets[i].update()) { packets.splice(i, 1); continue; }
+          packets[i].draw(ctx);
+        }
+
+        requestAnimationFrame(animate);
+      }
+
+      requestAnimationFrame(() => {
+        resize();
+        initNodes();
+        animate();
+      });
+
+      window.addEventListener('resize', () => { resize(); initNodes(); });
+
+      hero.addEventListener('mousemove', e => {
+        const rect = hero.getBoundingClientRect();
+        mouseX = e.clientX - rect.left;
+        mouseY = e.clientY - rect.top;
+      });
+      hero.addEventListener('mouseleave', () => { mouseX = -1000; mouseY = -1000; });
+
+      // Pause when not visible
+      const netObserver = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          canvas.style.display = entry.isIntersecting ? '' : 'none';
+        });
+      }, { threshold: 0 });
+      netObserver.observe(hero);
+    })();
+  </script>
+</body>
+
+</html>
