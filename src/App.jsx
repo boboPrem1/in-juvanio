@@ -51,7 +51,7 @@ function App() {
 
       <div className={`ui-view ${apiMode ? 'hidden' : ''}`} id="uiView">
         <main>
-          <Hero />
+          <Hero language={language} />
           <Marquee />
           <TenxyteArchitecture />
           <Skills />
