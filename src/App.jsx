@@ -53,7 +53,7 @@ function App() {
         <main>
           <Hero language={language} />
           <Marquee />
-          <TenxyteArchitecture />
+          <TenxyteArchitecture language={language} />
           <Skills />
           <Experience />
           <Formation />
