@@ -10,6 +10,7 @@ import Skills from './components/Skills';
 import Experience from './components/Experience';
 import Formation from './components/Formation';
 import Contact from './components/Contact';
+import DecryptedText from './components/DecryptedText';
 
 function App() {
   const [apiMode, setApiMode] = useState(false);
@@ -56,14 +57,14 @@ function App() {
           <TenxyteArchitecture language={language} />
           <Skills language={language} />
           <Experience language={language} />
-          <Formation />
-          <Contact />
+          <Formation language={language} />
+          <Contact language={language} />
         </main>
         
         <footer>
           <span>© 2026 Amouzougan Kangni Juvanio</span>
-          <span>Backend Architect · <a href="https://github.com/boboprem1" target="_blank" rel="noreferrer" style={{color: 'var(--muted)', textDecoration: 'none'}}>GitHub</a></span>
-          <span>Lomé, Togo 🇹🇬</span>
+          <span><DecryptedText text="Backend Architect" /> · <a href="https://github.com/boboprem1" target="_blank" rel="noreferrer" style={{color: 'var(--muted)', textDecoration: 'none'}}>GitHub</a></span>
+          <span><DecryptedText text={language === 'fr' ? "Lomé, Togo 🇹🇬" : "Lome, Togo 🇹🇬"} /></span>
         </footer>
       </div>
     </>

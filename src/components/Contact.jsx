@@ -1,9 +1,28 @@
-export default function Contact() {
+import DecryptedText from './DecryptedText';
+
+const translations = {
+  fr: {
+    title1: "Travaillons",
+    title2: "ensemble",
+    sub: "Disponible pour missions freelance, CDI ou collaborations techniques",
+    dlText: "Télécharger mon CV (PDF)"
+  },
+  en: {
+    title1: "Let's work",
+    title2: "together",
+    sub: "Available for freelance missions, full-time roles, or technical collaborations",
+    dlText: "Download my Resume (PDF)"
+  }
+};
+
+export default function Contact({ language = 'fr' }) {
+  const t = translations[language] || translations.fr;
+
   return (
     <section className="contact" id="contact">
       <div className="contact-bg"></div>
-      <h2 className="contact-title">Travaillons<br /><span>ensemble</span></h2>
-      <p className="contact-sub">Disponible pour missions freelance, CDI ou collaborations techniques</p>
+      <h2 className="contact-title"><DecryptedText text={t.title1} /><br /><span><DecryptedText text={t.title2} /></span></h2>
+      <p className="contact-sub"><DecryptedText text={t.sub} duration={1200} /></p>
 
       <div className="contact-terminal">
         <div className="contact-terminal-header">
@@ -41,7 +60,9 @@ export default function Contact() {
         </div>
       </div>
       <div className="contact-cv-dl">
-        <a href="G_Curriculum_Vitae.pdf" download className="btn btn-primary" style={{display: 'inline-block'}}>Télécharger mon CV (PDF)</a>
+        <a href="G_Curriculum_Vitae.pdf" download className="btn btn-primary" style={{display: 'inline-block'}}>
+          <DecryptedText text={t.dlText} />
+        </a>
       </div>
     </section>
   );
