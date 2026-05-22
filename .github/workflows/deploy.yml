@@ -33,5 +33,6 @@ jobs:
           SOURCE: "dist/"
           REMOTE_HOST: ${{ secrets.VPS_HOST }}
           REMOTE_USER: ${{ secrets.VPS_USERNAME }}
+          REMOTE_PORT: ${{ secrets.VPS_PORT }}
           TARGET: ${{ secrets.VPS_TARGET_DIR }}
           EXCLUDE: "/node_modules/"
