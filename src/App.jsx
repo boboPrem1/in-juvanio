@@ -15,6 +15,10 @@ import DecryptedText from './components/DecryptedText';
 function App() {
   const [apiMode, setApiMode] = useState(false);
   const [language, setLanguage] = useState('fr'); // 'fr' ou 'en'
+  const [theme, setTheme] = useState(() => {
+    const hour = new Date().getHours();
+    return (hour >= 18 || hour < 8) ? 'dark' : 'light';
+  });
 
   const toggleApiMode = () => {
     setApiMode(!apiMode);
@@ -23,6 +27,18 @@ function App() {
   const toggleLanguage = () => {
     setLanguage(language === 'fr' ? 'en' : 'fr');
   };
+
+  const toggleTheme = () => {
+    setTheme(theme === 'dark' ? 'light' : 'dark');
+  };
+
+  useEffect(() => {
+    if (theme === 'light') {
+      document.body.classList.add('light-mode');
+    } else {
+      document.body.classList.remove('light-mode');
+    }
+  }, [theme]);
 
   useEffect(() => {
     if (apiMode) {
@@ -46,7 +62,7 @@ function App() {
     <>
       <BootSequence />
       <CustomCursor />
-      <Navbar apiMode={apiMode} toggleApiMode={toggleApiMode} language={language} toggleLanguage={toggleLanguage} />
+      <Navbar apiMode={apiMode} toggleApiMode={toggleApiMode} language={language} toggleLanguage={toggleLanguage} theme={theme} toggleTheme={toggleTheme} />
       
       <ApiView apiMode={apiMode} />
 

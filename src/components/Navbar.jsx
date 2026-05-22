@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export default function Navbar({ apiMode, toggleApiMode, language, toggleLanguage }) {
+export default function Navbar({ apiMode, toggleApiMode, language, toggleLanguage, theme, toggleTheme }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleToggle = () => setIsOpen(!isOpen);
@@ -26,8 +26,22 @@ export default function Navbar({ apiMode, toggleApiMode, language, toggleLanguag
         <a href="#contact" onClick={closeNav}>Contact</a>
         
         <div className="nav-toggles">
-          {/* Language Toggle */}
+          {/* Theme Toggle */}
           <div className="api-toggle" style={{ borderLeft: 'none', paddingLeft: 0, marginLeft: 0 }}>
+            <span className={`api-toggle-label ${theme === 'dark' ? 'active' : ''}`}>DARK</span>
+            <div 
+              className={`api-toggle-switch ${theme === 'light' ? 'active' : ''}`} 
+              role="switch" 
+              aria-checked={theme === 'light'} 
+              tabIndex="0"
+              onClick={toggleTheme}
+              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleTheme(); }}}
+            ></div>
+            <span className={`api-toggle-label ${theme === 'light' ? 'active' : ''}`}>LIGHT</span>
+          </div>
+
+          {/* Language Toggle */}
+          <div className="api-toggle">
             <span className={`api-toggle-label ${language === 'fr' ? 'active' : ''}`}>FR</span>
             <div 
               className={`api-toggle-switch ${language === 'en' ? 'active' : ''}`} 
