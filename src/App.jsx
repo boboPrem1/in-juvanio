@@ -55,7 +55,7 @@ function App() {
           <Marquee />
           <TenxyteArchitecture language={language} />
           <Skills language={language} />
-          <Experience />
+          <Experience language={language} />
           <Formation />
           <Contact />
         </main>
