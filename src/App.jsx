@@ -64,7 +64,7 @@ function App() {
       <CustomCursor />
       <Navbar apiMode={apiMode} toggleApiMode={toggleApiMode} language={language} toggleLanguage={toggleLanguage} theme={theme} toggleTheme={toggleTheme} />
       
-      <ApiView apiMode={apiMode} />
+      <ApiView apiMode={apiMode} language={language} />
 
       <div className={`ui-view ${apiMode ? 'hidden' : ''}`} id="uiView">
         <main>
