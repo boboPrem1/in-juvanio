@@ -54,7 +54,7 @@ function App() {
           <Hero language={language} />
           <Marquee />
           <TenxyteArchitecture language={language} />
-          <Skills />
+          <Skills language={language} />
           <Experience />
           <Formation />
           <Contact />

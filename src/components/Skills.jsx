@@ -1,7 +1,66 @@
 import { useEffect, useRef } from 'react';
+import DecryptedText from './DecryptedText';
 
-export default function Skills() {
+const translations = {
+  fr: {
+    sectionNum: "02",
+    sectionLabel: "Compétences",
+    title1: "Boîte à",
+    title2: "outils",
+    racks: {
+      arch: { title: "Architecture", tags: ["Microservices", "DDD", "Algorithmes", "Clean Arch.", "SOLID", "TDD", "REST API", "OpenAPI"] },
+      sec: { title: "Sécurité", tags: ["OWASP", "ISO 27001", "SOC2", "GDPR", "AML/KYC", "JWT", "RBAC", "2FA"] },
+      back: { title: "Backend", tags: ["Python", "Django", "FastAPI", "Node.js", "NestJS", "Express", "PHP", "Laravel", "TypeScript"] },
+      cloud: { title: "Cloud & DevOps", tags: ["AWS EC2/S3/LightSail", "AWS IAM/SES", "Docker", "Linux", "Nginx", "GitHub Actions", "GitLab", "Agile/Scrum", "Jenkins", "Kubernetes", "Terraform"] },
+      db: { title: "Bases de données", tags: ["PostgreSQL", "MySQL", "MongoDB", "Modélisation", "Optimisation"] },
+      front: { title: "Frontend", tags: ["React.js", "Next.js", "Vue.js", "Redux", "Tailwind", "TypeORM"] },
+      lang: { 
+        title: "Langues",
+        items: [
+          { name: "Éwé", level: "Natif", width: "100%" },
+          { name: "Français", level: "Officiel", width: "100%" },
+          { name: "Anglais", level: "Professionnel", width: "85%" },
+          { name: "Allemand", level: "Débutant", width: "20%" }
+        ]
+      },
+      hobbies: {
+        title: "Loisirs & Centres d'intérêt",
+        tags: ["Musique", "Écriture", "Lecture", "Danse", "Mangas", "Arts Martiaux", "Gymnastique", "Sports (Football, Basket)"]
+      }
+    }
+  },
+  en: {
+    sectionNum: "02",
+    sectionLabel: "Skills",
+    title1: "Tool",
+    title2: "box",
+    racks: {
+      arch: { title: "Architecture", tags: ["Microservices", "DDD", "Algorithms", "Clean Arch.", "SOLID", "TDD", "REST API", "OpenAPI"] },
+      sec: { title: "Security", tags: ["OWASP", "ISO 27001", "SOC2", "GDPR", "AML/KYC", "JWT", "RBAC", "2FA"] },
+      back: { title: "Backend", tags: ["Python", "Django", "FastAPI", "Node.js", "NestJS", "Express", "PHP", "Laravel", "TypeScript"] },
+      cloud: { title: "Cloud & DevOps", tags: ["AWS EC2/S3/LightSail", "AWS IAM/SES", "Docker", "Linux", "Nginx", "GitHub Actions", "GitLab", "Agile/Scrum", "Jenkins", "Kubernetes", "Terraform"] },
+      db: { title: "Databases", tags: ["PostgreSQL", "MySQL", "MongoDB", "Modeling", "Optimization"] },
+      front: { title: "Frontend", tags: ["React.js", "Next.js", "Vue.js", "Redux", "Tailwind", "TypeORM"] },
+      lang: { 
+        title: "Languages",
+        items: [
+          { name: "Ewe", level: "Native", width: "100%" },
+          { name: "French", level: "Official", width: "100%" },
+          { name: "English", level: "Professional", width: "85%" },
+          { name: "German", level: "Beginner", width: "20%" }
+        ]
+      },
+      hobbies: {
+        title: "Hobbies & Interests",
+        tags: ["Music", "Writing", "Reading", "Dance", "Manga", "Martial Arts", "Gymnastics", "Sports (Soccer, Basketball)"]
+      }
+    }
+  }
+};
+
+export default function Skills({ language = 'fr' }) {
   const langsRef = useRef(null);
+  const t = translations[language] || translations.fr;
 
   useEffect(() => {
     const observer = new IntersectionObserver(entries => {
@@ -23,158 +82,155 @@ export default function Skills() {
 
   return (
     <section id="skills">
-      <div className="section-label" data-num="02">Compétences</div>
-      <h2 className="section-title">Boîte à<br /><em style={{fontFamily: "'Fraunces', serif", color: 'var(--accent)'}}>outils</em></h2>
+      <div className="section-label" data-num={t.sectionNum}>
+        <DecryptedText text={t.sectionLabel} />
+      </div>
+      <h2 className="section-title">
+        <DecryptedText text={t.title1} /><br />
+        <em style={{fontFamily: "'Fraunces', serif", color: 'var(--accent)'}}>
+          <DecryptedText text={t.title2} />
+        </em>
+      </h2>
+      
       <div className="skills-grid">
         <div className="skill-card">
           <div className="skill-rack-header">
-            <div className="skill-rack-leds"><div className="led led-green"></div><div className="led led-green"></div><div className="led led-yellow"></div></div>
+            <div className="skill-rack-leds">
+              <div className="led led-green"></div>
+              <div className="led led-green"></div>
+              <div className="led led-yellow"></div>
+            </div>
             <span className="skill-rack-id">RACK-01</span>
           </div>
           <span className="skill-card-icon">🏗️</span>
-          <div className="skill-card-title">Architecture</div>
+          <div className="skill-card-title"><DecryptedText text={t.racks.arch.title} /></div>
           <div className="skill-tags">
-            <span className="skill-tag">Microservices</span>
-            <span className="skill-tag">DDD</span>
-            <span className="skill-tag">Algorithmes</span>
-            <span className="skill-tag">Clean Arch.</span>
-            <span className="skill-tag">SOLID</span>
-            <span className="skill-tag">TDD</span>
-            <span className="skill-tag">REST API</span>
-            <span className="skill-tag">OpenAPI</span>
+            {t.racks.arch.tags.map(tag => (
+              <span key={tag} className="skill-tag"><DecryptedText text={tag} duration={600} /></span>
+            ))}
           </div>
         </div>
+        
         <div className="skill-card">
           <div className="skill-rack-header">
-            <div className="skill-rack-leds"><div className="led led-red"></div><div className="led led-green"></div><div className="led led-green"></div></div>
+            <div className="skill-rack-leds">
+              <div className="led led-red"></div>
+              <div className="led led-green"></div>
+              <div className="led led-green"></div>
+            </div>
             <span className="skill-rack-id">RACK-02</span>
           </div>
           <span className="skill-card-icon">🔒</span>
-          <div className="skill-card-title">Sécurité</div>
+          <div className="skill-card-title"><DecryptedText text={t.racks.sec.title} /></div>
           <div className="skill-tags">
-            <span className="skill-tag">OWASP</span>
-            <span className="skill-tag">ISO 27001</span>
-            <span className="skill-tag">SOC2</span>
-            <span className="skill-tag">GDPR</span>
-            <span className="skill-tag">AML/KYC</span>
-            <span className="skill-tag">JWT</span>
-            <span className="skill-tag">RBAC</span>
-            <span className="skill-tag">2FA</span>
+            {t.racks.sec.tags.map(tag => (
+              <span key={tag} className="skill-tag"><DecryptedText text={tag} duration={600} /></span>
+            ))}
           </div>
         </div>
+        
         <div className="skill-card">
           <div className="skill-rack-header">
-            <div className="skill-rack-leds"><div className="led led-green"></div><div className="led led-green"></div><div className="led led-green"></div></div>
+            <div className="skill-rack-leds">
+              <div className="led led-green"></div>
+              <div className="led led-green"></div>
+              <div className="led led-green"></div>
+            </div>
             <span className="skill-rack-id">RACK-03</span>
           </div>
           <span className="skill-card-icon">⚙️</span>
-          <div className="skill-card-title">Backend</div>
+          <div className="skill-card-title"><DecryptedText text={t.racks.back.title} /></div>
           <div className="skill-tags">
-            <span className="skill-tag">Python</span>
-            <span className="skill-tag">Django</span>
-            <span className="skill-tag">FastAPI</span>
-            <span className="skill-tag">Node.js</span>
-            <span className="skill-tag">NestJS</span>
-            <span className="skill-tag">Express</span>
-            <span className="skill-tag">PHP</span>
-            <span className="skill-tag">Laravel</span>
-            <span className="skill-tag">TypeScript</span>
+            {t.racks.back.tags.map(tag => (
+              <span key={tag} className="skill-tag"><DecryptedText text={tag} duration={600} /></span>
+            ))}
           </div>
         </div>
+        
         <div className="skill-card">
           <div className="skill-rack-header">
-            <div className="skill-rack-leds"><div className="led led-green"></div><div className="led led-yellow"></div><div className="led led-green"></div></div>
+            <div className="skill-rack-leds">
+              <div className="led led-green"></div>
+              <div className="led led-yellow"></div>
+              <div className="led led-green"></div>
+            </div>
             <span className="skill-rack-id">RACK-04</span>
           </div>
           <span className="skill-card-icon">☁️</span>
-          <div className="skill-card-title">Cloud &amp; DevOps</div>
+          <div className="skill-card-title"><DecryptedText text={t.racks.cloud.title} /></div>
           <div className="skill-tags">
-            <span className="skill-tag">AWS EC2/S3/LightSail</span>
-            <span className="skill-tag">AWS IAM/SES</span>
-            <span className="skill-tag">Docker</span>
-            <span className="skill-tag">Linux</span>
-            <span className="skill-tag">Nginx</span>
-            <span className="skill-tag">GitHub Actions</span>
-            <span className="skill-tag">GitLab</span>
-            <span className="skill-tag">Agile/Scrum</span>
-            <span className="skill-tag">Jenkins</span>
-            <span className="skill-tag">Kubernetes</span>
-            <span className="skill-tag">Terraform</span>
+            {t.racks.cloud.tags.map(tag => (
+              <span key={tag} className="skill-tag"><DecryptedText text={tag} duration={600} /></span>
+            ))}
           </div>
         </div>
+        
         <div className="skill-card">
           <div className="skill-rack-header">
-            <div className="skill-rack-leds"><div className="led led-green"></div><div className="led led-green"></div><div className="led led-yellow"></div></div>
+            <div className="skill-rack-leds">
+              <div className="led led-green"></div>
+              <div className="led led-green"></div>
+              <div className="led led-yellow"></div>
+            </div>
             <span className="skill-rack-id">RACK-05</span>
           </div>
           <span className="skill-card-icon">🗄️</span>
-          <div className="skill-card-title">Bases de données</div>
+          <div className="skill-card-title"><DecryptedText text={t.racks.db.title} /></div>
           <div className="skill-tags">
-            <span className="skill-tag">PostgreSQL</span>
-            <span className="skill-tag">MySQL</span>
-            <span className="skill-tag">MongoDB</span>
-            <span className="skill-tag">Modélisation</span>
-            <span className="skill-tag">Optimisation</span>
+            {t.racks.db.tags.map(tag => (
+              <span key={tag} className="skill-tag"><DecryptedText text={tag} duration={600} /></span>
+            ))}
           </div>
         </div>
+        
         <div className="skill-card">
           <div className="skill-rack-header">
-            <div className="skill-rack-leds"><div className="led led-green"></div><div className="led led-green"></div><div className="led led-green"></div></div>
+            <div className="skill-rack-leds">
+              <div className="led led-green"></div>
+              <div className="led led-green"></div>
+              <div className="led led-green"></div>
+            </div>
             <span className="skill-rack-id">RACK-06</span>
           </div>
           <span className="skill-card-icon">🖥️</span>
-          <div className="skill-card-title">Frontend</div>
+          <div className="skill-card-title"><DecryptedText text={t.racks.front.title} /></div>
           <div className="skill-tags">
-            <span className="skill-tag">React.js</span>
-            <span className="skill-tag">Next.js</span>
-            <span className="skill-tag">Vue.js</span>
-            <span className="skill-tag">Redux</span>
-            <span className="skill-tag">Tailwind</span>
-            <span className="skill-tag">TypeORM</span>
+            {t.racks.front.tags.map(tag => (
+              <span key={tag} className="skill-tag"><DecryptedText text={tag} duration={600} /></span>
+            ))}
           </div>
         </div>
+        
         <div className="skill-card" style={{gridColumn: 'span 2'}}>
           <div className="skill-rack-header">
-            <div className="skill-rack-leds"><div className="led led-green"></div><div className="led led-green"></div><div className="led led-green"></div></div>
+            <div className="skill-rack-leds">
+              <div className="led led-green"></div>
+              <div className="led led-green"></div>
+              <div className="led led-green"></div>
+            </div>
             <span className="skill-rack-id">RACK-07</span>
           </div>
           <span className="skill-card-icon">🌍</span>
-          <div className="skill-card-title">Langues</div>
+          <div className="skill-card-title"><DecryptedText text={t.racks.lang.title} /></div>
+          
           <div className="langs" ref={langsRef}>
-            <div className="lang-item">
-              <span className="lang-name">Éwé</span>
-              <div className="lang-bar"><div className="lang-fill" style={{width: '100%'}}></div></div>
-              <span className="lang-level">Natif</span>
-            </div>
-            <div className="lang-item">
-              <span className="lang-name">Français</span>
-              <div className="lang-bar"><div className="lang-fill" style={{width: '100%'}}></div></div>
-              <span className="lang-level">Officiel</span>
-            </div>
-            <div className="lang-item">
-              <span className="lang-name">Anglais</span>
-              <div className="lang-bar"><div className="lang-fill" style={{width: '85%'}}></div></div>
-              <span className="lang-level">Professionnel</span>
-            </div>
-            <div className="lang-item">
-              <span className="lang-name">Allemand</span>
-              <div className="lang-bar"><div className="lang-fill" style={{width: '20%'}}></div></div>
-              <span className="lang-level">Débutant</span>
-            </div>
+            {t.racks.lang.items.map((item, idx) => (
+              <div className="lang-item" key={idx}>
+                <span className="lang-name"><DecryptedText text={item.name} /></span>
+                <div className="lang-bar"><div className="lang-fill" style={{width: item.width}}></div></div>
+                <span className="lang-level"><DecryptedText text={item.level} /></span>
+              </div>
+            ))}
           </div>
+          
           <div style={{marginTop: '32px', borderTop: '1px solid var(--border)', paddingTop: '24px'}}>
             <div className="skill-card-title" style={{fontSize: '11px', letterSpacing: '2px', textTransform: 'uppercase', color: 'var(--muted)', marginBottom: '16px'}}>
-              Loisirs &amp; Centres d'intérêt
+              <DecryptedText text={t.racks.hobbies.title} />
             </div>
             <div className="skill-tags">
-              <span className="skill-tag">Musique</span>
-              <span className="skill-tag">Écriture</span>
-              <span className="skill-tag">Lecture</span>
-              <span className="skill-tag">Danse</span>
-              <span className="skill-tag">Mangas</span>
-              <span className="skill-tag">Arts Martiaux</span>
-              <span className="skill-tag">Gymnastique</span>
-              <span className="skill-tag">Sports (Football, Basket)</span>
+              {t.racks.hobbies.tags.map(tag => (
+                <span key={tag} className="skill-tag"><DecryptedText text={tag} duration={600} /></span>
+              ))}
             </div>
           </div>
         </div>
