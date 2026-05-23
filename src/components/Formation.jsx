@@ -1,7 +1,8 @@
 import DecryptedText from './DecryptedText';
 
-export default function Formation({ language, data }) {
+export default function Formation({ language, data, skin }) {
   const t = data.formation[language] || data.formation.fr;
+  const anims = skin?.animations?.decryptedText || {};
 
   return (
     <section id="formation" style={{borderTop: '1px solid var(--border)'}}>
@@ -22,7 +23,7 @@ export default function Formation({ language, data }) {
                   <div className="feature-desc">
                     {feat.desc.split('\n').map((line, i, arr) => (
                       <span key={i}>
-                        <DecryptedText text={line} duration={1200} />
+                        <DecryptedText text={line} duration={anims.formationDesc || 1200} />
                         {i < arr.length - 1 && <br />}
                       </span>
                     ))}
@@ -37,7 +38,7 @@ export default function Formation({ language, data }) {
         </div>
         <div>
           <p style={{fontSize: '12px', color: 'var(--muted)', marginBottom: '24px', letterSpacing: '1px', lineHeight: '1.8'}}>
-            <DecryptedText text={t.p1} duration={1500} />
+            <DecryptedText text={t.p1} duration={anims.formationP1 || 1500} />
           </p>
           <div className="tenxyte-features">
             {t.features2.map((feat, idx) => (
@@ -48,7 +49,7 @@ export default function Formation({ language, data }) {
                   <div className="feature-desc">
                     {feat.desc.split('\n').map((line, i, arr) => (
                       <span key={i}>
-                        <DecryptedText text={line} duration={1200} />
+                        <DecryptedText text={line} duration={anims.formationDesc || 1200} />
                         {i < arr.length - 1 && <br />}
                       </span>
                     ))}

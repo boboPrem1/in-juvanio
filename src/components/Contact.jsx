@@ -1,14 +1,15 @@
 import DecryptedText from './DecryptedText';
 
-export default function Contact({ language, data }) {
+export default function Contact({ language, data, skin }) {
   const t = data.contact[language] || data.contact.fr;
   const meta = data.meta;
+  const anims = skin?.animations?.decryptedText || {};
 
   return (
     <section className="contact" id="contact">
       <div className="contact-bg"></div>
       <h2 className="contact-title"><DecryptedText text={t.title1} /><br /><span><DecryptedText text={t.title2} /></span></h2>
-      <p className="contact-sub"><DecryptedText text={t.sub} duration={1200} /></p>
+      <p className="contact-sub"><DecryptedText text={t.sub} duration={anims.contactSub || 1200} /></p>
 
       <div className="contact-terminal">
         <div className="contact-terminal-header">

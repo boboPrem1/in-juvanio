@@ -1,9 +1,11 @@
 import { useEffect, useRef } from 'react';
 import DecryptedText from './DecryptedText';
 
-export default function Experience({ language, data }) {
+export default function Experience({ language, data, skin }) {
   const containerRef = useRef(null);
   const t = data.experience[language] || data.experience.fr;
+  const anims = skin?.animations?.decryptedText || {};
+  const staggerDelay = skin?.animations?.stagger?.experienceDelay || 100;
 
   useEffect(() => {
     const observer = new IntersectionObserver(entries => {
@@ -17,7 +19,7 @@ export default function Experience({ language, data }) {
     if (containerRef.current) {
       const commits = containerRef.current.querySelectorAll('.git-commit');
       commits.forEach((el, i) => {
-        el.dataset.delay = String(i * 100);
+        el.dataset.delay = String(i * staggerDelay);
         observer.observe(el);
       });
     }
@@ -63,7 +65,7 @@ export default function Experience({ language, data }) {
 
               {job.desc && (
                 <p className="git-desc">
-                  <DecryptedText text={job.desc} duration={1200} />
+                  <DecryptedText text={job.desc} duration={anims.experienceDesc || 1200} />
                 </p>
               )}
 
@@ -71,7 +73,7 @@ export default function Experience({ language, data }) {
                 {job.changes.map((change, i) => (
                   <div className="git-change" key={i}>
                     <span className={`git-change-prefix ${change.type}`}>{change.symbol}</span>{' '}
-                    <span><DecryptedText text={change.text} duration={1000} /></span>
+                    <span><DecryptedText text={change.text} duration={anims.experienceChange || 1000} /></span>
                   </div>
                 ))}
               </div>

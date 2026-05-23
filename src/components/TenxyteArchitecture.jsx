@@ -1,7 +1,8 @@
 import DecryptedText from './DecryptedText';
 
-export default function TenxyteArchitecture({ language, data }) {
+export default function TenxyteArchitecture({ language, data, skin }) {
   const t = data.tenxyte[language] || data.tenxyte.fr;
+  const anims = skin?.animations?.decryptedText || {};
 
   return (
     <section className="tenxyte" id="tenxyte">
@@ -12,7 +13,7 @@ export default function TenxyteArchitecture({ language, data }) {
           </div>
           <h2 className="tenxyte-title">Ten<span className="highlight">xyte</span></h2>
           <p className="tenxyte-desc">
-            <DecryptedText text={t.desc} duration={1200} />
+            <DecryptedText text={t.desc} duration={anims.tenxyteDesc || 1200} />
           </p>
           <div className="tenxyte-stats">
             <div className="stat-item">
@@ -53,7 +54,7 @@ export default function TenxyteArchitecture({ language, data }) {
           <div className="arch-block">
             <div className="arch-block-label"><DecryptedText text={t.layer0.label} /></div>
             <div className="arch-block-name"><DecryptedText text={t.layer0.name} /></div>
-            <div className="arch-block-desc"><DecryptedText text={t.layer0.desc} duration={1000} /></div>
+            <div className="arch-block-desc"><DecryptedText text={t.layer0.desc} duration={anims.archLayerDesc || 1000} /></div>
             <span className="arch-block-tag">HTTPS · TLS 1.3</span>
           </div>
         </div>
@@ -70,7 +71,7 @@ export default function TenxyteArchitecture({ language, data }) {
           <div className="arch-block airs">
             <div className="arch-block-label"><DecryptedText text={t.layer1.airsLabel} /></div>
             <div className="arch-block-name"><DecryptedText text={t.layer1.airsName} /></div>
-            <div className="arch-block-desc"><DecryptedText text={t.layer1.airsDesc} duration={1000} /></div>
+            <div className="arch-block-desc"><DecryptedText text={t.layer1.airsDesc} duration={anims.archLayerDesc || 1000} /></div>
             <span className="arch-block-tag" style={{color: 'var(--accent2)', borderColor: 'rgba(255,77,109,0.3)', background: 'rgba(255,77,109,0.08)'}}>AI-READY</span>
           </div>
           <div className="arch-block">

@@ -1,0 +1,56 @@
+{
+  "theme": {
+    "light": {
+      "--bg": "#f8fafc",
+      "--surface": "#ffffff",
+      "--surface2": "#e2e8f0",
+      "--accent": "#0b7a6f",
+      "--accent2": "#be123c",
+      "--accent3": "#b45309",
+      "--text": "#0f172a",
+      "--muted": "#475569",
+      "--border": "rgba(15, 23, 42, 0.12)",
+      "--glow": "rgba(11, 122, 111, 0.2)"
+    },
+    "dark": {
+      "--bg": "#080a0f",
+      "--surface": "#0d1017",
+      "--surface2": "#121820",
+      "--accent": "#00e5c3",
+      "--accent2": "#ff4d6d",
+      "--accent3": "#ffd166",
+      "--text": "#e8eaf0",
+      "--muted": "#7a859c",
+      "--border": "rgba(255, 255, 255, 0.06)",
+      "--glow": "rgba(0, 229, 195, 0.15)"
+    }
+  },
+  "animations": {
+    "parallaxFactor": 0.3,
+    "stagger": {
+      "skillsDelay": 150,
+      "experienceDelay": 100
+    },
+    "decryptedText": {
+      "heroTag": 600,
+      "heroTitle": 700,
+      "heroFounder": 500,
+      "heroFramework": 600,
+      "heroDesc": 800,
+      "heroLeadership": 600,
+      "heroBtn": 400,
+      "skillsTag": 600,
+      "tenxyteDesc": 1200,
+      "archLayerDesc": 1000,
+      "experienceDesc": 1200,
+      "experienceChange": 1000,
+      "formationDesc": 1200,
+      "formationP1": 1500,
+      "contactSub": 1200
+    }
+  },
+  "assets": {
+    "heroPhoto": "azerty.jpg",
+    "favicon": "favicon.png"
+  }
+}

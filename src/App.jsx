@@ -1,5 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useLayoutEffect } from 'react';
 import { usePortfolioData } from './hooks/usePortfolioData';
+import { useSkinData } from './hooks/useSkinData';
 import BootSequence from './components/BootSequence';
 import CustomCursor from './components/CustomCursor';
 import Navbar from './components/Navbar';
@@ -15,7 +16,11 @@ import DecryptedText from './components/DecryptedText';
 import FooterBugs from './components/FooterBugs';
 
 function App() {
-  const { data, loading, error } = usePortfolioData();
+  const { data, loading: dataLoading, error: dataError } = usePortfolioData();
+  const { skin, loading: skinLoading, error: skinError } = useSkinData();
+
+  const loading = dataLoading || skinLoading;
+  const error = dataError || skinError;
 
   const [apiMode, setApiMode] = useState(false);
   const [language, setLanguage] = useState('fr');
@@ -27,6 +32,16 @@ function App() {
   const toggleApiMode = () => setApiMode(!apiMode);
   const toggleLanguage = () => setLanguage(language === 'fr' ? 'en' : 'fr');
   const toggleTheme = () => setTheme(theme === 'dark' ? 'light' : 'dark');
+
+  useLayoutEffect(() => {
+    if (!skin) return;
+    const currentTheme = skin.theme[theme];
+    if (currentTheme) {
+      Object.entries(currentTheme).forEach(([key, value]) => {
+        document.documentElement.style.setProperty(key, value);
+      });
+    }
+  }, [theme, skin]);
 
   useEffect(() => {
     if (theme === 'light') {
@@ -43,15 +58,16 @@ function App() {
   }, [apiMode]);
 
   useEffect(() => {
+    if (!skin) return;
     const handleScroll = () => {
       const heroGrid = document.querySelector('.hero-grid');
       if (heroGrid) {
-        heroGrid.style.transform = `translateY(${window.scrollY * 0.3}px)`;
+        heroGrid.style.transform = `translateY(${window.scrollY * skin.animations.parallaxFactor}px)`;
       }
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [skin]);
 
   if (loading) {
     return (
@@ -109,13 +125,13 @@ function App() {
 
       <div className={`ui-view ${apiMode ? 'hidden' : ''}`} id="uiView">
         <main>
-          <Hero language={language} data={data} />
+          <Hero language={language} data={data} skin={skin} />
           <Marquee />
-          <TenxyteArchitecture language={language} data={data} />
-          <Skills language={language} data={data} />
-          <Experience language={language} data={data} />
-          <Formation language={language} data={data} />
-          <Contact language={language} data={data} />
+          <TenxyteArchitecture language={language} data={data} skin={skin} />
+          <Skills language={language} data={data} skin={skin} />
+          <Experience language={language} data={data} skin={skin} />
+          <Formation language={language} data={data} skin={skin} />
+          <Contact language={language} data={data} skin={skin} />
         </main>
 
         <footer style={{ position: 'relative', overflow: 'hidden' }}>

@@ -1,27 +1,9 @@
     :root {
-      --bg: #080a0f;
-      --surface: #0d1017;
-      --surface2: #121820;
-      --accent: #00e5c3;
-      --accent2: #ff4d6d;
-      --accent3: #ffd166;
-      --text: #e8eaf0;
-      --muted: #7a859c;
-      --border: rgba(255, 255, 255, 0.06);
-      --glow: rgba(0, 229, 195, 0.15);
+      /* Couleurs gérées dynamiquement par skin.json */
     }
 
     body.light-mode {
-      --bg: #f8fafc;
-      --surface: #ffffff;
-      --surface2: #e2e8f0;
-      --accent: #0b7a6f;
-      --accent2: #be123c;
-      --accent3: #b45309;
-      --text: #0f172a;
-      --muted: #475569;
-      --border: rgba(15, 23, 42, 0.12);
-      --glow: rgba(11, 122, 111, 0.2);
+      /* Couleurs gérées dynamiquement par skin.json */
     }
 
     body.light-mode::before {
@@ -55,6 +37,8 @@
 
     html {
       scroll-behavior: smooth;
+      overflow-x: hidden;
+      width: 100%;
     }
 
     body {
@@ -63,6 +47,7 @@
       font-family: 'DM Mono', monospace;
       font-size: 16px;
       overflow-x: hidden;
+      width: 100%;
       cursor: none;
     }
 
@@ -155,12 +140,21 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      align-items: flex-start;
-      padding: 10vw;
+      align-items: center; /* Centrer sur mobile */
+      text-align: center;
+      padding: 5vw;
       font-family: 'JetBrains Mono', 'DM Mono', monospace;
-      font-size: clamp(12px, 1.5vw, 16px);
+      font-size: clamp(12px, 2.5vw, 16px);
       color: var(--accent);
       transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+
+    @media (min-width: 768px) {
+      .boot-overlay {
+        align-items: flex-start;
+        text-align: left;
+        padding: 10vw;
+      }
     }
 
     .boot-overlay.done {
@@ -173,7 +167,8 @@
       opacity: 0;
       transform: translateX(-10px);
       margin-bottom: 6px;
-      white-space: nowrap;
+      white-space: pre-wrap;
+      word-break: break-word;
     }
 
     .boot-line .ok {

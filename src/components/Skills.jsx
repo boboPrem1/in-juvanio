@@ -1,17 +1,19 @@
 import { useEffect, useRef } from 'react';
 import DecryptedText from './DecryptedText';
 
-export default function Skills({ language, data }) {
+export default function Skills({ language, data, skin }) {
   const langsRef = useRef(null);
   const t = data.skills[language] || data.skills.fr;
   const racks = t.racks;
+  const anims = skin?.animations?.decryptedText || {};
+  const staggerDelay = skin?.animations?.stagger?.skillsDelay || 150;
 
   useEffect(() => {
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.querySelectorAll('.lang-item').forEach((item, i) => {
-            setTimeout(() => item.classList.add('visible'), i * 150);
+            setTimeout(() => item.classList.add('visible'), i * staggerDelay);
           });
         }
       });
@@ -55,7 +57,7 @@ export default function Skills({ language, data }) {
               <div className="skill-card-title"><DecryptedText text={rack.title} /></div>
               <div className="skill-tags">
                 {rack.tags.map(tag => (
-                  <span key={tag} className="skill-tag"><DecryptedText text={tag} duration={600} /></span>
+                  <span key={tag} className="skill-tag"><DecryptedText text={tag} duration={anims.skillsTag || 600} /></span>
                 ))}
               </div>
             </div>
@@ -91,7 +93,7 @@ export default function Skills({ language, data }) {
             </div>
             <div className="skill-tags">
               {racks.hobbies.tags.map(tag => (
-                <span key={tag} className="skill-tag"><DecryptedText text={tag} duration={600} /></span>
+                <span key={tag} className="skill-tag"><DecryptedText text={tag} duration={anims.skillsTag || 600} /></span>
               ))}
             </div>
           </div>
