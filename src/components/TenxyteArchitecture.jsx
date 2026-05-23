@@ -1,104 +1,7 @@
 import DecryptedText from './DecryptedText';
 
-const translations = {
-  fr: {
-    badge: "Projet Phare · Open Source",
-    desc: "Framework Python open-source d'authentification & sécurité production-ready. Conçu pour des backends exposés à des agents IA, avec un module AIRS dédié à la sécurité des interactions entre IA et systèmes critiques.",
-    stats: {
-      tests: "Tests Auto.",
-      coverage: "Couverture",
-      published: "Publié"
-    },
-    cta: {
-      package: "PyPi Package",
-      docs: "Documentation"
-    },
-    label: "Architecture Blueprint",
-    layer0: {
-      label: "Layer 0 — Entrypoint",
-      name: "Client / Agent IA",
-      desc: "Frontend, Mobile App, LLM Agent, Service Externe"
-    },
-    layer1: {
-      authLabel: "Middleware",
-      authName: "🔐 Auth Engine",
-      authDesc: "JWT · RBAC · 2FA · WebAuthn",
-      airsLabel: "Middleware — AI Security",
-      airsName: "🤖 Module AIRS",
-      airsDesc: "Prompt injection defense, rate limiting par intent, audit trail IA",
-      secLabel: "Middleware",
-      secName: "🛡️ Security Layer",
-      secDesc: "OWASP · CORS · Rate Limit · CSRF · XSS"
-    },
-    layer2: {
-      apiLabel: "Core",
-      apiName: "⚙️ API Gateway",
-      apiDesc: "REST APIs · OpenAPI · Validation · Serialization",
-      bizLabel: "Core",
-      bizName: "🧩 Business Logic",
-      bizDesc: "Clean Architecture · DDD · SOLID · Services"
-    },
-    layer3: {
-      persistLabel: "Persistence",
-      pgName: "🗄️ PostgreSQL",
-      pgDesc: "Primary store",
-      mongoName: "🍃 MongoDB",
-      mongoDesc: "Document store",
-      mysqlName: "🐬 MySQL",
-      mysqlDesc: "Relational store"
-    }
-  },
-  en: {
-    badge: "Flagship Project · Open Source",
-    desc: "Production-ready open-source Python authentication & security framework. Designed for backends exposed to AI agents, featuring a dedicated AIRS module for securing AI-system interactions.",
-    stats: {
-      tests: "Auto Tests",
-      coverage: "Coverage",
-      published: "Published"
-    },
-    cta: {
-      package: "PyPi Package",
-      docs: "Documentation"
-    },
-    label: "Architecture Blueprint",
-    layer0: {
-      label: "Layer 0 — Entrypoint",
-      name: "Client / AI Agent",
-      desc: "Frontend, Mobile App, LLM Agent, External Service"
-    },
-    layer1: {
-      authLabel: "Middleware",
-      authName: "🔐 Auth Engine",
-      authDesc: "JWT · RBAC · 2FA · WebAuthn",
-      airsLabel: "Middleware — AI Security",
-      airsName: "🤖 AIRS Module",
-      airsDesc: "Prompt injection defense, intent-based rate limiting, AI audit trail",
-      secLabel: "Middleware",
-      secName: "🛡️ Security Layer",
-      secDesc: "OWASP · CORS · Rate Limit · CSRF · XSS"
-    },
-    layer2: {
-      apiLabel: "Core",
-      apiName: "⚙️ API Gateway",
-      apiDesc: "REST APIs · OpenAPI · Validation · Serialization",
-      bizLabel: "Core",
-      bizName: "🧩 Business Logic",
-      bizDesc: "Clean Architecture · DDD · SOLID · Services"
-    },
-    layer3: {
-      persistLabel: "Persistence",
-      pgName: "🗄️ PostgreSQL",
-      pgDesc: "Primary store",
-      mongoName: "🍃 MongoDB",
-      mongoDesc: "Document store",
-      mysqlName: "🐬 MySQL",
-      mysqlDesc: "Relational store"
-    }
-  }
-};
-
-export default function TenxyteArchitecture({ language = 'fr' }) {
-  const t = translations[language] || translations.fr;
+export default function TenxyteArchitecture({ language, data }) {
+  const t = data.tenxyte[language] || data.tenxyte.fr;
 
   return (
     <section className="tenxyte" id="tenxyte">
@@ -113,26 +16,26 @@ export default function TenxyteArchitecture({ language = 'fr' }) {
           </p>
           <div className="tenxyte-stats">
             <div className="stat-item">
-              <span className="stat-num">2 300+</span>
+              <span className="stat-num">{t.statsValues.tests}</span>
               <span className="stat-label">
                 <DecryptedText text={t.stats.tests} />
               </span>
             </div>
             <div className="stat-item">
-              <span className="stat-num">~100%</span>
+              <span className="stat-num">{t.statsValues.coverage}</span>
               <span className="stat-label">
                 <DecryptedText text={t.stats.coverage} />
               </span>
             </div>
             <div className="stat-item">
-              <span className="stat-num">PyPi</span>
+              <span className="stat-num">{t.statsValues.published}</span>
               <span className="stat-label">
                 <DecryptedText text={t.stats.published} />
               </span>
             </div>
           </div>
           <div className="hero-cta">
-            <a href="https://pypi.org/project/tenxyte/" target="_blank" rel="noreferrer" className="btn btn-primary">
+            <a href={data.meta.contact.pypi} target="_blank" rel="noreferrer" className="btn btn-primary">
               <DecryptedText text={t.cta.package} />
             </a>
             <a href="https://tenxyte.readthedocs.io" target="_blank" rel="noreferrer" className="btn btn-ghost">

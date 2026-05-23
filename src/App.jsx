@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { usePortfolioData } from './hooks/usePortfolioData';
 import BootSequence from './components/BootSequence';
 import CustomCursor from './components/CustomCursor';
 import Navbar from './components/Navbar';
@@ -11,26 +12,21 @@ import Experience from './components/Experience';
 import Formation from './components/Formation';
 import Contact from './components/Contact';
 import DecryptedText from './components/DecryptedText';
+import FooterBugs from './components/FooterBugs';
 
 function App() {
+  const { data, loading, error } = usePortfolioData();
+
   const [apiMode, setApiMode] = useState(false);
-  const [language, setLanguage] = useState('fr'); // 'fr' ou 'en'
+  const [language, setLanguage] = useState('fr');
   const [theme, setTheme] = useState(() => {
     const hour = new Date().getHours();
     return (hour >= 18 || hour < 8) ? 'dark' : 'light';
   });
 
-  const toggleApiMode = () => {
-    setApiMode(!apiMode);
-  };
-
-  const toggleLanguage = () => {
-    setLanguage(language === 'fr' ? 'en' : 'fr');
-  };
-
-  const toggleTheme = () => {
-    setTheme(theme === 'dark' ? 'light' : 'dark');
-  };
+  const toggleApiMode = () => setApiMode(!apiMode);
+  const toggleLanguage = () => setLanguage(language === 'fr' ? 'en' : 'fr');
+  const toggleTheme = () => setTheme(theme === 'dark' ? 'light' : 'dark');
 
   useEffect(() => {
     if (theme === 'light') {
@@ -46,7 +42,6 @@ function App() {
     }
   }, [apiMode]);
 
-  // Handle global scroll behavior like hero grid parallax
   useEffect(() => {
     const handleScroll = () => {
       const heroGrid = document.querySelector('.hero-grid');
@@ -58,29 +53,80 @@ function App() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  if (loading) {
+    return (
+      <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        minHeight: '100vh',
+        background: 'var(--bg)',
+        color: 'var(--accent)',
+        fontFamily: "'JetBrains Mono', monospace",
+        fontSize: '14px',
+        letterSpacing: '2px'
+      }}>
+        <span>Initializing...</span>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        minHeight: '100vh',
+        background: 'var(--bg)',
+        color: 'var(--accent2)',
+        fontFamily: "'JetBrains Mono', monospace",
+        fontSize: '13px',
+        letterSpacing: '1px'
+      }}>
+        <span>Error loading data: {error}</span>
+      </div>
+    );
+  }
+
+  const footer = data.footer[language] || data.footer.fr;
+
   return (
     <>
       <BootSequence />
       <CustomCursor />
-      <Navbar apiMode={apiMode} toggleApiMode={toggleApiMode} language={language} toggleLanguage={toggleLanguage} theme={theme} toggleTheme={toggleTheme} />
-      
-      <ApiView apiMode={apiMode} language={language} />
+      <Navbar
+        apiMode={apiMode}
+        toggleApiMode={toggleApiMode}
+        language={language}
+        toggleLanguage={toggleLanguage}
+        theme={theme}
+        toggleTheme={toggleTheme}
+        navData={data.navbar[language] || data.navbar.fr}
+      />
+
+      <ApiView apiMode={apiMode} language={language} data={data} />
 
       <div className={`ui-view ${apiMode ? 'hidden' : ''}`} id="uiView">
         <main>
-          <Hero language={language} />
+          <Hero language={language} data={data} />
           <Marquee />
-          <TenxyteArchitecture language={language} />
-          <Skills language={language} />
-          <Experience language={language} />
-          <Formation language={language} />
-          <Contact language={language} />
+          <TenxyteArchitecture language={language} data={data} />
+          <Skills language={language} data={data} />
+          <Experience language={language} data={data} />
+          <Formation language={language} data={data} />
+          <Contact language={language} data={data} />
         </main>
-        
-        <footer>
-          <span>© 2026 Amouzougan Kangni Juvanio</span>
-          <span><DecryptedText text="Backend Architect" /> · <a href="https://github.com/boboprem1" target="_blank" rel="noreferrer" style={{color: 'var(--muted)', textDecoration: 'none'}}>GitHub</a></span>
-          <span><DecryptedText text={language === 'fr' ? "Lomé, Togo 🇹🇬" : "Lome, Togo 🇹🇬"} /></span>
+
+        <footer style={{ position: 'relative', overflow: 'hidden' }}>
+          <FooterBugs />
+          <span style={{ position: 'relative', zIndex: 1 }}>{footer.copyright}</span>
+          <span style={{ position: 'relative', zIndex: 1 }}>
+            <DecryptedText text={footer.role} /> · <a href={data.meta.contact.github} target="_blank" rel="noreferrer" style={{ color: 'var(--muted)', textDecoration: 'none' }}>GitHub</a>
+          </span>
+          <span style={{ position: 'relative', zIndex: 1 }}>
+            <DecryptedText text={footer.location} />
+          </span>
         </footer>
       </div>
     </>

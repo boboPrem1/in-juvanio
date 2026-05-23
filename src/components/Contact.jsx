@@ -1,22 +1,8 @@
 import DecryptedText from './DecryptedText';
 
-const translations = {
-  fr: {
-    title1: "Travaillons",
-    title2: "ensemble",
-    sub: "Disponible pour missions freelance, CDI ou collaborations techniques",
-    dlText: "Télécharger mon CV (PDF)"
-  },
-  en: {
-    title1: "Let's work",
-    title2: "together",
-    sub: "Available for freelance missions, full-time roles, or technical collaborations",
-    dlText: "Download my Resume (PDF)"
-  }
-};
-
-export default function Contact({ language = 'fr' }) {
-  const t = translations[language] || translations.fr;
+export default function Contact({ language, data }) {
+  const t = data.contact[language] || data.contact.fr;
+  const meta = data.meta;
 
   return (
     <section className="contact" id="contact">
@@ -32,35 +18,35 @@ export default function Contact({ language = 'fr' }) {
           <span className="contact-terminal-title">juvanio@secure-node ~ /contact</span>
         </div>
         <div className="contact-terminal-body">
-          <a href="mailto:jamouzougan@gmail.com" className="contact-cmd">
+          <a href={`mailto:${meta.contact.email}`} className="contact-cmd">
             <span className="cmd-prompt">❯</span>
             <span className="cmd-command">mail</span>
-            <span className="cmd-arg">jamouzougan@gmail.com</span>
+            <span className="cmd-arg">{meta.contact.email}</span>
           </a>
-          <a href="tel:+22896858912" className="contact-cmd">
+          <a href={`tel:${meta.contact.phone.replace(/\s/g, '')}`} className="contact-cmd">
             <span className="cmd-prompt">❯</span>
             <span className="cmd-command">call</span>
-            <span className="cmd-arg">+228 96 85 89 12</span>
+            <span className="cmd-arg">{meta.contact.phone}</span>
           </a>
-          <a href="https://www.linkedin.com/in/kangni-juvanio-amouzougan-709918189/" target="_blank" rel="noreferrer" className="contact-cmd">
+          <a href={meta.contact.linkedin} target="_blank" rel="noreferrer" className="contact-cmd">
             <span className="cmd-prompt">❯</span>
             <span className="cmd-command">open</span>
-            <span className="cmd-arg">linkedin://kangni-juvanio-amouzougan-709918189</span>
+            <span className="cmd-arg">linkedin://{meta.contact.linkedin_handle}</span>
           </a>
-          <a href="https://pypi.org/project/tenxyte/" target="_blank" rel="noreferrer" className="contact-cmd">
+          <a href={meta.contact.pypi} target="_blank" rel="noreferrer" className="contact-cmd">
             <span className="cmd-prompt">❯</span>
             <span className="cmd-command">pip install</span>
-            <span className="cmd-arg">tenxyte</span>
+            <span className="cmd-arg">{meta.contact.pypi_handle}</span>
           </a>
-          <a href="https://github.com/boboprem1" target="_blank" rel="noreferrer" className="contact-cmd">
+          <a href={meta.contact.github} target="_blank" rel="noreferrer" className="contact-cmd">
             <span className="cmd-prompt">❯</span>
             <span className="cmd-command">git clone</span>
-            <span className="cmd-arg">github.com/boboprem1</span>
+            <span className="cmd-arg">github.com/{meta.contact.github_handle}</span>
           </a>
         </div>
       </div>
       <div className="contact-cv-dl">
-        <a href="G_Curriculum_Vitae.pdf" download className="btn btn-primary" style={{display: 'inline-block'}}>
+        <a href={meta.contact.cv} download className="btn btn-primary" style={{display: 'inline-block'}}>
           <DecryptedText text={t.dlText} />
         </a>
       </div>
