@@ -6,13 +6,14 @@ export default function Hero({ language, data, skin }) {
   const t = data.hero[language] || data.hero.fr;
   const meta = data.meta;
   const anims = skin?.animations?.decryptedText || {};
+  const isReversed = skin?.layout?.heroReversed || false;
 
   return (
-    <section className="hero" id="about">
+    <section className="hero" id="about" style={{ flexDirection: isReversed ? 'row-reverse' : 'row' }}>
       <div className="hero-grid"></div>
       <NetworkCanvas />
 
-      <div className="hero-left">
+      <div className="hero-left" style={{ flex: 1, width: '50%' }}>
         <div className="hero-tag"><DecryptedText text={t.tag} duration={anims.heroTag || 600} /></div>
         <h1 className="hero-name">
           <span className="line1">Amouzougan</span>
@@ -32,7 +33,7 @@ export default function Hero({ language, data, skin }) {
         </div>
       </div>
 
-      <div className="hero-right">
+      <div className="hero-right" style={{ flex: 1, width: '50%' }}>
         <div className="hero-visual">
           <TerminalBackground />
 

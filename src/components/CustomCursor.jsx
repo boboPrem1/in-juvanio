@@ -1,9 +1,11 @@
 import { useEffect, useRef } from 'react';
 
-export default function CustomCursor() {
+export default function CustomCursor({ cursorData = { type: 'custom' } }) {
   const cursorRef = useRef(null);
   const ringRef = useRef(null);
   const pos = useRef({ cx: 0, cy: 0, mx: 0, my: 0, rx: 0, ry: 0 });
+
+  const type = cursorData.type || 'custom';
 
   useEffect(() => {
     const handleMouseMove = (e) => {
@@ -65,10 +67,14 @@ export default function CustomCursor() {
     };
   }, []);
 
+  if (type === 'default' || type === 'none') {
+    return null;
+  }
+
   return (
     <>
-      <div className="cursor" id="cursor" ref={cursorRef}></div>
-      <div className="cursor-ring" id="cursorRing" ref={ringRef}></div>
+      <div className={`cursor ${type}`} id="cursor" ref={cursorRef}></div>
+      {type === 'custom' && <div className="cursor-ring" id="cursorRing" ref={ringRef}></div>}
     </>
   );
 }

@@ -36,9 +36,21 @@ function App() {
   useLayoutEffect(() => {
     if (!skin) return;
     const currentTheme = skin.theme[theme];
-    if (currentTheme) {
-      Object.entries(currentTheme).forEach(([key, value]) => {
-        document.documentElement.style.setProperty(key, value);
+    
+    // Combine all style objects from the skin into one for injection
+    const cssVariables = {
+      ...currentTheme,
+      ...(skin.typography || {}),
+      ...(skin.layout || {}),
+      ...(skin.effects || {})
+    };
+
+    if (cssVariables) {
+      Object.entries(cssVariables).forEach(([key, value]) => {
+        // Only set if key starts with '--' (e.g. skip 'heroReversed' which is a boolean)
+        if (key.startsWith('--')) {
+          document.documentElement.style.setProperty(key, value);
+        }
       });
     }
   }, [theme, skin]);
@@ -110,7 +122,7 @@ function App() {
   return (
     <>
       <BootSequence />
-      <CustomCursor />
+      <CustomCursor cursorData={skin?.cursor || { type: 'custom' }} />
       <Navbar
         apiMode={apiMode}
         toggleApiMode={toggleApiMode}

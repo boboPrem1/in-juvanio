@@ -43,11 +43,29 @@
       "tenxyteDesc": 1200,
       "archLayerDesc": 1000,
       "experienceDesc": 1200,
-      "experienceChange": 1000,
-      "formationDesc": 1200,
-      "formationP1": 1500,
-      "contactSub": 1200
+      "experienceChange": 600,
+      "formationDesc": 800,
+      "formationP1": 1000,
+      "contactSub": 600
     }
+  },
+  "typography": {
+    "--font-mono": "'DM Mono', monospace",
+    "--font-heading": "'Fraunces', serif"
+  },
+  "layout": {
+    "heroReversed": false,
+    "skillsColumns": 4,
+    "--border-radius-base": "4px",
+    "--border-radius-large": "50%",
+    "--hero-gap": "0px"
+  },
+  "effects": {
+    "--noise-opacity": "0.05",
+    "--grid-opacity": "0.6"
+  },
+  "cursor": {
+    "type": "custom"
   },
   "assets": {
     "heroPhoto": "azerty.jpg",

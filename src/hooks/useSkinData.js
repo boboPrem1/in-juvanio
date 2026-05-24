@@ -16,9 +16,9 @@ export function useSkinData() {
 
     let cancelled = false;
 
-    fetch('/skin.json')
+    fetch('/skin2.json')
       .then((res) => {
-        if (!res.ok) throw new Error(`Failed to load skin.json: ${res.status}`);
+        if (!res.ok) throw new Error(`Failed to load skin2.json: ${res.status}`);
         return res.json();
       })
       .then((json) => {

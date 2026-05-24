@@ -40,7 +40,7 @@ export default function Skills({ language, data, skin }) {
         </em>
       </h2>
 
-      <div className="skills-grid">
+      <div className="skills-grid" style={{ gridTemplateColumns: `repeat(${skin?.layout?.skillsColumns || 4}, 1fr)` }}>
         {rackOrder.map((key) => {
           const rack = racks[key];
           return (
