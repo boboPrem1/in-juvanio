@@ -26,7 +26,10 @@ export default function Skills({ language, data, skin }) {
     return () => observer.disconnect();
   }, []);
 
-  const rackOrder = ['arch', 'sec', 'back', 'cloud', 'db', 'front'];
+  // ✅ Ordre depuis les clés du JSON (préserve l'ordre d'insertion)
+  // Exclure 'lang' et 'hobbies' qui ont un rendu spécial (card à span 2)
+  const SPECIAL_RACKS = ['lang', 'hobbies'];
+  const rackOrder = Object.keys(racks).filter(k => !SPECIAL_RACKS.includes(k));
 
   return (
     <section id="skills">
@@ -35,7 +38,7 @@ export default function Skills({ language, data, skin }) {
       </div>
       <h2 className="section-title">
         <DecryptedText text={t.title1} /><br />
-        <em style={{fontFamily: "'Fraunces', serif", color: 'var(--accent)'}}>
+        <em style={{fontFamily: 'var(--font-heading)', color: 'var(--accent)'}}>
           <DecryptedText text={t.title2} />
         </em>
       </h2>
@@ -56,7 +59,7 @@ export default function Skills({ language, data, skin }) {
               <span className="skill-card-icon">{rack.icon}</span>
               <div className="skill-card-title"><DecryptedText text={rack.title} /></div>
               <div className="skill-tags">
-                {rack.tags.map(tag => (
+                  {rack.tags.map(tag => (
                   <span key={tag} className="skill-tag"><DecryptedText text={tag} duration={anims.skillsTag || 600} /></span>
                 ))}
               </div>

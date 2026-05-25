@@ -236,9 +236,27 @@
       transition: width 0.3s ease;
     }
 
-    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+    /* ── Skeleton shimmer ─────────────────────────────────────────── */
+    @keyframes skeleton-shimmer {
+      0%   { background-position: -600px 0; }
+      100% { background-position:  600px 0; }
+    }
+
+    .skeleton-block {
+      background: linear-gradient(
+        90deg,
+        var(--surface2, #121820) 25%,
+        var(--surface,  #0d1017) 50%,
+        var(--surface2, #121820) 75%
+      );
+      background-size: 1200px 100%;
+      animation: skeleton-shimmer 1.6s infinite linear;
+      border-radius: var(--border-radius-base, 4px);
+    }
+
+    /* ══════════════════════════════════════════════════
        NAV
-    â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+    ══════════════════════════════════════════════════ */
     nav {
       position: fixed;
       top: 0;

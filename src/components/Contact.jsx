@@ -16,7 +16,9 @@ export default function Contact({ language, data, skin }) {
           <div className="contact-terminal-dot r"></div>
           <div className="contact-terminal-dot y"></div>
           <div className="contact-terminal-dot g"></div>
-          <span className="contact-terminal-title">juvanio@secure-node ~ /contact</span>
+          <span className="contact-terminal-title">
+            {meta.terminalUser || meta.slug || 'portfolio'} ~ /contact
+          </span>
         </div>
         <div className="contact-terminal-body">
           <a href={`mailto:${meta.contact.email}`} className="contact-cmd">

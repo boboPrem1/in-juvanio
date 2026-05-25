@@ -1,6 +1,11 @@
 {
   "meta": {
+    "slug": "juvanio",
+    "defaultLang": "fr",
     "name": "Amouzougan Kangni Juvanio",
+    "nameLines": ["Amouzougan", "Kangni", "Juvanio"],
+    "nodeName": "juvanio.node",
+    "terminalUser": "juvanio@secure-node",
     "available": true,
     "contact": {
       "email": "jamouzougan@gmail.com",
@@ -79,6 +84,7 @@
   },
 
   "tenxyte": {
+    "docsUrl": "https://tenxyte.readthedocs.io",
     "fr": {
       "badge": "Projet Phare · Open Source",
       "desc": "Framework Python open-source d'authentification & sécurité production-ready. Conçu pour des backends exposés à des agents IA, avec un module AIRS dédié à la sécurité des interactions entre IA et systèmes critiques.",
@@ -655,5 +661,43 @@
       "sub": "Available for freelance missions, full-time roles, or technical collaborations",
       "dlText": "Download my Resume (PDF)"
     }
+  },
+
+  "marquee": {
+    "items": [
+      "Django", "NestJS", "Laravel", "FastAPI", "React.js",
+      "PostgreSQL", "Docker", "AWS", "CI/CD", "OWASP",
+      "ISO 27001", "DDD", "Clean Architecture"
+    ]
+  },
+
+  "boot": {
+    "lines": [
+      { "delay": 100, "type": "info",  "text": "Initializing Secure Environment..." },
+      { "delay": 200, "type": "dim",   "text": "Loading kernel modules — TLS 1.3, AES-256" },
+      { "delay": 180, "type": "ok",    "text": "Auth Engine (JWT · RBAC · 2FA)" },
+      { "delay": 200, "type": "ok",    "text": "AIRS Module — AI Responsibility & Security" },
+      { "delay": 160, "type": "ok",    "text": "Database adapters (PostgreSQL · MongoDB · MySQL)" },
+      { "delay": 220, "type": "warn",  "text": "Running OWASP compliance checks..." },
+      { "delay": 180, "type": "pass",  "text": "All 2,300+ tests green" },
+      { "delay": 200, "type": "ok",    "text": "Deploying to production — CI/CD pipeline" }
+    ],
+    "accessGrantedSuffix": "Welcome to"
+  },
+
+  "terminal": {
+    "logs": [
+      { "level": "INFO",  "color": "accent",  "text": "Auth.JWT — Token issued for user_8a3f" },
+      { "level": "DEBUG", "color": "muted",   "text": "RBAC — Role check: admin → ALLOW" },
+      { "level": "INFO",  "color": "accent",  "text": "AIRS.Sentinel — Prompt scan: CLEAN" },
+      { "level": "DEBUG", "color": "muted",   "text": "DB.Pool — Connection acquired (pg:5432)" },
+      { "level": "INFO",  "color": "accent",  "text": "API.Gateway — POST /auth/login 200 12ms" },
+      { "level": "WARN",  "color": "accent3", "text": "RateLimit — Intent \"delete\" near threshold" },
+      { "level": "INFO",  "color": "accent",  "text": "WebAuthn — Credential verified OK" },
+      { "level": "DEBUG", "color": "muted",   "text": "Cache.Redis — HIT session:a8f3e1" },
+      { "level": "INFO",  "color": "accent",  "text": "AIRS.AuditTrail — Action logged: ai_query" },
+      { "level": "INFO",  "color": "accent",  "text": "CI/CD — Pipeline #847 passed (2,312 tests)" },
+      { "level": "DEBUG", "color": "muted",   "text": "CORS — Origin allowed: *.portfolioengine.com" }
+    ]
   }
 }

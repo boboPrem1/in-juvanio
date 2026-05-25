@@ -9,7 +9,7 @@ export default function Formation({ language, data, skin }) {
       <div className="section-label" data-num={t.sectionNum}><DecryptedText text={t.sectionLabel} /></div>
       <h2 className="section-title">
         <DecryptedText text={t.title1} /><br />
-        <em style={{fontFamily: "'Fraunces', serif", color: 'var(--accent3)'}}><DecryptedText text={t.title2} /></em>
+        <em style={{fontFamily: 'var(--font-heading)', color: 'var(--accent3)'}}><DecryptedText text={t.title2} /></em>
       </h2>
 
       <div className="two-col">

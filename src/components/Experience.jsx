@@ -34,7 +34,7 @@ export default function Experience({ language, data, skin }) {
       </div>
       <h2 className="section-title">
         <DecryptedText text={t.title1} /><br />
-        <em style={{fontFamily: "'Fraunces', serif", color: 'var(--accent)'}}>
+        <em style={{fontFamily: 'var(--font-heading)', color: 'var(--accent)'}}>
           <DecryptedText text={t.title2} />
         </em>
       </h2>

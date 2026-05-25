@@ -1,123 +1,124 @@
 import { useState, useEffect, useLayoutEffect } from 'react';
-import { resolveSlugFromHostname, usePortfolioData } from './hooks/usePortfolioData';
-import BootSequence from './components/BootSequence';
-import CustomCursor from './components/CustomCursor';
-import Navbar from './components/Navbar';
-import ApiView from './components/ApiView';
-import Hero from './components/Hero';
-import Marquee from './components/Marquee';
-import TenxyteArchitecture from './components/TenxyteArchitecture';
-import Skills from './components/Skills';
-import Experience from './components/Experience';
-import Formation from './components/Formation';
-import Contact from './components/Contact';
-import DecryptedText from './components/DecryptedText';
-import FooterBugs from './components/FooterBugs';
+import { usePortfolioData, resolveSlugFromHostname } from './hooks/usePortfolioData';
+import BootSequence         from './components/BootSequence';
+import CustomCursor         from './components/CustomCursor';
+import Navbar               from './components/Navbar';
+import ApiView              from './components/ApiView';
+import Hero                 from './components/Hero';
+import Marquee              from './components/Marquee';
+import TenxyteArchitecture  from './components/TenxyteArchitecture';
+import Skills               from './components/Skills';
+import Experience           from './components/Experience';
+import Formation            from './components/Formation';
+import Contact              from './components/Contact';
+import DecryptedText        from './components/DecryptedText';
+import FooterBugs           from './components/FooterBugs';
+import AppSkeleton          from './components/skeletons/AppSkeleton';
+import AppErrorScreen       from './components/AppErrorScreen';
+
+// ─── Injection des CSS Custom Properties ─────────────────────────────────────
+// Injecte les clés "--" du skin dans :root (évite le flash de styles non-thémés)
+function injectCssVariables(skin, theme) {
+  if (!skin) return;
+  const tokens = {
+    ...(skin.theme?.[theme] || {}),
+    ...(skin.typography     || {}),
+    ...(skin.effects        || {}),
+    // layout : seulement les clés CSS (pas heroReversed, skillsColumns)
+    ...(Object.fromEntries(
+      Object.entries(skin.layout || {}).filter(([k]) => k.startsWith('--'))
+    )),
+  };
+  Object.entries(tokens).forEach(([key, value]) => {
+    document.documentElement.style.setProperty(key, value);
+  });
+}
+
+// ─── Thème par défaut ─────────────────────────────────────────────────────────
+function getDefaultTheme() {
+  const hour = new Date().getHours();
+  return (hour >= 18 || hour < 8) ? 'dark' : 'light';
+}
 
 function App() {
-  // Hook unifié Phase 0 — unique point d'entrée des données
+  // ── Résolution slug ───────────────────────────────────────────────────────
   const slug = resolveSlugFromHostname();
-  const { skin, data, isLoading, error } = usePortfolioData(slug);
 
-  const [apiMode, setApiMode] = useState(false);
-  const [language, setLanguage] = useState('fr');
-  const [theme, setTheme] = useState(() => {
-    const hour = new Date().getHours();
-    return (hour >= 18 || hour < 8) ? 'dark' : 'light';
-  });
+  // ── Données (hook unique Phase 0) ─────────────────────────────────────────
+  const { skin, data, status, error, isLoading } = usePortfolioData(slug);
 
-  const toggleApiMode = () => setApiMode(!apiMode);
-  const toggleLanguage = () => setLanguage(language === 'fr' ? 'en' : 'fr');
-  const toggleTheme = () => setTheme(theme === 'dark' ? 'light' : 'dark');
+  // ── États UI ──────────────────────────────────────────────────────────────
+  const [apiMode, setApiMode]   = useState(false);
+  const [theme, setTheme]       = useState(getDefaultTheme);
 
+  // defaultLang vient de data.meta.defaultLang une fois chargé (null en attendant)
+  const [language, setLanguage] = useState(null);
+
+  useEffect(() => {
+    if (data && language === null) {
+      setLanguage(data.meta?.defaultLang || 'fr');
+    }
+  }, [data, language]);
+
+  const toggleApiMode  = () => setApiMode(prev => !prev);
+  const toggleLanguage = () => setLanguage(prev => prev === 'fr' ? 'en' : 'fr');
+  const toggleTheme    = () => setTheme(prev => prev === 'dark' ? 'light' : 'dark');
+
+  // ── Injection CSS Custom Properties ──────────────────────────────────────
   useLayoutEffect(() => {
-    if (!skin) return;
-    const currentTheme = skin.theme[theme];
-
-    // Combine tous les tokens CSS du skin en un seul objet pour injection
-    const cssVariables = {
-      ...currentTheme,
-      ...(skin.typography || {}),
-      ...(skin.layout || {}),
-      ...(skin.effects || {}),
-    };
-
-    Object.entries(cssVariables).forEach(([key, value]) => {
-      // N'injecter que les CSS custom properties (ex: --bg) — pas les valeurs booléennes
-      if (key.startsWith('--')) {
-        document.documentElement.style.setProperty(key, value);
-      }
-    });
+    injectCssVariables(skin, theme);
   }, [theme, skin]);
 
+  // ── Classe body pour le thème ─────────────────────────────────────────────
   useEffect(() => {
-    if (theme === 'light') {
-      document.body.classList.add('light-mode');
-    } else {
-      document.body.classList.remove('light-mode');
-    }
+    document.body.classList.toggle('light-mode', theme === 'light');
   }, [theme]);
 
+  // ── Scroll vers top en mode API ───────────────────────────────────────────
   useEffect(() => {
-    if (apiMode) {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+    if (apiMode) window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [apiMode]);
 
+  // ── Parallax (depuis skin.animations.parallaxFactor) ─────────────────────
   useEffect(() => {
     if (!skin) return;
+    const factor = skin.animations?.parallaxFactor ?? 0.3;
+    if (factor === 0) return; // Parallax désactivé
+
     const handleScroll = () => {
       const heroGrid = document.querySelector('.hero-grid');
       if (heroGrid) {
-        heroGrid.style.transform = `translateY(${window.scrollY * skin.animations.parallaxFactor}px)`;
+        heroGrid.style.transform = `translateY(${window.scrollY * factor}px)`;
       }
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, [skin]);
 
-  if (isLoading) {
-    return (
-      <div style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        minHeight: '100vh',
-        background: 'var(--bg)',
-        color: 'var(--accent)',
-        fontFamily: "'JetBrains Mono', monospace",
-        fontSize: '14px',
-        letterSpacing: '2px'
-      }}>
-        <span>Initializing...</span>
-      </div>
-    );
+  // ── États de chargement / erreur ──────────────────────────────────────────
+  if (isLoading || status === 'loading' || language === null) {
+    return <AppSkeleton theme={theme} />;
   }
 
-  if (error) {
-    return (
-      <div style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        minHeight: '100vh',
-        background: 'var(--bg)',
-        color: 'var(--accent2)',
-        fontFamily: "'JetBrains Mono', monospace",
-        fontSize: '13px',
-        letterSpacing: '1px'
-      }}>
-        <span>Error loading data: {error.message ?? error}</span>
-      </div>
-    );
+  if (status === 'error' || error) {
+    return <AppErrorScreen message={error?.message} slug={slug} theme={theme} />;
   }
 
-  const footer = data.footer[language] || data.footer.fr;
+  // ── Rendu principal ───────────────────────────────────────────────────────
+  const footer         = data.footer[language] || data.footer.fr;
+  const isCustomCursor = skin?.cursor?.type === 'custom' ||
+                         skin?.addons?.customCursor === true;
 
   return (
     <>
-      <BootSequence />
-      <CustomCursor cursorData={skin?.cursor || { type: 'custom' }} />
+      {/* Add-ons conditionnels (contrôlés par skin.addons) */}
+      {skin?.addons?.bootSequence !== false && (
+        <BootSequence data={data} skin={skin} />
+      )}
+      {isCustomCursor && (
+        <CustomCursor cursorData={skin.cursor} />
+      )}
+
       <Navbar
         apiMode={apiMode}
         toggleApiMode={toggleApiMode}
@@ -128,24 +129,32 @@ function App() {
         navData={data.navbar[language] || data.navbar.fr}
       />
 
-      <ApiView apiMode={apiMode} language={language} data={data} />
+      <ApiView apiMode={apiMode} language={language} data={data} slug={slug} />
 
       <div className={`ui-view ${apiMode ? 'hidden' : ''}`} id="uiView">
         <main>
-          <Hero language={language} data={data} skin={skin} />
-          <Marquee />
+          <Hero       language={language} data={data} skin={skin} />
+          <Marquee    data={data} />
           <TenxyteArchitecture language={language} data={data} skin={skin} />
-          <Skills language={language} data={data} skin={skin} />
+          <Skills     language={language} data={data} skin={skin} />
           <Experience language={language} data={data} skin={skin} />
-          <Formation language={language} data={data} skin={skin} />
-          <Contact language={language} data={data} skin={skin} />
+          <Formation  language={language} data={data} skin={skin} />
+          <Contact    language={language} data={data} skin={skin} />
         </main>
 
         <footer style={{ position: 'relative', overflow: 'hidden' }}>
           <FooterBugs />
           <span style={{ position: 'relative', zIndex: 1 }}>{footer.copyright}</span>
           <span style={{ position: 'relative', zIndex: 1 }}>
-            <DecryptedText text={footer.role} /> · <a href={data.meta.contact.github} target="_blank" rel="noreferrer" style={{ color: 'var(--muted)', textDecoration: 'none' }}>GitHub</a>
+            <DecryptedText text={footer.role} />{' · '}
+            <a
+              href={data.meta.contact.github}
+              target="_blank"
+              rel="noreferrer"
+              style={{ color: 'var(--muted)', textDecoration: 'none' }}
+            >
+              GitHub
+            </a>
           </span>
           <span style={{ position: 'relative', zIndex: 1 }}>
             <DecryptedText text={footer.location} />

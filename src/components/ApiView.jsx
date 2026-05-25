@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export default function ApiView({ apiMode, language, data }) {
+export default function ApiView({ apiMode, language, data, slug }) {
   const [copyText, setCopyText] = useState('');
 
   const defaultCopyText = language === 'fr' ? 'Copier' : 'Copy';
@@ -39,7 +39,7 @@ export default function ApiView({ apiMode, language, data }) {
         coverage: tenxyteLang.statsValues.coverage,
         links: {
           pypi: meta.contact.pypi,
-          docs: "https://tenxyte.readthedocs.io"
+          docs: data.tenxyte?.docsUrl || "https://tenxyte.readthedocs.io"
         }
       },
       skills: {
@@ -101,7 +101,7 @@ export default function ApiView({ apiMode, language, data }) {
 
   return (
     <div className={`api-view ${apiMode ? 'visible' : ''}`} id="apiView">
-      <div className="api-endpoint"><span className="method">GET</span> /api/v1/juvanio/profile</div>
+      <div className="api-endpoint"><span className="method">GET</span> /api/v1/{slug || data.meta?.slug || 'portfolio'}/profile</div>
       <div className="api-status">
         <span className="api-status-code">200 OK</span>
         <span className="api-status-text">application/json · 1.2ms</span>

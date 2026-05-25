@@ -1,33 +1,16 @@
-export default function Marquee() {
+export default function Marquee({ data }) {
+  // ✅ Items depuis data.marquee.items (pas de hardcode)
+  const items = data?.marquee?.items || [];
+
+  // Dupliqués pour l'effet CSS de défilement infini
+  const doubled = [...items, ...items];
+
   return (
     <div className="marquee-section">
       <div className="marquee-track">
-        <span className="marquee-item">Django</span>
-        <span className="marquee-item">NestJS</span>
-        <span className="marquee-item">Laravel</span>
-        <span className="marquee-item">FastAPI</span>
-        <span className="marquee-item">React.js</span>
-        <span className="marquee-item">PostgreSQL</span>
-        <span className="marquee-item">Docker</span>
-        <span className="marquee-item">AWS</span>
-        <span className="marquee-item">CI/CD</span>
-        <span className="marquee-item">OWASP</span>
-        <span className="marquee-item">ISO 27001</span>
-        <span className="marquee-item">DDD</span>
-        <span className="marquee-item">Clean Architecture</span>
-        <span className="marquee-item">Django</span>
-        <span className="marquee-item">NestJS</span>
-        <span className="marquee-item">Laravel</span>
-        <span className="marquee-item">FastAPI</span>
-        <span className="marquee-item">React.js</span>
-        <span className="marquee-item">PostgreSQL</span>
-        <span className="marquee-item">Docker</span>
-        <span className="marquee-item">AWS</span>
-        <span className="marquee-item">CI/CD</span>
-        <span className="marquee-item">OWASP</span>
-        <span className="marquee-item">ISO 27001</span>
-        <span className="marquee-item">DDD</span>
-        <span className="marquee-item">Clean Architecture</span>
+        {doubled.map((item, i) => (
+          <span className="marquee-item" key={i}>{item}</span>
+        ))}
       </div>
     </div>
   );

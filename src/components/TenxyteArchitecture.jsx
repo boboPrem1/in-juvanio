@@ -39,7 +39,7 @@ export default function TenxyteArchitecture({ language, data, skin }) {
             <a href={data.meta.contact.pypi} target="_blank" rel="noreferrer" className="btn btn-primary">
               <DecryptedText text={t.cta.package} />
             </a>
-            <a href="https://tenxyte.readthedocs.io" target="_blank" rel="noreferrer" className="btn btn-ghost">
+            <a href={data.tenxyte?.docsUrl || 'https://tenxyte.readthedocs.io'} target="_blank" rel="noreferrer" className="btn btn-ghost">
               <DecryptedText text={t.cta.docs} />
             </a>
           </div>

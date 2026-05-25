@@ -1,30 +1,30 @@
 import { useEffect, useRef } from 'react';
 
-const logLines = [
-  '<span style="color:var(--accent)">[INFO ]</span> Auth.JWT — Token issued for user_8a3f',
-  '<span style="color:var(--muted)">[DEBUG]</span> RBAC — Role check: admin → ALLOW',
-  '<span style="color:var(--accent)">[INFO ]</span> AIRS.Sentinel — Prompt scan: CLEAN',
-  '<span style="color:var(--muted)">[DEBUG]</span> DB.Pool — Connection acquired (pg:5432)',
-  '<span style="color:var(--accent)">[INFO ]</span> API.Gateway — POST /auth/login 200 12ms',
-  '<span style="color:var(--accent3)">[WARN ]</span> RateLimit — Intent "delete" near threshold',
-  '<span style="color:var(--accent)">[INFO ]</span> WebAuthn — Credential verified OK',
-  '<span style="color:var(--muted)">[DEBUG]</span> Cache.Redis — HIT session:a8f3e1',
-  '<span style="color:var(--accent)">[INFO ]</span> AIRS.AuditTrail — Action logged: ai_query',
-  '<span style="color:var(--accent)">[INFO ]</span> CI/CD — Pipeline #847 passed (2,312 tests)',
-  '<span style="color:var(--muted)">[DEBUG]</span> TLS — Handshake complete (TLS 1.3)',
-  '<span style="color:var(--accent)">[INFO ]</span> Deploy — Container pushed to registry',
-  '<span style="color:var(--muted)">[DEBUG]</span> Auth.2FA — TOTP verified for user_c7d2',
-  '<span style="color:var(--accent)">[INFO ]</span> OWASP — Injection scan: PASS',
-  '<span style="color:var(--muted)">[DEBUG]</span> DB.Mongo — Document indexed (users)',
-  '<span style="color:var(--accent)">[INFO ]</span> API.Gateway — GET /api/v1/users 200 3ms',
-  '<span style="color:var(--accent3)">[WARN ]</span> Memory — Heap at 72% capacity',
-  '<span style="color:var(--accent)">[INFO ]</span> Auth.Session — Refresh token rotated',
-  '<span style="color:var(--muted)">[DEBUG]</span> CORS — Origin allowed: *.tenxyte.io',
-  '<span style="color:var(--accent)">[INFO ]</span> AIRS.Guard — AI rate limit: 45/100 req/min'
+// Fallback si data.terminal absent (compatibilité dev seeds sans la clé)
+const DEFAULT_LOGS = [
+  { level: 'INFO',  color: 'accent',  text: 'Auth.JWT — Token issued for user_8a3f' },
+  { level: 'DEBUG', color: 'muted',   text: 'RBAC — Role check: admin → ALLOW' },
+  { level: 'INFO',  color: 'accent',  text: 'AIRS.Sentinel — Prompt scan: CLEAN' },
+  { level: 'DEBUG', color: 'muted',   text: 'DB.Pool — Connection acquired (pg:5432)' },
+  { level: 'INFO',  color: 'accent',  text: 'API.Gateway — POST /auth/login 200 12ms' },
+  { level: 'WARN',  color: 'accent3', text: 'RateLimit — Intent "delete" near threshold' },
+  { level: 'INFO',  color: 'accent',  text: 'WebAuthn — Credential verified OK' },
+  { level: 'DEBUG', color: 'muted',   text: 'Cache.Redis — HIT session:a8f3e1' },
+  { level: 'INFO',  color: 'accent',  text: 'AIRS.AuditTrail — Action logged: ai_query' },
+  { level: 'INFO',  color: 'accent',  text: 'CI/CD — Pipeline #847 passed (2,312 tests)' },
 ];
 
-export default function TerminalBackground() {
+// Construit le HTML d'une ligne de log à partir de l'objet data
+function buildLogHtml(log) {
+  const levelPad = log.level.padEnd(5, ' ');
+  return `<span style="color:var(--${log.color})">[${levelPad}]</span> ${log.text}`;
+}
+
+export default function TerminalBackground({ data }) {
   const scrollRef = useRef(null);
+
+  // ✅ Logs depuis data.terminal.logs (avec fallback)
+  const logs = (data?.terminal?.logs || DEFAULT_LOGS).map(buildLogHtml);
 
   useEffect(() => {
     const el = scrollRef.current;
@@ -33,11 +33,11 @@ export default function TerminalBackground() {
     let index = 0;
     let timeoutId;
 
-    // Initial fill
-    for (let i = 0; i < 15; i++) {
+    // Remplissage initial
+    for (let i = 0; i < Math.min(15, logs.length); i++) {
       const line = document.createElement('div');
       line.className = 'terminal-line';
-      line.innerHTML = logLines[i % logLines.length];
+      line.innerHTML = logs[i % logs.length];
       el.appendChild(line);
       index++;
     }
@@ -46,35 +46,26 @@ export default function TerminalBackground() {
     const addLog = () => {
       const line = document.createElement('div');
       line.className = 'terminal-line';
-      line.innerHTML = logLines[index % logLines.length];
-      line.style.opacity = '0';
-      line.style.transform = 'translateY(10px)';
-      line.style.transition = 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
-      
+      line.innerHTML = logs[index % logs.length];
+      line.style.cssText =
+        'opacity:0;transform:translateY(10px);transition:all 0.4s cubic-bezier(0.4,0,0.2,1)';
       el.appendChild(line);
-      
       void line.offsetWidth; // Force reflow
       line.style.opacity = '1';
       line.style.transform = 'translateY(0)';
       el.scrollTop = el.scrollHeight;
-
-      if (el.children.length > 30) {
-        el.removeChild(el.firstChild);
-      }
-
+      if (el.children.length > 30) el.removeChild(el.firstChild);
       index++;
-      const delay = Math.random() * 800 + 200;
-      timeoutId = setTimeout(addLog, delay);
+      timeoutId = setTimeout(addLog, Math.random() * 800 + 200);
     };
 
     timeoutId = setTimeout(addLog, 1000);
-
     return () => clearTimeout(timeoutId);
-  }, []);
+  }, [logs]);
 
   return (
     <div className="hero-terminal-bg">
-      <div className="terminal-scroll" id="terminalScroll" ref={scrollRef}></div>
+      <div className="terminal-scroll" id="terminalScroll" ref={scrollRef} />
     </div>
   );
 }
