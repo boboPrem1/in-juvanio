@@ -697,7 +697,7 @@
     }
 
     .hero-terminal-bg::before {
-      content: 'â— â— â—';
+      content: '\\-  \\--  \\-';
       position: absolute;
       top: 8px;
       left: 12px;
@@ -1814,6 +1814,10 @@
       transform: translateY(-6.5px) rotate(-45deg);
     }
 
+    .hero-mobile-image {
+      display: none;
+    }
+
     /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
        RESPONSIVE
     â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
@@ -1923,22 +1927,6 @@
         justify-content: center;
       }
 
-      .hero-mobile-image {
-        display: block;
-        width: 100%;
-        max-width: 400px;
-        aspect-ratio: 1 / 1;
-        margin: 40px auto 0;
-        border: 1px solid var(--border);
-        overflow: hidden;
-      }
-
-      .hero-mobile-image img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-
       .hero-scroll {
         left: 28px;
         bottom: 28px;
@@ -2028,6 +2016,22 @@
     }
 
     @media (max-width: 600px) {
+      .hero-mobile-image {
+        display: block;
+        width: 100%;
+        max-width: 400px;
+        aspect-ratio: 1 / 1;
+        margin: 40px auto 0;
+        border: 1px solid var(--border);
+        overflow: hidden;
+      }
+
+      .hero-mobile-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
       .hero-left {
         padding: 90px 20px 72px;
       }

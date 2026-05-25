@@ -48,14 +48,14 @@ export default function Hero({ language }) {
           <DecryptedText text={t.title} duration={700} /><br />
           <span>Django · NestJS · Laravel · DevSecOps</span><br />
           <DecryptedText text={t.founder} duration={500} /> <span>Tenxyte</span> — <DecryptedText text={t.framework} duration={600} /><br /><br />
-          <DecryptedText text={t.desc} duration={800} /> <span style={{color: 'var(--accent2)'}}><DecryptedText text={t.leadership} duration={600} /></span>.
+          <DecryptedText text={t.desc} duration={800} /> <span style={{ color: 'var(--accent2)' }}><DecryptedText text={t.leadership} duration={600} /></span>.
         </p>
         <div className="hero-cta">
           <a href="mailto:jamouzougan@gmail.com" className="btn btn-primary"><DecryptedText text={t.contactBtn} duration={400} /></a>
           <a href="G_Curriculum_Vitae.pdf" download className="btn btn-ghost"><DecryptedText text={t.cvBtn} duration={400} /></a>
           <a href="#experience" className="btn btn-ghost"><DecryptedText text={t.expBtn} duration={400} /></a>
         </div>
-        
+
         <div className="hero-mobile-image">
           <img src="azerty.jpg" alt="Amouzougan Kangni Juvanio" />
         </div>
@@ -75,7 +75,7 @@ export default function Hero({ language }) {
         </div>
       </div>
 
-      <a href="#tenxyte" className="hero-scroll" style={{textDecoration: 'none'}}><DecryptedText text={t.scroll} duration={400} /></a>
+      <a href="#tenxyte" className="hero-scroll" style={{ textDecoration: 'none' }}><DecryptedText text={t.scroll} duration={400} /></a>
     </section>
   );
 }
