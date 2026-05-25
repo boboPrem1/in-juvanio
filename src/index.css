@@ -525,6 +525,7 @@
       height: 6px;
       background: var(--accent);
       display: inline-block;
+      flex-shrink: 0;
       clip-path: polygon(0 5px, 32px 5px, 32px 0, 40px 6px, 0 6px);
       transform: translateY(-2px);
     }
