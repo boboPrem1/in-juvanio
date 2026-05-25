@@ -41,8 +41,15 @@ export default function Hero({ language }) {
         <div className="hero-tag"><DecryptedText text={t.tag} duration={600} /></div>
         <h1 className="hero-name">
           <span className="line1">Amouzougan</span>
-          <span className="line2">Kangni</span>
-          <span className="line3">Juvanio</span>
+          <div className="hero-name-2">
+            <div className="hero-name-2-1">
+              <span className="line2">Kangni</span>
+              <span className="line3">Juvanio</span>
+            </div>
+            <div className="hero-mobile-image">
+              <img src="azerty.jpg" alt="Amouzougan Kangni Juvanio" />
+            </div>
+          </div>
         </h1>
         <p className="hero-title">
           <DecryptedText text={t.title} duration={700} /><br />
@@ -54,10 +61,6 @@ export default function Hero({ language }) {
           <a href="mailto:jamouzougan@gmail.com" className="btn btn-primary"><DecryptedText text={t.contactBtn} duration={400} /></a>
           <a href="G_Curriculum_Vitae.pdf" download className="btn btn-ghost"><DecryptedText text={t.cvBtn} duration={400} /></a>
           <a href="#experience" className="btn btn-ghost"><DecryptedText text={t.expBtn} duration={400} /></a>
-        </div>
-
-        <div className="hero-mobile-image">
-          <img src="azerty.jpg" alt="Amouzougan Kangni Juvanio" />
         </div>
       </div>
 
