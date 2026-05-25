@@ -12,7 +12,7 @@ export default function Hero({ language }) {
       desc: "Habitué à intervenir en autonomie complète — de la conception à la mise en production — aussi bien en solo qu'en",
       leadership: "leadership technique d'équipe",
       contactBtn: "Me contacter",
-      cvBtn: "Télécharger CV",
+      cvBtn: "Télécharger mon CV",
       expBtn: "Voir l'expérience",
       scroll: "Scroll"
     },
@@ -24,7 +24,7 @@ export default function Hero({ language }) {
       desc: "Accustomed to operating in complete autonomy — from design to production deployment — whether working solo or providing",
       leadership: "technical team leadership",
       contactBtn: "Contact me",
-      cvBtn: "Download CV",
+      cvBtn: "Download my CV",
       expBtn: "View experience",
       scroll: "Scroll"
     }

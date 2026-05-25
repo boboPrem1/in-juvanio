@@ -147,9 +147,7 @@
       opacity: 0.05;
     }
 
-    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-       BOOT SEQUENCE OVERLAY
-    â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+    /* BOOT SEQUENCE OVERLAY */
     .boot-overlay {
       position: fixed;
       inset: 0;
@@ -240,9 +238,7 @@
       transition: width 0.3s ease;
     }
 
-    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-       NAV
-    â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+    /* NAV */
     nav {
       position: fixed;
       top: 0;
@@ -258,7 +254,7 @@
       nav {
         left: 0;
         justify-content: flex-end;
-        background: linear-gradient(to bottom, var(--bg) 10%, transparent 100%);
+        background: linear-gradient(to bottom, var(--bg) 40%, transparent 100%);
         padding-bottom: 40px;
         pointer-events: none;
         /* Let clicks pass through the transparent part */
@@ -346,9 +342,7 @@
       box-shadow: 0 0 8px var(--glow);
     }
 
-    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-       API MODE VIEW
-    â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+    /* API MODE VIEW */
     .api-view {
       display: none;
       min-height: 100vh;
@@ -461,9 +455,7 @@
       display: none;
     }
 
-    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-       HERO
-    â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+    /* HERO */
     .hero {
       min-height: 100vh;
       display: grid;
@@ -864,9 +856,7 @@
       }
     }
 
-    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-       SECTION BASE
-    â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+    /* SECTION BASE */
     section {
       padding: 120px 80px;
       position: relative;
@@ -898,9 +888,7 @@
       margin-bottom: 64px;
     }
 
-    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-       TENXYTE â€” ARCHITECTURE BLUEPRINT
-    â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+    /* TENXYTE ARCHITECTURE BLUEPRINT */
     .tenxyte {
       background: var(--surface);
       border-top: 1px solid var(--border);
@@ -1144,9 +1132,7 @@
       letter-spacing: 2px;
     }
 
-    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-       SKILLS â€” SERVER RACK STYLE
-    â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+    /* SKILLS  SERVER RACK STYLE */
     .skills-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -1278,9 +1264,7 @@
       color: var(--text);
     }
 
-    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-       EXPERIENCE â€” GIT TIMELINE
-    â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+    /* EXPERIENCE  GIT TIMELINE */
     .experience {
       background: var(--surface);
       border-top: 1px solid var(--border);
@@ -1447,9 +1431,7 @@
       color: var(--accent3);
     }
 
-    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-       FORMATION
-    â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+    /* FORMATION */
     .two-col {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -1524,9 +1506,7 @@
       border: 1px solid var(--border);
     }
 
-    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-       LANGUAGES
-    â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+    /* LANGUAGES */
     .langs {
       display: flex;
       gap: 24px;
@@ -1573,9 +1553,7 @@
       letter-spacing: 1px;
     }
 
-    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-       CONTACT â€” TERMINAL STYLE
-    â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+    /* CONTACT TERMINAL STYLE */
     .contact {
       min-height: 60vh;
       display: flex;
@@ -1669,6 +1647,20 @@
       padding: 20px 24px;
     }
 
+    .contact-terminal-body a {
+      display: flex;
+      justify-content: start;
+      align-items: start;
+    }
+
+    .contact-terminal-body .cmd-arg {
+      /* texte sur une seule ligne, overflow ellipsis */
+      max-width: 100%;
+      text-wrap: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+
     .contact-cmd {
       display: flex;
       align-items: center;
@@ -1717,9 +1709,7 @@
       z-index: 1;
     }
 
-    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-       MARQUEE
-    â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+    /* MARQUEE */
     .marquee-section {
       overflow: hidden;
       padding: 24px 0;
@@ -1762,9 +1752,7 @@
       }
     }
 
-    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-       FOOTER
-    â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+    /* FOOTER */
     footer {
       padding: 32px 80px;
       border-top: 1px solid var(--border);
@@ -1777,9 +1765,7 @@
       text-transform: uppercase;
     }
 
-    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-       NAV HAMBURGER (mobile)
-    â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+    /* NAV HAMBURGER (mobile) */
     .nav-toggle {
       display: none;
       flex-direction: column;
@@ -1823,9 +1809,30 @@
       display: none;
     }
 
-    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-       RESPONSIVE
-    â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+    /* RESPONSIVE */
+
+    @media (min-width: 900px) {
+      footer {
+        padding: 32px 64px;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        justify-content: center;
+        align-items: center;
+      }
+
+      footer span:nth-child(1) {
+        text-align: left;
+      }
+
+      footer span:nth-child(2) {
+        text-align: center;
+      }
+
+      footer span:nth-child(3) {
+        text-align: right;
+      }
+    }
+
     @media (max-width: 1024px) {
       .hero-left {
         padding: 80px 40px 80px 48px;

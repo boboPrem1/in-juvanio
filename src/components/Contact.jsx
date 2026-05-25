@@ -60,7 +60,7 @@ export default function Contact({ language = 'fr' }) {
         </div>
       </div>
       <div className="contact-cv-dl">
-        <a href="G_Curriculum_Vitae.pdf" download className="btn btn-primary" style={{display: 'inline-block'}}>
+        <a href="G_Curriculum_Vitae.pdf" download className="btn btn-primary" style={{ display: 'inline-block' }}>
           <DecryptedText text={t.dlText} />
         </a>
       </div>
