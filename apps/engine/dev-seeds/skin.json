@@ -1,0 +1,70 @@
+{
+  "theme": {
+    "light": {
+      "--bg": "#f8fafc",
+      "--surface": "#ffffff",
+      "--surface2": "#e2e8f0",
+      "--accent": "#0b7a6f",
+      "--accent2": "#be123c",
+      "--accent3": "#b45309",
+      "--text": "#0f172a",
+      "--muted": "#475569",
+      "--border": "rgba(15, 23, 42, 0.12)",
+      "--glow": "rgba(11, 122, 111, 0.2)"
+    },
+    "dark": {
+      "--bg": "#080a0f",
+      "--surface": "#0d1017",
+      "--surface2": "#121820",
+      "--accent": "#00e5c3",
+      "--accent2": "#ff4d6d",
+      "--accent3": "#ffd166",
+      "--text": "#e8eaf0",
+      "--muted": "#7a859c",
+      "--border": "rgba(255, 255, 255, 0.06)",
+      "--glow": "rgba(0, 229, 195, 0.15)"
+    }
+  },
+  "typography": {
+    "--font-mono": "'DM Mono', monospace",
+    "--font-heading": "'Fraunces', serif"
+  },
+  "layout": {
+    "heroReversed": false,
+    "skillsColumns": 4,
+    "--border-radius-base": "4px",
+    "--border-radius-large": "50%",
+    "--hero-gap": "0px"
+  },
+  "animations": {
+    "parallaxFactor": 0.3,
+    "stagger": {
+      "skillsDelay": 150,
+      "experienceDelay": 100
+    },
+    "decryptedText": {
+      "short": 400,
+      "medium": 600,
+      "long": 900,
+      "xlong": 1200
+    }
+  },
+  "effects": {
+    "--noise-opacity": "0.05",
+    "--grid-opacity": "0.6"
+  },
+  "cursor": {
+    "type": "custom"
+  },
+  "assets": {
+    "heroPhoto": "azerty.jpg",
+    "favicon": "favicon.png",
+    "cvPdf": "G_Curriculum_Vitae.pdf"
+  },
+  "addons": {
+    "customCursor": true,
+    "bootSequence": false,
+    "noiseOverlay": true,
+    "networkCanvas": false
+  }
+}

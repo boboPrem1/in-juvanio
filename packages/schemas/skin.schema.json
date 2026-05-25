@@ -1,0 +1,176 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://portfolioengine.com/schemas/skin.schema.json",
+  "title": "PortfolioSkin",
+  "description": "Schéma complet d'un skin Portfolio Engine. Utilisé côté API (Pydantic/Zod), Studio (génération de formulaires) et moteur (validation en dev).",
+  "type": "object",
+  "required": ["theme", "typography", "layout", "animations", "effects", "cursor", "assets"],
+  "additionalProperties": false,
+
+  "properties": {
+
+    "theme": {
+      "type": "object",
+      "required": ["light", "dark"],
+      "description": "Tokens de couleur pour les deux modes.",
+      "properties": {
+        "light": { "$ref": "#/$defs/ThemeTokens" },
+        "dark":  { "$ref": "#/$defs/ThemeTokens" }
+      }
+    },
+
+    "typography": {
+      "type": "object",
+      "required": ["--font-mono", "--font-heading"],
+      "description": "Déclarations de polices utilisées dans le portfolio.",
+      "properties": {
+        "--font-mono":    { "type": "string", "examples": ["'DM Mono', monospace"] },
+        "--font-heading": { "type": "string", "examples": ["'Fraunces', serif"] },
+        "--font-body":    { "type": "string", "description": "Optionnel. Défaut: system-ui" }
+      },
+      "additionalProperties": false
+    },
+
+    "layout": {
+      "type": "object",
+      "required": ["skillsColumns", "--border-radius-base", "--border-radius-large"],
+      "description": "Paramètres de mise en page structurelle.",
+      "properties": {
+        "heroReversed":          { "type": "boolean", "default": false, "description": "Inverse photo/texte dans le Hero." },
+        "skillsColumns":         { "type": "integer", "minimum": 1, "maximum": 6, "default": 4 },
+        "--border-radius-base":  { "type": "string", "pattern": "^[0-9]+(px|rem|em|%)$", "default": "4px" },
+        "--border-radius-large": { "type": "string", "default": "50%" },
+        "--hero-gap":            { "type": "string", "default": "0px" }
+      },
+      "additionalProperties": false
+    },
+
+    "animations": {
+      "type": "object",
+      "description": "Paramètres globaux d'animation.",
+      "properties": {
+        "parallaxFactor": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "default": 0.3,
+          "description": "Intensité de l'effet parallax. 0 = désactivé."
+        },
+        "stagger": {
+          "type": "object",
+          "description": "Délais d'apparition en cascade (ms).",
+          "properties": {
+            "skillsDelay":     { "type": "integer", "minimum": 0, "maximum": 1000, "default": 150 },
+            "experienceDelay": { "type": "integer", "minimum": 0, "maximum": 1000, "default": 100 }
+          },
+          "additionalProperties": false
+        },
+        "decryptedText": {
+          "type": "object",
+          "description": "Durées de l'animation de déchiffrement de texte (ms). Générique: short/medium/long/xlong.",
+          "properties": {
+            "short":  { "type": "integer", "minimum": 0, "default": 400 },
+            "medium": { "type": "integer", "minimum": 0, "default": 600 },
+            "long":   { "type": "integer", "minimum": 0, "default": 900 },
+            "xlong":  { "type": "integer", "minimum": 0, "default": 1200 }
+          },
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "effects": {
+      "type": "object",
+      "description": "Effets visuels globaux (bruit, grille de fond).",
+      "properties": {
+        "--noise-opacity": { "type": "string", "pattern": "^0(\\.\\d+)?$|^1$", "default": "0.05" },
+        "--grid-opacity":  { "type": "string", "pattern": "^0(\\.\\d+)?$|^1$", "default": "0.6" }
+      },
+      "additionalProperties": false
+    },
+
+    "cursor": {
+      "type": "object",
+      "required": ["type"],
+      "description": "Configuration du curseur personnalisé.",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["default", "custom", "none"],
+          "default": "default",
+          "description": "'custom' active le composant CustomCursor. 'none' masque le curseur."
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "assets": {
+      "type": "object",
+      "description": "URLs des assets statiques. En dev: chemins relatifs. En prod: URLs CDN complètes.",
+      "properties": {
+        "heroPhoto": {
+          "type": "string",
+          "description": "En dev: nom de fichier (ex: 'azerty.jpg'). En prod: URL CDN complète."
+        },
+        "favicon": {
+          "type": "string",
+          "description": "En dev: nom de fichier. En prod: URL CDN."
+        },
+        "cvPdf": {
+          "type": "string",
+          "description": "Optionnel. URL du CV PDF. En prod: URL CDN signée."
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "addons": {
+      "type": "object",
+      "description": "Activation des add-ons globaux (optionnel — tous à false par défaut).",
+      "properties": {
+        "customCursor":  { "type": "boolean", "default": false },
+        "bootSequence":  { "type": "boolean", "default": false, "description": "Animation de démarrage style terminal." },
+        "noiseOverlay":  { "type": "boolean", "default": true },
+        "networkCanvas": { "type": "boolean", "default": false, "description": "Canvas de particules en fond." }
+      },
+      "additionalProperties": false
+    },
+
+    "architecture": {
+      "type": "array",
+      "description": "Définition de la structure de la page (Phase 3). Tableau ordonné des blocs à rendre.",
+      "items": {
+        "type": "object",
+        "required": ["id", "component"],
+        "properties": {
+          "id":        { "type": "string", "description": "Identifiant unique du bloc (ex: 'hero-main')." },
+          "component": { "type": "string", "description": "Nom du composant dans Registry.js (ex: 'HeroTerminal')." },
+          "visible":   { "type": "boolean", "default": true },
+          "props":     { "type": "object", "description": "Props supplémentaires passées au composant.", "additionalProperties": true }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+
+  "$defs": {
+    "ThemeTokens": {
+      "type": "object",
+      "required": ["--bg", "--surface", "--surface2", "--accent", "--accent2", "--accent3", "--text", "--muted", "--border", "--glow"],
+      "additionalProperties": false,
+      "properties": {
+        "--bg":       { "type": "string", "description": "Couleur de fond principale." },
+        "--surface":  { "type": "string", "description": "Fond des cartes/panneaux." },
+        "--surface2": { "type": "string", "description": "Fond secondaire (hover, séparateurs)." },
+        "--accent":   { "type": "string", "description": "Couleur d'accentuation principale (CTA, liens actifs)." },
+        "--accent2":  { "type": "string", "description": "Couleur d'accentuation secondaire (badges erreur/alerte)." },
+        "--accent3":  { "type": "string", "description": "Couleur d'accentuation tertiaire (warnings, highlights)." },
+        "--text":     { "type": "string", "description": "Couleur de texte principal." },
+        "--muted":    { "type": "string", "description": "Texte secondaire/désactivé." },
+        "--border":   { "type": "string", "description": "Couleur des bordures (rgba recommandé)." },
+        "--glow":     { "type": "string", "description": "Couleur des effets de glow/halo (rgba recommandé)." }
+      }
+    }
+  }
+}

@@ -1,0 +1,171 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://portfolioengine.com/schemas/data.schema.json",
+  "title": "PortfolioData",
+  "description": "Schéma complet des données de contenu d'un portfolio. Multi-langue (fr/en).",
+  "type": "object",
+  "required": ["meta", "navbar", "footer", "hero", "skills", "experience", "formation", "contact"],
+  "additionalProperties": false,
+
+  "properties": {
+
+    "meta": {
+      "type": "object",
+      "required": ["name", "available", "contact"],
+      "properties": {
+        "name":      { "type": "string", "description": "Nom complet affiché. Ex: 'Amouzougan Kangni Juvanio'." },
+        "available": { "type": "boolean", "description": "Badge de disponibilité affiché dans le Hero." },
+        "contact": {
+          "type": "object",
+          "required": ["email"],
+          "properties": {
+            "email":            { "type": "string", "format": "email" },
+            "phone":            { "type": "string" },
+            "linkedin":         { "type": "string", "format": "uri" },
+            "linkedin_handle":  { "type": "string" },
+            "github":           { "type": "string", "format": "uri" },
+            "github_handle":    { "type": "string" },
+            "pypi":             { "type": "string", "format": "uri" },
+            "pypi_handle":      { "type": "string" },
+            "cv":               { "type": "string", "description": "Nom de fichier en dev, URL CDN en prod." }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "navbar": { "$ref": "#/$defs/I18nObject", "description": "Labels de navigation, par langue." },
+    "footer": { "$ref": "#/$defs/I18nObject", "description": "Contenu du footer, par langue." },
+
+    "hero": {
+      "$ref": "#/$defs/I18nObject",
+      "description": "Contenu de la section Hero. Chaque langue contient: tag, title, positioning, founder, framework, desc, leadership, contactBtn, cvBtn, expBtn, scroll."
+    },
+
+    "tenxyte": {
+      "$ref": "#/$defs/I18nObject",
+      "description": "Section projet phare Tenxyte. Contient badge, desc, stats, statsValues, cta, layers (architecture blueprint)."
+    },
+
+    "skills": {
+      "type": "object",
+      "description": "Section compétences, multi-langue.",
+      "patternProperties": {
+        "^(fr|en)$": {
+          "type": "object",
+          "required": ["sectionNum", "sectionLabel", "title1", "title2", "racks"],
+          "properties": {
+            "sectionNum":   { "type": "string" },
+            "sectionLabel": { "type": "string" },
+            "title1":       { "type": "string" },
+            "title2":       { "type": "string" },
+            "racks": {
+              "type": "object",
+              "description": "Map de racks de compétences. Clé = identifiant du rack.",
+              "additionalProperties": { "$ref": "#/$defs/SkillRack" }
+            }
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "experience": {
+      "type": "object",
+      "description": "Section expérience professionnelle, multi-langue.",
+      "patternProperties": {
+        "^(fr|en)$": {
+          "type": "object",
+          "required": ["sectionNum", "sectionLabel", "title1", "title2", "jobs"],
+          "properties": {
+            "sectionNum":   { "type": "string" },
+            "sectionLabel": { "type": "string" },
+            "title1":       { "type": "string" },
+            "title2":       { "type": "string" },
+            "jobs": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/Job" }
+            }
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "formation": { "$ref": "#/$defs/I18nObject" },
+    "contact":   { "$ref": "#/$defs/I18nObject" }
+  },
+
+  "$defs": {
+    "I18nObject": {
+      "type": "object",
+      "patternProperties": {
+        "^[a-z]{2}$": { "type": "object", "additionalProperties": true }
+      },
+      "additionalProperties": false
+    },
+
+    "SkillRack": {
+      "type": "object",
+      "required": ["title"],
+      "properties": {
+        "rackId": { "type": "string", "pattern": "^RACK-\\d{2}$" },
+        "icon":   { "type": "string" },
+        "leds":   {
+          "type": "array",
+          "items": { "type": "string", "enum": ["green", "yellow", "red", "off"] },
+          "minItems": 1,
+          "maxItems": 5
+        },
+        "title": { "type": "string" },
+        "tags":  { "type": "array", "items": { "type": "string" } },
+        "items": {
+          "type": "array",
+          "description": "Pour les racks avec niveau (langues).",
+          "items": {
+            "type": "object",
+            "required": ["name", "level", "width"],
+            "properties": {
+              "name":  { "type": "string" },
+              "level": { "type": "string" },
+              "width": { "type": "string", "pattern": "^\\d+%$" }
+            }
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "Job": {
+      "type": "object",
+      "required": ["hash", "date", "company", "isRoleSplit", "role", "changes"],
+      "properties": {
+        "hash":          { "type": "string", "pattern": "^[a-f0-9]{7}$", "description": "Hash git-style pour identifier l'entrée." },
+        "date":          { "type": "string" },
+        "company":       { "type": "string" },
+        "isRoleSplit":   { "type": "boolean" },
+        "rolePrefix":    { "type": "string" },
+        "roleHighlight": { "type": "string", "description": "Partie du rôle affichée en couleur accent." },
+        "roleSuffix":    { "type": "string" },
+        "badge":         { "type": "string", "enum": ["LEAD", "CTO", "FREELANCE", "INTERN"] },
+        "role":          { "type": "string" },
+        "desc":          { "type": "string" },
+        "changes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["type", "symbol", "text"],
+            "properties": {
+              "type":   { "type": "string", "enum": ["add", "mod", "del"] },
+              "symbol": { "type": "string", "enum": ["+", "M", "-"] },
+              "text":   { "type": "string" }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

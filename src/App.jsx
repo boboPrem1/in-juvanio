@@ -1,6 +1,5 @@
 import { useState, useEffect, useLayoutEffect } from 'react';
-import { usePortfolioData } from './hooks/usePortfolioData';
-import { useSkinData } from './hooks/useSkinData';
+import { resolveSlugFromHostname, usePortfolioData } from './hooks/usePortfolioData';
 import BootSequence from './components/BootSequence';
 import CustomCursor from './components/CustomCursor';
 import Navbar from './components/Navbar';
@@ -16,11 +15,9 @@ import DecryptedText from './components/DecryptedText';
 import FooterBugs from './components/FooterBugs';
 
 function App() {
-  const { data, loading: dataLoading, error: dataError } = usePortfolioData();
-  const { skin, loading: skinLoading, error: skinError } = useSkinData();
-
-  const loading = dataLoading || skinLoading;
-  const error = dataError || skinError;
+  // Hook unifié Phase 0 — unique point d'entrée des données
+  const slug = resolveSlugFromHostname();
+  const { skin, data, isLoading, error } = usePortfolioData(slug);
 
   const [apiMode, setApiMode] = useState(false);
   const [language, setLanguage] = useState('fr');
@@ -36,23 +33,21 @@ function App() {
   useLayoutEffect(() => {
     if (!skin) return;
     const currentTheme = skin.theme[theme];
-    
-    // Combine all style objects from the skin into one for injection
+
+    // Combine tous les tokens CSS du skin en un seul objet pour injection
     const cssVariables = {
       ...currentTheme,
       ...(skin.typography || {}),
       ...(skin.layout || {}),
-      ...(skin.effects || {})
+      ...(skin.effects || {}),
     };
 
-    if (cssVariables) {
-      Object.entries(cssVariables).forEach(([key, value]) => {
-        // Only set if key starts with '--' (e.g. skip 'heroReversed' which is a boolean)
-        if (key.startsWith('--')) {
-          document.documentElement.style.setProperty(key, value);
-        }
-      });
-    }
+    Object.entries(cssVariables).forEach(([key, value]) => {
+      // N'injecter que les CSS custom properties (ex: --bg) — pas les valeurs booléennes
+      if (key.startsWith('--')) {
+        document.documentElement.style.setProperty(key, value);
+      }
+    });
   }, [theme, skin]);
 
   useEffect(() => {
@@ -81,7 +76,7 @@ function App() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [skin]);
 
-  if (loading) {
+  if (isLoading) {
     return (
       <div style={{
         display: 'flex',
@@ -112,7 +107,7 @@ function App() {
         fontSize: '13px',
         letterSpacing: '1px'
       }}>
-        <span>Error loading data: {error}</span>
+        <span>Error loading data: {error.message ?? error}</span>
       </div>
     );
   }

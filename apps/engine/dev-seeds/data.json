@@ -1,0 +1,659 @@
+{
+  "meta": {
+    "name": "Amouzougan Kangni Juvanio",
+    "available": true,
+    "contact": {
+      "email": "jamouzougan@gmail.com",
+      "phone": "+228 96 85 89 12",
+      "linkedin": "https://www.linkedin.com/in/kangni-juvanio-amouzougan-709918189/",
+      "linkedin_handle": "kangni-juvanio-amouzougan-709918189",
+      "github": "https://github.com/boboprem1",
+      "github_handle": "boboprem1",
+      "pypi": "https://pypi.org/project/tenxyte/",
+      "pypi_handle": "tenxyte",
+      "cv": "G_Curriculum_Vitae.pdf"
+    }
+  },
+
+  "navbar": {
+    "fr": {
+      "profil": "Profil",
+      "tenxyte": "Tenxyte",
+      "skills": "Skills",
+      "experience": "Expérience",
+      "contact": "Contact",
+      "dark": "DARK",
+      "light": "LIGHT"
+    },
+    "en": {
+      "profil": "Profile",
+      "tenxyte": "Tenxyte",
+      "skills": "Skills",
+      "experience": "Experience",
+      "contact": "Contact",
+      "dark": "DARK",
+      "light": "LIGHT"
+    }
+  },
+
+  "footer": {
+    "fr": {
+      "copyright": "© 2026 Amouzougan Kangni Juvanio",
+      "role": "Backend Architect",
+      "location": "Lomé, Togo 🇹🇬"
+    },
+    "en": {
+      "copyright": "© 2026 Amouzougan Kangni Juvanio",
+      "role": "Backend Architect",
+      "location": "Lome, Togo 🇹🇬"
+    }
+  },
+
+  "hero": {
+    "fr": {
+      "tag": "Backend Architect · DevSecOps · AI-Ready",
+      "title": "Ingénieur Senior Spécialisé Backend & Sécurité",
+      "positioning": "Django · NestJS · Laravel · DevSecOps",
+      "founder": "Fondateur de",
+      "framework": "Framework Open Source",
+      "desc": "Habitué à intervenir en autonomie complète — de la conception à la mise en production — aussi bien en solo qu'en",
+      "leadership": "leadership technique d'équipe",
+      "contactBtn": "Me contacter",
+      "cvBtn": "Télécharger CV",
+      "expBtn": "Voir l'expérience",
+      "scroll": "Scroll"
+    },
+    "en": {
+      "tag": "Backend Architect · DevSecOps · AI-Ready",
+      "title": "Senior Backend & Security Engineer",
+      "positioning": "Django · NestJS · Laravel · DevSecOps",
+      "founder": "Founder of",
+      "framework": "Open Source Framework",
+      "desc": "Accustomed to operating in complete autonomy — from design to production deployment — whether working solo or providing",
+      "leadership": "technical team leadership",
+      "contactBtn": "Contact me",
+      "cvBtn": "Download CV",
+      "expBtn": "View experience",
+      "scroll": "Scroll"
+    }
+  },
+
+  "tenxyte": {
+    "fr": {
+      "badge": "Projet Phare · Open Source",
+      "desc": "Framework Python open-source d'authentification & sécurité production-ready. Conçu pour des backends exposés à des agents IA, avec un module AIRS dédié à la sécurité des interactions entre IA et systèmes critiques.",
+      "stats": {
+        "tests": "Tests Auto.",
+        "coverage": "Couverture",
+        "published": "Publié"
+      },
+      "statsValues": {
+        "tests": "2 300+",
+        "coverage": "~100%",
+        "published": "PyPi"
+      },
+      "cta": {
+        "package": "PyPi Package",
+        "docs": "Documentation"
+      },
+      "label": "Architecture Blueprint",
+      "layer0": {
+        "label": "Layer 0 — Entrypoint",
+        "name": "Client / Agent IA",
+        "desc": "Frontend, Mobile App, LLM Agent, Service Externe"
+      },
+      "layer1": {
+        "authLabel": "Middleware",
+        "authName": "🔐 Auth Engine",
+        "authDesc": "JWT · RBAC · 2FA · WebAuthn",
+        "airsLabel": "Middleware — AI Security",
+        "airsName": "🤖 Module AIRS",
+        "airsDesc": "Prompt injection defense, rate limiting par intent, audit trail IA",
+        "secLabel": "Middleware",
+        "secName": "🛡️ Security Layer",
+        "secDesc": "OWASP · CORS · Rate Limit · CSRF · XSS"
+      },
+      "layer2": {
+        "apiLabel": "Core",
+        "apiName": "⚙️ API Gateway",
+        "apiDesc": "REST APIs · OpenAPI · Validation · Serialization",
+        "bizLabel": "Core",
+        "bizName": "🧩 Business Logic",
+        "bizDesc": "Clean Architecture · DDD · SOLID · Services"
+      },
+      "layer3": {
+        "persistLabel": "Persistence",
+        "pgName": "🗄️ PostgreSQL",
+        "pgDesc": "Primary store",
+        "mongoName": "🍃 MongoDB",
+        "mongoDesc": "Document store",
+        "mysqlName": "🐬 MySQL",
+        "mysqlDesc": "Relational store"
+      }
+    },
+    "en": {
+      "badge": "Flagship Project · Open Source",
+      "desc": "Production-ready open-source Python authentication & security framework. Designed for backends exposed to AI agents, featuring a dedicated AIRS module for securing AI-system interactions.",
+      "stats": {
+        "tests": "Auto Tests",
+        "coverage": "Coverage",
+        "published": "Published"
+      },
+      "statsValues": {
+        "tests": "2,300+",
+        "coverage": "~100%",
+        "published": "PyPi"
+      },
+      "cta": {
+        "package": "PyPi Package",
+        "docs": "Documentation"
+      },
+      "label": "Architecture Blueprint",
+      "layer0": {
+        "label": "Layer 0 — Entrypoint",
+        "name": "Client / AI Agent",
+        "desc": "Frontend, Mobile App, LLM Agent, External Service"
+      },
+      "layer1": {
+        "authLabel": "Middleware",
+        "authName": "🔐 Auth Engine",
+        "authDesc": "JWT · RBAC · 2FA · WebAuthn",
+        "airsLabel": "Middleware — AI Security",
+        "airsName": "🤖 AIRS Module",
+        "airsDesc": "Prompt injection defense, intent-based rate limiting, AI audit trail",
+        "secLabel": "Middleware",
+        "secName": "🛡️ Security Layer",
+        "secDesc": "OWASP · CORS · Rate Limit · CSRF · XSS"
+      },
+      "layer2": {
+        "apiLabel": "Core",
+        "apiName": "⚙️ API Gateway",
+        "apiDesc": "REST APIs · OpenAPI · Validation · Serialization",
+        "bizLabel": "Core",
+        "bizName": "🧩 Business Logic",
+        "bizDesc": "Clean Architecture · DDD · SOLID · Services"
+      },
+      "layer3": {
+        "persistLabel": "Persistence",
+        "pgName": "🗄️ PostgreSQL",
+        "pgDesc": "Primary store",
+        "mongoName": "🍃 MongoDB",
+        "mongoDesc": "Document store",
+        "mysqlName": "🐬 MySQL",
+        "mysqlDesc": "Relational store"
+      }
+    }
+  },
+
+  "skills": {
+    "fr": {
+      "sectionNum": "02",
+      "sectionLabel": "Compétences",
+      "title1": "Boîte à",
+      "title2": "outils",
+      "racks": {
+        "arch": {
+          "rackId": "RACK-01",
+          "icon": "🏗️",
+          "leds": ["green", "green", "yellow"],
+          "title": "Architecture",
+          "tags": ["Microservices", "DDD", "Algorithmes", "Clean Arch.", "SOLID", "TDD", "REST API", "OpenAPI"]
+        },
+        "sec": {
+          "rackId": "RACK-02",
+          "icon": "🔒",
+          "leds": ["red", "green", "green"],
+          "title": "Sécurité",
+          "tags": ["OWASP", "ISO 27001", "SOC2", "GDPR", "AML/KYC", "JWT", "RBAC", "2FA"]
+        },
+        "back": {
+          "rackId": "RACK-03",
+          "icon": "⚙️",
+          "leds": ["green", "green", "green"],
+          "title": "Backend",
+          "tags": ["Python", "Django", "FastAPI", "Node.js", "NestJS", "Express", "PHP", "Laravel", "TypeScript"]
+        },
+        "cloud": {
+          "rackId": "RACK-04",
+          "icon": "☁️",
+          "leds": ["green", "yellow", "green"],
+          "title": "Cloud & DevOps",
+          "tags": ["AWS EC2/S3/LightSail", "AWS IAM/SES", "Docker", "Linux", "Nginx", "GitHub Actions", "GitLab", "Agile/Scrum", "Jenkins", "Kubernetes", "Terraform"]
+        },
+        "db": {
+          "rackId": "RACK-05",
+          "icon": "🗄️",
+          "leds": ["green", "green", "yellow"],
+          "title": "Bases de données",
+          "tags": ["PostgreSQL", "MySQL", "MongoDB", "Modélisation", "Optimisation"]
+        },
+        "front": {
+          "rackId": "RACK-06",
+          "icon": "🖥️",
+          "leds": ["green", "green", "green"],
+          "title": "Frontend",
+          "tags": ["React.js", "Next.js", "Vue.js", "Redux", "Tailwind", "TypeORM"]
+        },
+        "lang": {
+          "rackId": "RACK-07",
+          "icon": "🌍",
+          "leds": ["green", "green", "green"],
+          "title": "Langues",
+          "items": [
+            { "name": "Éwé", "level": "Natif", "width": "100%" },
+            { "name": "Français", "level": "Officiel", "width": "100%" },
+            { "name": "Anglais", "level": "Professionnel", "width": "85%" },
+            { "name": "Allemand", "level": "Débutant", "width": "20%" }
+          ]
+        },
+        "hobbies": {
+          "title": "Loisirs & Centres d'intérêt",
+          "tags": ["Musique", "Écriture", "Lecture", "Danse", "Mangas", "Arts Martiaux", "Gymnastique", "Sports (Football, Basket)"]
+        }
+      }
+    },
+    "en": {
+      "sectionNum": "02",
+      "sectionLabel": "Skills",
+      "title1": "Tool",
+      "title2": "box",
+      "racks": {
+        "arch": {
+          "rackId": "RACK-01",
+          "icon": "🏗️",
+          "leds": ["green", "green", "yellow"],
+          "title": "Architecture",
+          "tags": ["Microservices", "DDD", "Algorithms", "Clean Arch.", "SOLID", "TDD", "REST API", "OpenAPI"]
+        },
+        "sec": {
+          "rackId": "RACK-02",
+          "icon": "🔒",
+          "leds": ["red", "green", "green"],
+          "title": "Security",
+          "tags": ["OWASP", "ISO 27001", "SOC2", "GDPR", "AML/KYC", "JWT", "RBAC", "2FA"]
+        },
+        "back": {
+          "rackId": "RACK-03",
+          "icon": "⚙️",
+          "leds": ["green", "green", "green"],
+          "title": "Backend",
+          "tags": ["Python", "Django", "FastAPI", "Node.js", "NestJS", "Express", "PHP", "Laravel", "TypeScript"]
+        },
+        "cloud": {
+          "rackId": "RACK-04",
+          "icon": "☁️",
+          "leds": ["green", "yellow", "green"],
+          "title": "Cloud & DevOps",
+          "tags": ["AWS EC2/S3/LightSail", "AWS IAM/SES", "Docker", "Linux", "Nginx", "GitHub Actions", "GitLab", "Agile/Scrum", "Jenkins", "Kubernetes", "Terraform"]
+        },
+        "db": {
+          "rackId": "RACK-05",
+          "icon": "🗄️",
+          "leds": ["green", "green", "yellow"],
+          "title": "Databases",
+          "tags": ["PostgreSQL", "MySQL", "MongoDB", "Modeling", "Optimization"]
+        },
+        "front": {
+          "rackId": "RACK-06",
+          "icon": "🖥️",
+          "leds": ["green", "green", "green"],
+          "title": "Frontend",
+          "tags": ["React.js", "Next.js", "Vue.js", "Redux", "Tailwind", "TypeORM"]
+        },
+        "lang": {
+          "rackId": "RACK-07",
+          "icon": "🌍",
+          "leds": ["green", "green", "green"],
+          "title": "Languages",
+          "items": [
+            { "name": "Ewe", "level": "Native", "width": "100%" },
+            { "name": "French", "level": "Official", "width": "100%" },
+            { "name": "English", "level": "Professional", "width": "85%" },
+            { "name": "German", "level": "Beginner", "width": "20%" }
+          ]
+        },
+        "hobbies": {
+          "title": "Hobbies & Interests",
+          "tags": ["Music", "Writing", "Reading", "Dance", "Manga", "Martial Arts", "Gymnastics", "Sports (Soccer, Basketball)"]
+        }
+      }
+    }
+  },
+
+  "experience": {
+    "fr": {
+      "sectionNum": "03",
+      "sectionLabel": "Parcours",
+      "title1": "Expérience",
+      "title2": "Professionnelle",
+      "jobs": [
+        {
+          "hash": "a7f3e1d",
+          "date": "Sept. 2025 → Auj.",
+          "company": "Tenxyte",
+          "isRoleSplit": true,
+          "rolePrefix": "Founder & ",
+          "roleHighlight": "Lead Engineer",
+          "roleSuffix": "",
+          "role": "Founder & Lead Engineer",
+          "desc": "Conception d'un framework open-source Python dédié à l'architecture backend AI-ready production-grade.",
+          "changes": [
+            { "type": "add", "symbol": "+", "text": "Conception orientée expérience développeur (DX) et mise en œuvre de patterns backend scalables" },
+            { "type": "add", "symbol": "+", "text": "Abstractions framework pour la gestion des APIs et flux d'authentification avancés" },
+            { "type": "add", "symbol": "+", "text": "Module AIRS — protection contre prompt injection, rate limiting par intent, audit trail IA" },
+            { "type": "add", "symbol": "+", "text": "Suite complète : 2 300+ tests unitaires, intégration et validation multi-DB" },
+            { "type": "add", "symbol": "+", "text": "Publication PyPi + documentation complète sur ReadTheDocs" },
+            { "type": "add", "symbol": "+", "text": "Pipelines CI/CD pour qualité, stabilité et déploiement continu" }
+          ]
+        },
+        {
+          "hash": "c9b2d4f",
+          "date": "Août 2025 → Jan. 2026",
+          "company": "MTN Bénin",
+          "isRoleSplit": false,
+          "role": "Développeur Consultant Fullstack",
+          "desc": "Solutions numériques internes à forte exigence de performance et fiabilité — Systèmes Télécoms & Gestion Contractuelle.",
+          "changes": [
+            { "type": "add", "symbol": "+", "text": "Application USSD pour consultation des consommations télécoms (voix, data, SMS)" },
+            { "type": "add", "symbol": "+", "text": "Backend Python de surveillance et notification de trafic" },
+            { "type": "add", "symbol": "+", "text": "Plateforme de gestion du cycle de vie des contrats — workflows multi-acteurs, gestion d'états complexes" },
+            { "type": "add", "symbol": "+", "text": "Déploiement et optimisation de services backend avec exigences de performance élevées" }
+          ]
+        },
+        {
+          "hash": "e1a8f5c",
+          "date": "Oct. 2023 → Juil. 2025",
+          "company": "Expand in Africa",
+          "isRoleSplit": true,
+          "rolePrefix": "Développeur Fullstack & ",
+          "roleHighlight": "CTO",
+          "roleSuffix": " — Remote",
+          "badge": "LEAD",
+          "role": "Développeur Fullstack & CTO — Remote",
+          "desc": "Responsable technique de plusieurs plateformes numériques africaines.",
+          "changes": [
+            { "type": "add", "symbol": "+", "text": "possible.africa — plateforme digitale avec front-office, back-office et APIs sécurisées" },
+            { "type": "add", "symbol": "+", "text": "CRM avancé (Pyramide Africa) — pipelines commerciaux, intégrations API, automatisation emails" },
+            { "type": "mod", "symbol": "M", "text": "Architecture applicative, déploiement cloud et sécurité end-to-end" }
+          ]
+        },
+        {
+          "hash": "b4d7e2a",
+          "date": "Jan. 2024 → Juil. 2024",
+          "company": "Holam",
+          "isRoleSplit": true,
+          "rolePrefix": "Développeur Fullstack & ",
+          "roleHighlight": "CTO",
+          "roleSuffix": " — Mission Parallèle",
+          "badge": "LEAD",
+          "role": "Développeur Fullstack & CTO — Mission Parallèle",
+          "desc": "Backend et back-office de l'application mobile de signalement urbain.",
+          "changes": [
+            { "type": "add", "symbol": "+", "text": "APIs sécurisées pour la gestion d'incidents urbains" },
+            { "type": "add", "symbol": "+", "text": "Back Office avancé avec Laravel Filament" },
+            { "type": "add", "symbol": "+", "text": "Services de géolocalisation et triangulation GPS" },
+            { "type": "add", "symbol": "+", "text": "Système OTP mobile + intégration paiements FedaPay" }
+          ]
+        },
+        {
+          "hash": "f2c9a1b",
+          "date": "Avr. → Oct. 2023",
+          "company": "Pandore",
+          "isRoleSplit": false,
+          "role": "Développeur Fullstack",
+          "desc": "",
+          "changes": [
+            { "type": "add", "symbol": "+", "text": "Back-office et APIs de possible.africa" },
+            { "type": "add", "symbol": "+", "text": "Projets web React, Node.js et Drupal en environnement agile" }
+          ]
+        },
+        {
+          "hash": "d8e4b3f",
+          "date": "Oct. 2022 → Mars 2023",
+          "company": "Tarzan · LoveAfrica · ElyDesign",
+          "isRoleSplit": false,
+          "role": "Développeur Fullstack",
+          "desc": "",
+          "changes": [
+            { "type": "add", "symbol": "+", "text": "Back-office Tarzan Mall — Laravel & Livewire (CRUD, rôles, chat intégré)" },
+            { "type": "mod", "symbol": "M", "text": "Refonte plateforme restaurants — React, Next.js, MySQL, Redux, TypeORM" },
+            { "type": "add", "symbol": "+", "text": "Déploiement Vercel & AWS LightSail en cadre agile" }
+          ]
+        },
+        {
+          "hash": "a1b2c3d",
+          "date": "Oct. → Nov. 2020",
+          "company": "Nunyalab · Tech4Rights",
+          "isRoleSplit": false,
+          "role": "Développeur Mobile (Hackathon)",
+          "desc": "",
+          "changes": [
+            { "type": "add", "symbol": "+", "text": "Développement d'application mobile (Spécifications, tests, correction de bugs)" }
+          ]
+        }
+      ]
+    },
+    "en": {
+      "sectionNum": "03",
+      "sectionLabel": "Journey",
+      "title1": "Professional",
+      "title2": "Experience",
+      "jobs": [
+        {
+          "hash": "a7f3e1d",
+          "date": "Sept. 2025 → Pres.",
+          "company": "Tenxyte",
+          "isRoleSplit": true,
+          "rolePrefix": "Founder & ",
+          "roleHighlight": "Lead Engineer",
+          "roleSuffix": "",
+          "role": "Founder & Lead Engineer",
+          "desc": "Design and development of an open-source Python framework dedicated to AI-ready, production-grade backend architecture.",
+          "changes": [
+            { "type": "add", "symbol": "+", "text": "DX-focused design and implementation of scalable backend patterns" },
+            { "type": "add", "symbol": "+", "text": "Framework abstractions for API management and advanced authentication flows" },
+            { "type": "add", "symbol": "+", "text": "AIRS Module — prompt injection defense, intent-based rate limiting, AI audit trail" },
+            { "type": "add", "symbol": "+", "text": "Complete test suite: 2,300+ unit/integration tests and multi-DB validation" },
+            { "type": "add", "symbol": "+", "text": "PyPi publication + full documentation on ReadTheDocs" },
+            { "type": "add", "symbol": "+", "text": "CI/CD pipelines ensuring quality, stability, and continuous deployment" }
+          ]
+        },
+        {
+          "hash": "c9b2d4f",
+          "date": "Aug. 2025 → Jan. 2026",
+          "company": "MTN Benin",
+          "isRoleSplit": false,
+          "role": "Fullstack Consultant Developer",
+          "desc": "Internal digital solutions with high performance and reliability requirements — Telecom Systems & Contract Management.",
+          "changes": [
+            { "type": "add", "symbol": "+", "text": "USSD app for querying telecom consumption (voice, data, SMS)" },
+            { "type": "add", "symbol": "+", "text": "Python backend for traffic monitoring and notifications" },
+            { "type": "add", "symbol": "+", "text": "Contract lifecycle management platform — multi-actor workflows, complex state management" },
+            { "type": "add", "symbol": "+", "text": "Deployment and optimization of high-performance backend services" }
+          ]
+        },
+        {
+          "hash": "e1a8f5c",
+          "date": "Oct. 2023 → Jul. 2025",
+          "company": "Expand in Africa",
+          "isRoleSplit": true,
+          "rolePrefix": "Fullstack Developer & ",
+          "roleHighlight": "CTO",
+          "roleSuffix": " — Remote",
+          "badge": "LEAD",
+          "role": "Fullstack Developer & CTO — Remote",
+          "desc": "Technical lead for multiple African digital platforms.",
+          "changes": [
+            { "type": "add", "symbol": "+", "text": "possible.africa — digital platform with front-office, back-office, and secure APIs" },
+            { "type": "add", "symbol": "+", "text": "Advanced CRM (Pyramide Africa) — sales pipelines, API integrations, email automation" },
+            { "type": "mod", "symbol": "M", "text": "Application architecture, cloud deployment, and end-to-end security" }
+          ]
+        },
+        {
+          "hash": "b4d7e2a",
+          "date": "Jan. 2024 → Jul. 2024",
+          "company": "Holam",
+          "isRoleSplit": true,
+          "rolePrefix": "Fullstack Developer & ",
+          "roleHighlight": "CTO",
+          "roleSuffix": " — Parallel Mission",
+          "badge": "LEAD",
+          "role": "Fullstack Developer & CTO — Parallel Mission",
+          "desc": "Backend and back-office for an urban incident reporting mobile app.",
+          "changes": [
+            { "type": "add", "symbol": "+", "text": "Secure APIs for urban incident management" },
+            { "type": "add", "symbol": "+", "text": "Advanced Back Office using Laravel Filament" },
+            { "type": "add", "symbol": "+", "text": "Geolocation services and GPS triangulation" },
+            { "type": "add", "symbol": "+", "text": "Mobile OTP system + FedaPay payment integration" }
+          ]
+        },
+        {
+          "hash": "f2c9a1b",
+          "date": "Apr. → Oct. 2023",
+          "company": "Pandore",
+          "isRoleSplit": false,
+          "role": "Fullstack Developer",
+          "desc": "",
+          "changes": [
+            { "type": "add", "symbol": "+", "text": "Back-office and APIs for possible.africa" },
+            { "type": "add", "symbol": "+", "text": "React, Node.js, and Drupal web projects in an agile environment" }
+          ]
+        },
+        {
+          "hash": "d8e4b3f",
+          "date": "Oct. 2022 → Mar. 2023",
+          "company": "Tarzan · LoveAfrica · ElyDesign",
+          "isRoleSplit": false,
+          "role": "Fullstack Developer",
+          "desc": "",
+          "changes": [
+            { "type": "add", "symbol": "+", "text": "Tarzan Mall back-office — Laravel & Livewire (CRUD, roles, built-in chat)" },
+            { "type": "mod", "symbol": "M", "text": "Restaurant platform overhaul — React, Next.js, MySQL, Redux, TypeORM" },
+            { "type": "add", "symbol": "+", "text": "Vercel & AWS LightSail deployment in an agile setting" }
+          ]
+        },
+        {
+          "hash": "a1b2c3d",
+          "date": "Oct. → Nov. 2020",
+          "company": "Nunyalab · Tech4Rights",
+          "isRoleSplit": false,
+          "role": "Mobile Developer (Hackathon)",
+          "desc": "",
+          "changes": [
+            { "type": "add", "symbol": "+", "text": "Mobile application development (Specifications, testing, bug fixing)" }
+          ]
+        }
+      ]
+    }
+  },
+
+  "formation": {
+    "fr": {
+      "sectionNum": "04",
+      "sectionLabel": "Formation",
+      "title1": "Études &",
+      "title2": "Certifications",
+      "features1": [
+        {
+          "icon": "🎓",
+          "name": "Développeur Web & Mobile — Certifié",
+          "desc": "Energy Generation / Simplon.co — Fév.–Nov. 2022\nHTML5, CSS3, JS, PHP, Node.js, React, Laravel, Agile",
+          "tag": "CERTIF"
+        },
+        {
+          "icon": "⚡",
+          "name": "JavaScript Developer",
+          "desc": "freeCodeCamp — Fév.–Avr. 2022\nES6, Algorithmique, POO, Programmation fonctionnelle",
+          "tag": "CERTIF"
+        },
+        {
+          "icon": "📚",
+          "name": "Licence Comptabilité–Contrôle–Audit",
+          "desc": "Université de Lomé — 2018–2021\nReconversion tech réussie",
+          "tag": "LICENCE"
+        },
+        {
+          "icon": "🏅",
+          "name": "Baccalauréat G2 — Mention Assez Bien",
+          "desc": "Institut Polytechnique du Golfe — 2015–2018\nComptabilité & Gestion",
+          "tag": "BAC"
+        },
+        {
+          "icon": "📊",
+          "name": "Formation SAGE 100 Comptabilité",
+          "desc": "CIGC — Oct.–Nov. 2021",
+          "tag": "CERTIF"
+        }
+      ],
+      "p1": "Formation continue depuis 2019 — autoformation rigoureuse en parallèle des missions professionnelles.",
+      "features2": [
+        { "icon": "📖", "name": "Grokking Algorithms", "desc": "Aditya Bhargava" },
+        { "icon": "📖", "name": "Clean Code", "desc": "Robert C. Martin" },
+        { "icon": "📖", "name": "Architecture Patterns", "desc": "Harry Percival & Bob Gregory" },
+        { "icon": "🌐", "name": "Sololearn · OpenClassrooms · freeCodeCamp", "desc": "HTML, CSS, JS, PHP, Python, Java, SQL, C, C++, Angular, Ionic, Laravel…" },
+        { "icon": "🏆", "name": "Open Code Academy — Summer Camp", "desc": "Woelab — Août 2017\nInitiation intensive à la programmation" }
+      ]
+    },
+    "en": {
+      "sectionNum": "04",
+      "sectionLabel": "Education",
+      "title1": "Studies &",
+      "title2": "Certifications",
+      "features1": [
+        {
+          "icon": "🎓",
+          "name": "Web & Mobile Developer — Certified",
+          "desc": "Energy Generation / Simplon.co — Feb.–Nov. 2022\nHTML5, CSS3, JS, PHP, Node.js, React, Laravel, Agile",
+          "tag": "CERTIF"
+        },
+        {
+          "icon": "⚡",
+          "name": "JavaScript Developer",
+          "desc": "freeCodeCamp — Feb.–Apr. 2022\nES6, Algorithms, OOP, Functional Programming",
+          "tag": "CERTIF"
+        },
+        {
+          "icon": "📚",
+          "name": "Bachelor's Degree in Accounting & Audit",
+          "desc": "University of Lomé — 2018–2021\nSuccessful tech transition",
+          "tag": "DEGREE"
+        },
+        {
+          "icon": "🏅",
+          "name": "Baccalaureate G2 — With Honors",
+          "desc": "Institut Polytechnique du Golfe — 2015–2018\nAccounting & Management",
+          "tag": "HIGH SCH."
+        },
+        {
+          "icon": "📊",
+          "name": "SAGE 100 Accounting Training",
+          "desc": "CIGC — Oct.–Nov. 2021",
+          "tag": "CERTIF"
+        }
+      ],
+      "p1": "Continuous learning since 2019 — rigorous self-training parallel to professional missions.",
+      "features2": [
+        { "icon": "📖", "name": "Grokking Algorithms", "desc": "Aditya Bhargava" },
+        { "icon": "📖", "name": "Clean Code", "desc": "Robert C. Martin" },
+        { "icon": "📖", "name": "Architecture Patterns", "desc": "Harry Percival & Bob Gregory" },
+        { "icon": "🌐", "name": "Sololearn · OpenClassrooms · freeCodeCamp", "desc": "HTML, CSS, JS, PHP, Python, Java, SQL, C, C++, Angular, Ionic, Laravel…" },
+        { "icon": "🏆", "name": "Open Code Academy — Summer Camp", "desc": "Woelab — August 2017\nIntensive programming initiation" }
+      ]
+    }
+  },
+
+  "contact": {
+    "fr": {
+      "title1": "Travaillons",
+      "title2": "ensemble",
+      "sub": "Disponible pour missions freelance, CDI ou collaborations techniques",
+      "dlText": "Télécharger mon CV (PDF)"
+    },
+    "en": {
+      "title1": "Let's work",
+      "title2": "together",
+      "sub": "Available for freelance missions, full-time roles, or technical collaborations",
+      "dlText": "Download my Resume (PDF)"
+    }
+  }
+}
