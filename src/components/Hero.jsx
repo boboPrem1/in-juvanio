@@ -55,6 +55,10 @@ export default function Hero({ language }) {
           <a href="G_Curriculum_Vitae.pdf" download className="btn btn-ghost"><DecryptedText text={t.cvBtn} duration={400} /></a>
           <a href="#experience" className="btn btn-ghost"><DecryptedText text={t.expBtn} duration={400} /></a>
         </div>
+        
+        <div className="hero-mobile-image">
+          <img src="azerty.jpg" alt="Amouzougan Kangni Juvanio" />
+        </div>
       </div>
 
       <div className="hero-right">
