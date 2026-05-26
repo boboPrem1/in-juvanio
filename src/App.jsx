@@ -1,6 +1,7 @@
-// src/App.jsx — Phase 3 : boucle dynamique pilotée par skin.architecture
+// src/App.jsx — Phase 3/5 : boucle dynamique + bridge postMessage preview
 import { useState, useEffect, useLayoutEffect, Suspense } from 'react';
 import { usePortfolioData, resolveSlugFromHostname } from './hooks/usePortfolioData';
+import { usePreviewBridge } from './hooks/usePreviewBridge';
 import { injectCssVariables } from './lib/injectCssVariables';
 import { REGISTRY } from './registry/Registry';
 import BlockSkeleton            from './components/shared/BlockSkeleton';
@@ -27,7 +28,7 @@ const SKELETON_HEIGHTS = {
 
 function App() {
   const slug = resolveSlugFromHostname();
-  const { skin, data, status, error, isLoading } = usePortfolioData(slug);
+  const { skin: fetchedSkin, data, status, error, isLoading } = usePortfolioData(slug);
 
   // ── États UI ──────────────────────────────────────────────────────────────
   const [apiMode,   setApiMode]   = useState(false);
@@ -36,6 +37,11 @@ function App() {
     return (hour >= 18 || hour < 8) ? 'dark' : 'light';
   });
   const [language,  setLanguage]  = useState(null);
+
+  // ── State skin local — surchargeable via postMessage (preview iframe) ──────
+  const [liveSkin, setLiveSkin] = useState(null);
+  const isPreview = usePreviewBridge(setLiveSkin, theme);
+  const skin = (isPreview && liveSkin) ? liveSkin : fetchedSkin;
 
   // ── Injection CSS vars depuis skin ────────────────────────────────────────
   useLayoutEffect(() => {
