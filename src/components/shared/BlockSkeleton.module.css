@@ -1,0 +1,29 @@
+/* src/components/shared/BlockSkeleton.module.css */
+.skeleton {
+  width: 100%;
+  background: var(--surface, #0d1017);
+  overflow: hidden;
+  position: relative;
+}
+
+.shimmer {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.04) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.6s infinite;
+}
+
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shimmer { animation: none; opacity: 0.5; }
+}

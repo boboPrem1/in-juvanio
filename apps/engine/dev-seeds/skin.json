@@ -177,5 +177,77 @@
     "bootSequence":  true,
     "noiseOverlay":  true,
     "networkCanvas": true
-  }
+  },
+
+  "architecture": [
+    {
+      "id": "boot-sequence-addon",
+      "component": "BootSequenceAddon",
+      "enabled": true,
+      "props": {}
+    },
+    {
+      "id": "custom-cursor-addon",
+      "component": "CustomCursorAddon",
+      "enabled": true,
+      "props": {}
+    },
+    {
+      "id": "navbar-main",
+      "component": "Navbar",
+      "enabled": true,
+      "props": {}
+    },
+    {
+      "id": "api-view-panel",
+      "component": "ApiViewPanel",
+      "enabled": true,
+      "props": {}
+    },
+    {
+      "id": "hero-terminal",
+      "component": "HeroTerminal",
+      "enabled": true,
+      "props": {
+        "showNetworkCanvas": true
+      }
+    },
+    {
+      "id": "marquee-bar",
+      "component": "MarqueeBar",
+      "enabled": true,
+      "props": {}
+    },
+    {
+      "id": "tenxyte-showcase",
+      "component": "TenxyteShowcase",
+      "enabled": true,
+      "props": {}
+    },
+    {
+      "id": "skills-server-rack",
+      "component": "SkillsServerRack",
+      "enabled": true,
+      "props": {}
+    },
+    {
+      "id": "experience-timeline",
+      "component": "ExperienceTimeline",
+      "enabled": true,
+      "props": {}
+    },
+    {
+      "id": "formation-grid",
+      "component": "FormationGrid",
+      "enabled": true,
+      "props": {}
+    },
+    {
+      "id": "contact-terminal",
+      "component": "ContactTerminal",
+      "enabled": true,
+      "props": {}
+    }
+  ]
 }
+
