@@ -33,10 +33,14 @@
   opacity: 0;
   transform: translateX(-16px);
   transition:
-    opacity var(--transition-base),
-    transform var(--transition-base);
+    opacity   var(--duration-medium, 500ms) cubic-bezier(0.4, 0, 0.2, 1),
+    transform var(--duration-medium, 500ms) cubic-bezier(0.4, 0, 0.2, 1);
 }
 .git-commit.visible { opacity: 1; transform: translateX(0); }
+
+@media (prefers-reduced-motion: reduce) {
+  .git-commit { transition: none; opacity: 1; transform: none; }
+}
 
 .git-meta {
   display: flex;

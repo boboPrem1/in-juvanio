@@ -66,6 +66,14 @@ export function injectCssVariables(skin, theme) {
   const isReversed = layout.heroReversed ?? false;
   root.style.setProperty('--hero-direction', isReversed ? 'row-reverse' : 'row');
 
+  // ── Durées d'animation (Phase 4) ────────────────────────────
+  // Injectées depuis skin.animations.durations pour être utilisables en CSS
+  const dur = skin.animations?.durations ?? {};
+  const durDefaults = { short: 400, medium: 800, long: 1200, xlong: 1800 };
+  for (const [key, def] of Object.entries(durDefaults)) {
+    root.style.setProperty(`--duration-${key}`, `${dur[key] ?? def}ms`);
+  }
+
   // ── Addon noiseOverlay ───────────────────────────────────────
   // Si désactivé, écrase --noise-opacity à 0 (pseudo-element body::after invisible)
   if (skin.addons?.noiseOverlay === false) {

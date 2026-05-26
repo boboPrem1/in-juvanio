@@ -138,16 +138,25 @@
   },
 
   "animations": {
-    "parallaxFactor": 0.3,
-    "stagger": {
-      "skillsDelay":     150,
-      "experienceDelay": 100
-    },
-    "decryptedText": {
+    "durations": {
       "short":  400,
-      "medium": 600,
-      "long":   900,
-      "xlong":  1200
+      "medium": 800,
+      "long":   1200,
+      "xlong":  1800
+    },
+    "stagger": {
+      "default": 80,
+      "dense":   40,
+      "loose":   150
+    },
+    "parallax": {
+      "heroGrid":  0.15,
+      "heroPhoto": 0.08
+    },
+    "intersectionThreshold": 0.15,
+    "glitch": {
+      "intensity": 0.4,
+      "frequency": 200
     }
   },
 

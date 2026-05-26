@@ -13,30 +13,60 @@ import skinSeed from '../../apps/engine/dev-seeds/skin.json';
 import dataSeed from '../../apps/engine/dev-seeds/data.json';
 
 // ─────────────────────────────────────────
-// Normalisation du skin (compatibilité v2 → v3)
-// Convertit les anciennes clés nommées de decryptedText
-// vers le système générique short/medium/long/xlong
+// Normalisation du skin (compatibilité v2/v3 → v4)
 // ─────────────────────────────────────────
 function normalizeSkin(rawSkin) {
   if (!rawSkin) return null;
 
   const skin = structuredClone(rawSkin);
 
-  // Migration decryptedText : si l'ancien format est présent, le normaliser
-  const dt = skin.animations?.decryptedText;
-  if (dt && !dt.short) {
-    const durations = Object.values(dt)
-      .filter(v => typeof v === 'number')
-      .sort((a, b) => a - b);
-    skin.animations.decryptedText = {
-      short:  durations[0] ?? 400,
-      medium: durations[1] ?? 600,
-      long:   durations[2] ?? 900,
-      xlong:  durations[3] ?? 1200,
-    };
+  if (!skin.animations) skin.animations = {};
+  const anim = skin.animations;
+
+  // Migration v2/v3 decryptedText → v4 durations
+  if (anim.decryptedText && !anim.durations) {
+    const dt = anim.decryptedText;
+    if (dt.short !== undefined) {
+      anim.durations = {
+        short:  dt.short  ?? 400,
+        medium: dt.medium ?? 800,
+        long:   dt.long   ?? 1200,
+        xlong:  dt.xlong  ?? 1800,
+      };
+    } else {
+      const vals = Object.values(dt).filter(v => typeof v === 'number').sort((a, b) => a - b);
+      anim.durations = {
+        short:  vals[0] ?? 400,
+        medium: vals[1] ?? 800,
+        long:   vals[2] ?? 1200,
+        xlong:  vals[3] ?? 1800,
+      };
+    }
+    delete anim.decryptedText;
   }
 
-  // Assurer les valeurs par défaut des addons
+  // Migration v2/v3 parallaxFactor → v4 parallax
+  if (anim.parallaxFactor !== undefined && !anim.parallax) {
+    anim.parallax = {
+      heroGrid:  anim.parallaxFactor,
+      heroPhoto: parseFloat((anim.parallaxFactor * 0.5).toFixed(3)),
+    };
+    delete anim.parallaxFactor;
+  }
+
+  // Migration old stagger keys → semantic keys
+  if (anim.stagger) {
+    if (anim.stagger.experienceDelay !== undefined && anim.stagger.default === undefined) {
+      anim.stagger.default = anim.stagger.experienceDelay;
+      delete anim.stagger.experienceDelay;
+    }
+    if (anim.stagger.skillsDelay !== undefined && anim.stagger.loose === undefined) {
+      anim.stagger.loose = anim.stagger.skillsDelay;
+      delete anim.stagger.skillsDelay;
+    }
+  }
+
+  // Addons defaults
   skin.addons = {
     customCursor:  false,
     bootSequence:  false,

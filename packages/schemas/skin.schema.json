@@ -47,34 +47,49 @@
 
     "animations": {
       "type": "object",
-      "description": "Paramètres globaux d'animation.",
+      "description": "Paramètres globaux d'animation (Phase 4).",
       "properties": {
-        "parallaxFactor": {
-          "type": "number",
-          "minimum": 0,
-          "maximum": 1,
-          "default": 0.3,
-          "description": "Intensité de l'effet parallax. 0 = désactivé."
+        "durations": {
+          "type": "object",
+          "description": "Durées sémantiques des animations (ms). Injectées en CSS comme --duration-*.",
+          "properties": {
+            "short":  { "type": "number", "minimum": 0, "default": 400 },
+            "medium": { "type": "number", "minimum": 0, "default": 800 },
+            "long":   { "type": "number", "minimum": 0, "default": 1200 },
+            "xlong":  { "type": "number", "minimum": 0, "default": 1800 }
+          },
+          "additionalProperties": false
         },
         "stagger": {
           "type": "object",
           "description": "Délais d'apparition en cascade (ms).",
           "properties": {
-            "skillsDelay":     { "type": "integer", "minimum": 0, "maximum": 1000, "default": 150 },
-            "experienceDelay": { "type": "integer", "minimum": 0, "maximum": 1000, "default": 100 }
+            "default": { "type": "integer", "minimum": 0, "default": 80 },
+            "dense":   { "type": "integer", "minimum": 0, "default": 40 },
+            "loose":   { "type": "integer", "minimum": 0, "default": 150 }
           },
           "additionalProperties": false
         },
-        "decryptedText": {
+        "parallax": {
           "type": "object",
-          "description": "Durées de l'animation de déchiffrement de texte (ms). Générique: short/medium/long/xlong.",
+          "description": "Facteurs de parallaxe par élément (0 = désactivé).",
+          "additionalProperties": { "type": "number" }
+        },
+        "intersectionThreshold": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "default": 0.15,
+          "description": "Fraction visible d'un élément pour déclencher son animation."
+        },
+        "glitch": {
+          "type": "object",
+          "description": "Paramètres de l'effet glitch au survol.",
           "properties": {
-            "short":  { "type": "integer", "minimum": 0, "default": 400 },
-            "medium": { "type": "integer", "minimum": 0, "default": 600 },
-            "long":   { "type": "integer", "minimum": 0, "default": 900 },
-            "xlong":  { "type": "integer", "minimum": 0, "default": 1200 }
+            "intensity": { "type": "number", "minimum": 0, "maximum": 1, "default": 0.4 },
+            "frequency": { "type": "number", "minimum": 0, "default": 200 }
           },
-          "additionalProperties": true
+          "additionalProperties": false
         }
       },
       "additionalProperties": false

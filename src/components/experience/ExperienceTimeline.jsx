@@ -1,34 +1,16 @@
 // src/components/experience/ExperienceTimeline.jsx
 // Renommé depuis components/Experience.jsx — imports ajustés
-import { useEffect, useRef } from 'react';
 import '../Experience.css';
 import DecryptedText from '../shared/DecryptedText';
+import { useStaggerReveal } from '../../hooks/useStaggerReveal';
 
 export default function ExperienceTimeline({ language, data, skin }) {
-  const containerRef = useRef(null);
   const t = data.experience[language] || data.experience.fr;
-  const anims = skin?.animations?.decryptedText || {};
-  const staggerDelay = skin?.animations?.stagger?.experienceDelay || 100;
+  const d            = skin?.animations?.durations || {};
+  const staggerDelay = skin?.animations?.stagger?.default ?? 80;
+  const threshold    = skin?.animations?.intersectionThreshold ?? 0.15;
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          setTimeout(() => entry.target.classList.add('visible'), parseInt(entry.target.dataset.delay || '0', 10));
-        }
-      });
-    }, { threshold: 0.15 });
-
-    if (containerRef.current) {
-      const commits = containerRef.current.querySelectorAll('.git-commit');
-      commits.forEach((el, i) => {
-        el.dataset.delay = String(i * staggerDelay);
-        observer.observe(el);
-      });
-    }
-
-    return () => observer.disconnect();
-  }, []);
+  const { containerRef } = useStaggerReveal('.git-commit', { staggerDelay, threshold });
 
   return (
     <section className="experience" id="experience">
@@ -68,7 +50,7 @@ export default function ExperienceTimeline({ language, data, skin }) {
 
               {job.desc && (
                 <p className="git-desc">
-                  <DecryptedText text={job.desc} duration={anims.experienceDesc || 1200} />
+                  <DecryptedText text={job.desc} duration={d.long ?? 1200} />
                 </p>
               )}
 
@@ -76,7 +58,7 @@ export default function ExperienceTimeline({ language, data, skin }) {
                 {job.changes.map((change, i) => (
                   <div className="git-change" key={i}>
                     <span className={`git-change-prefix ${change.type}`}>{change.symbol}</span>{' '}
-                    <span><DecryptedText text={change.text} duration={anims.experienceChange || 1000} /></span>
+                    <span><DecryptedText text={change.text} duration={d.medium ?? 800} /></span>
                   </div>
                 ))}
               </div>

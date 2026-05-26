@@ -2,12 +2,14 @@
 // Renommé depuis components/NetworkCanvas.jsx — imports ajustés
 import { useEffect, useRef } from 'react';
 import { getCssVarRgba } from '../../lib/getCssVar';
+import { prefersReducedMotion } from '../../hooks/utils/prefersReducedMotion';
 
 export default function NetworkCanvasAddon() {
   const canvasRef = useRef(null);
   const mousePos = useRef({ x: -1000, y: -1000 });
 
   useEffect(() => {
+    if (prefersReducedMotion()) return;
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
@@ -138,5 +140,6 @@ export default function NetworkCanvasAddon() {
     };
   }, []);
 
+  if (prefersReducedMotion()) return null;
   return <canvas id="networkCanvas" ref={canvasRef}></canvas>;
 }

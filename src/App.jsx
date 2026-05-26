@@ -14,6 +14,17 @@ import DecryptedText            from './components/shared/DecryptedText';
 const ADDON_COMPONENTS     = new Set(['BootSequenceAddon', 'CustomCursorAddon', 'NoiseOverlayAddon', 'NetworkCanvasAddon']);
 const STRUCTURE_COMPONENTS = new Set(['Navbar', 'ApiViewPanel']);
 
+// ── Hauteurs des skeletons co-localisés (Phase 3) ─────────────────────────────
+const SKELETON_HEIGHTS = {
+  HeroTerminal:      600,
+  MarqueeBar:         80,
+  TenxyteShowcase:   400,
+  SkillsServerRack:  500,
+  ExperienceTimeline: 600,
+  FormationGrid:     400,
+  ContactTerminal:   400,
+};
+
 function App() {
   const slug = resolveSlugFromHostname();
   const { skin, data, status, error, isLoading } = usePortfolioData(slug);
@@ -46,19 +57,6 @@ function App() {
   useEffect(() => {
     if (apiMode) window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [apiMode]);
-
-  // ── Parallax hero-grid ────────────────────────────────────────────────────
-  useEffect(() => {
-    if (!skin) return;
-    const factor = skin.animations?.parallaxFactor ?? 0.3;
-    if (factor === 0) return;
-    const handleScroll = () => {
-      const heroGrid = document.querySelector('.hero-grid');
-      if (heroGrid) heroGrid.style.transform = `translateY(${window.scrollY * factor}px)`;
-    };
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [skin]);
 
   // ── États de chargement / erreur ──────────────────────────────────────────
   if (isLoading || status === 'loading' || language === null) {
@@ -99,8 +97,9 @@ function App() {
   const renderBlock = ({ id, component, props = {} }) => {
     const Block = REGISTRY[component];
     if (!Block) return <MissingComponentFallback key={id} name={component} />;
+    const height = SKELETON_HEIGHTS[component] ?? 400;
     return (
-      <Suspense key={id} fallback={<BlockSkeleton height={400} label={component} />}>
+      <Suspense key={id} fallback={<BlockSkeleton height={height} label={component} />}>
         <Block {...sharedProps} {...props} />
       </Suspense>
     );

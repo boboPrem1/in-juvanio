@@ -13,6 +13,7 @@ const ContactTerminal    = React.lazy(() => import('../components/contact/Contac
 // ── Add-ons (rendus en dehors du <main>) ──────────────────────────────────────
 const BootSequenceAddon  = React.lazy(() => import('../components/addons/BootSequenceAddon'));
 const CustomCursorAddon  = React.lazy(() => import('../components/addons/CustomCursorAddon'));
+const NoiseOverlayAddon  = React.lazy(() => import('../components/addons/NoiseOverlayAddon'));
 const NetworkCanvasAddon = React.lazy(() => import('../components/addons/NetworkCanvasAddon'));
 
 // ── Navigation & structure ────────────────────────────────────────────────────
@@ -45,6 +46,7 @@ export const REGISTRY = {
   // Add-ons
   BootSequenceAddon,
   CustomCursorAddon,
+  NoiseOverlayAddon,
   NetworkCanvasAddon,
 
   // Navigation & structure

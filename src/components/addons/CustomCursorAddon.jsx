@@ -2,6 +2,7 @@
 // Renommé depuis components/CustomCursor.jsx — imports ajustés
 import { useEffect, useRef } from 'react';
 import '../CustomCursor.css';
+import { prefersReducedMotion } from '../../hooks/utils/prefersReducedMotion';
 
 export default function CustomCursorAddon({ cursorData = { type: 'custom' } }) {
   const cursorRef = useRef(null);
@@ -64,7 +65,7 @@ export default function CustomCursorAddon({ cursorData = { type: 'custom' } }) {
     };
   }, []);
 
-  if (type === 'default' || type === 'none') return null;
+  if (type === 'default' || type === 'none' || prefersReducedMotion()) return null;
 
   return (
     <>

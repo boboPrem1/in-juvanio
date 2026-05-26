@@ -1,20 +1,24 @@
 // src/components/formation/FormationGrid.jsx
 // Renommé depuis components/Formation.jsx — imports ajustés
 import '../Formation.css';
-import DecryptedText from '../shared/DecryptedText';
+import DecryptedText    from '../shared/DecryptedText';
+import AnimatedSection  from '../shared/AnimatedSection';
 
 export default function FormationGrid({ language, data, skin }) {
   const t = data.formation[language] || data.formation.fr;
-  const anims = skin?.animations?.decryptedText || {};
+  const d = skin?.animations?.durations || {};
 
   return (
     <section id="formation">
-      <div className="section-label" data-num={t.sectionNum}><DecryptedText text={t.sectionLabel} /></div>
-      <h2 className="section-title">
-        <DecryptedText text={t.title1} /><br />
-        <em className="formation-title-em"><DecryptedText text={t.title2} /></em>
-      </h2>
+      <AnimatedSection animation="fadeUp">
+        <div className="section-label" data-num={t.sectionNum}><DecryptedText text={t.sectionLabel} /></div>
+        <h2 className="section-title">
+          <DecryptedText text={t.title1} /><br />
+          <em className="formation-title-em"><DecryptedText text={t.title2} /></em>
+        </h2>
+      </AnimatedSection>
 
+      <AnimatedSection animation="fadeUp" delay={100}>
       <div className="two-col">
         <div>
           <div className="tenxyte-features">
@@ -26,7 +30,7 @@ export default function FormationGrid({ language, data, skin }) {
                   <div className="feature-desc">
                     {feat.desc.split('\n').map((line, i, arr) => (
                       <span key={i}>
-                        <DecryptedText text={line} duration={anims.formationDesc || 1200} />
+                        <DecryptedText text={line} duration={d.long ?? 1200} />
                         {i < arr.length - 1 && <br />}
                       </span>
                     ))}
@@ -41,7 +45,7 @@ export default function FormationGrid({ language, data, skin }) {
         </div>
         <div>
           <p className="formation-intro-text">
-            <DecryptedText text={t.p1} duration={anims.formationP1 || 1500} />
+            <DecryptedText text={t.p1} duration={d.long ?? 1200} />
           </p>
           <div className="tenxyte-features">
             {t.features2.map((feat, idx) => (
@@ -52,7 +56,7 @@ export default function FormationGrid({ language, data, skin }) {
                   <div className="feature-desc">
                     {feat.desc.split('\n').map((line, i, arr) => (
                       <span key={i}>
-                        <DecryptedText text={line} duration={anims.formationDesc || 1200} />
+                        <DecryptedText text={line} duration={d.long ?? 1200} />
                         {i < arr.length - 1 && <br />}
                       </span>
                     ))}
@@ -63,6 +67,7 @@ export default function FormationGrid({ language, data, skin }) {
           </div>
         </div>
       </div>
+      </AnimatedSection>
     </section>
   );
 }

@@ -2,6 +2,7 @@
 // Renommé depuis components/BootSequence.jsx — imports ajustés
 import { useEffect, useState } from 'react';
 import '../BootSequence.css';
+import { prefersReducedMotion } from '../../hooks/utils/prefersReducedMotion';
 
 const TYPE_CLASS = { info: 'ok', ok: 'ok', warn: 'warn', pass: 'ok', dim: 'dim' };
 
@@ -23,7 +24,7 @@ function formatTimestamp() {
 }
 
 export default function BootSequenceAddon({ data, skin }) {
-  const [isDone, setIsDone]           = useState(false);
+  const [isDone, setIsDone]           = useState(() => prefersReducedMotion());
   const [currentLine, setCurrentLine] = useState(-1);
 
   const bootData            = data?.boot;
@@ -60,6 +61,7 @@ export default function BootSequenceAddon({ data, skin }) {
   ];
 
   useEffect(() => {
+    if (prefersReducedMotion()) { setIsDone(true); return; }
     let timeoutId;
     const playSequence = (index) => {
       if (index >= lines.length) {
