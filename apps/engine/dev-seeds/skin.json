@@ -1,70 +1,181 @@
 {
   "theme": {
     "light": {
-      "--bg": "#f8fafc",
-      "--surface": "#ffffff",
-      "--surface2": "#e2e8f0",
-      "--accent": "#0b7a6f",
-      "--accent2": "#be123c",
-      "--accent3": "#b45309",
-      "--text": "#0f172a",
-      "--muted": "#475569",
-      "--border": "rgba(15, 23, 42, 0.12)",
-      "--glow": "rgba(11, 122, 111, 0.2)"
+      "--bg":              "#f8fafc",
+      "--surface":         "#ffffff",
+      "--surface2":        "#e2e8f0",
+      "--accent":          "#0b7a6f",
+      "--accent2":         "#be123c",
+      "--accent3":         "#b45309",
+      "--accent-subtle":   "rgba(11, 122, 111, 0.08)",
+      "--accent2-subtle":  "rgba(190, 18, 60, 0.08)",
+      "--accent2-border":  "rgba(190, 18, 60, 0.3)",
+      "--accent3-subtle":  "rgba(180, 83, 9, 0.08)",
+      "--accent3-border":  "rgba(180, 83, 9, 0.2)",
+      "--text":            "#0f172a",
+      "--muted":           "#475569",
+      "--border":          "rgba(15, 23, 42, 0.12)",
+      "--glow":            "rgba(11, 122, 111, 0.2)",
+      "--canvas-accent-base":  "#0b7a6f",
+      "--canvas-accent2-base": "#be123c",
+      "--canvas-bg-base":      "#f8fafc"
     },
     "dark": {
-      "--bg": "#080a0f",
-      "--surface": "#0d1017",
-      "--surface2": "#121820",
-      "--accent": "#00e5c3",
-      "--accent2": "#ff4d6d",
-      "--accent3": "#ffd166",
-      "--text": "#e8eaf0",
-      "--muted": "#7a859c",
-      "--border": "rgba(255, 255, 255, 0.06)",
-      "--glow": "rgba(0, 229, 195, 0.15)"
+      "--bg":              "#080a0f",
+      "--surface":         "#0d1017",
+      "--surface2":        "#121820",
+      "--accent":          "#00e5c3",
+      "--accent2":         "#ff4d6d",
+      "--accent3":         "#ffd166",
+      "--accent-subtle":   "rgba(0, 229, 195, 0.08)",
+      "--accent2-subtle":  "rgba(255, 77, 109, 0.08)",
+      "--accent2-border":  "rgba(255, 77, 109, 0.3)",
+      "--accent3-subtle":  "rgba(255, 209, 102, 0.08)",
+      "--accent3-border":  "rgba(255, 209, 102, 0.2)",
+      "--text":            "#e8eaf0",
+      "--muted":           "#7a859c",
+      "--border":          "rgba(255, 255, 255, 0.06)",
+      "--glow":            "rgba(0, 229, 195, 0.15)",
+      "--canvas-accent-base":  "#00e5c3",
+      "--canvas-accent2-base": "#ff4d6d",
+      "--canvas-bg-base":      "#080a0f"
     }
   },
+
   "typography": {
-    "--font-mono": "'DM Mono', monospace",
-    "--font-heading": "'Fraunces', serif"
+    "--font-mono":    "'DM Mono', monospace",
+    "--font-heading": "'Fraunces', serif",
+    "--font-body":    "system-ui, sans-serif",
+
+    "--text-2xs":  "10px",
+    "--text-xs":   "11px",
+    "--text-sm":   "12px",
+    "--text-base": "13px",
+    "--text-md":   "14px",
+    "--text-lg":   "16px",
+    "--text-xl":   "20px",
+
+    "--tracking-tight":   "-0.02em",
+    "--tracking-normal":  "0em",
+    "--tracking-wide":    "0.05em",
+    "--tracking-wider":   "0.1em",
+    "--tracking-widest":  "0.15em",
+
+    "--leading-tight": "1.2",
+    "--leading-base":  "1.5",
+    "--leading-loose": "1.8"
   },
-  "layout": {
-    "heroReversed": false,
-    "skillsColumns": 4,
-    "--border-radius-base": "4px",
-    "--border-radius-large": "50%",
-    "--hero-gap": "0px"
+
+  "spacing": {
+    "--space-1":  "2px",
+    "--space-2":  "4px",
+    "--space-3":  "8px",
+    "--space-4":  "12px",
+    "--space-5":  "16px",
+    "--space-6":  "24px",
+    "--space-7":  "32px",
+    "--space-8":  "40px",
+    "--space-9":  "48px",
+    "--space-10": "64px",
+    "--space-11": "80px",
+    "--space-12": "96px",
+    "--space-13": "128px",
+
+    "--space-xs":  "4px",
+    "--space-sm":  "8px",
+    "--space-md":  "16px",
+    "--space-lg":  "24px",
+    "--space-xl":  "32px",
+    "--space-2xl": "48px",
+    "--space-3xl": "64px",
+    "--space-4xl": "96px",
+    "--space-5xl": "128px"
   },
+
+  "transitions": {
+    "--transition-fast":  "0.15s cubic-bezier(0.4, 0, 0.2, 1)",
+    "--transition-base":  "0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+    "--transition-slow":  "0.6s cubic-bezier(0.4, 0, 0.2, 1)",
+    "--transition-xslow": "1.2s cubic-bezier(0.4, 0, 0.2, 1)"
+  },
+
+  "zIndex": {
+    "--z-base":    "0",
+    "--z-raised":  "10",
+    "--z-sticky":  "50",
+    "--z-navbar":  "100",
+    "--z-overlay": "200",
+    "--z-modal":   "500",
+    "--z-cursor":  "9999",
+    "--z-boot":    "10000"
+  },
+
+  "shape": {
+    "--radius-none": "0px",
+    "--radius-sm":   "2px",
+    "--radius-base": "4px",
+    "--radius-md":   "6px",
+    "--radius-lg":   "12px",
+    "--radius-xl":   "20px",
+    "--radius-full": "50%",
+    "--radius-pill": "9999px"
+  },
+
+  "opacities": {
+    "--opacity-full":   "1",
+    "--opacity-high":   "0.8",
+    "--opacity-medium": "0.6",
+    "--opacity-dim":    "0.4",
+    "--opacity-ghost":  "0.12",
+    "--opacity-noise":  "0.05"
+  },
+
+  "effects": {
+    "--noise-opacity":            "0.05",
+    "--grid-opacity":             "0.6",
+    "--scanline-opacity-light":   "0.03",
+    "--scanline-opacity-dark":    "0.3"
+  },
+
   "animations": {
     "parallaxFactor": 0.3,
     "stagger": {
-      "skillsDelay": 150,
+      "skillsDelay":     150,
       "experienceDelay": 100
     },
     "decryptedText": {
-      "short": 400,
+      "short":  400,
       "medium": 600,
-      "long": 900,
-      "xlong": 1200
+      "long":   900,
+      "xlong":  1200
     }
   },
-  "effects": {
-    "--noise-opacity": "0.05",
-    "--grid-opacity": "0.6"
+
+  "layout": {
+    "heroReversed":          false,
+    "skillsColumns":         4,
+    "langCardSpan":          2,
+    "--border-radius-base":  "4px",
+    "--border-radius-large": "50%",
+    "--hero-gap":            "0px",
+    "--section-padding-x":   "64px",
+    "--section-padding-y":   "96px"
   },
+
   "cursor": {
     "type": "custom"
   },
+
   "assets": {
     "heroPhoto": "azerty.jpg",
-    "favicon": "favicon.png",
-    "cvPdf": "G_Curriculum_Vitae.pdf"
+    "favicon":   "favicon.png",
+    "cvPdf":     "G_Curriculum_Vitae.pdf"
   },
+
   "addons": {
-    "customCursor": true,
-    "bootSequence": false,
-    "noiseOverlay": true,
-    "networkCanvas": false
+    "customCursor":  true,
+    "bootSequence":  true,
+    "noiseOverlay":  true,
+    "networkCanvas": true
   }
 }

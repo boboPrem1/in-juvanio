@@ -1,8 +1,9 @@
+import './Hero.css';
 import NetworkCanvas      from './NetworkCanvas';
 import TerminalBackground from './TerminalBackground';
 import DecryptedText      from './DecryptedText';
 
-export default function Hero({ language, data, skin }) {
+export default function Hero({ language, data, skin, showNetworkCanvas = true }) {
   const t      = data.hero[language] || data.hero.fr;
   const meta   = data.meta;
   // ✅ Clés normalisées (short/medium/long)
@@ -16,15 +17,11 @@ export default function Hero({ language, data, skin }) {
   const heroPhoto = skin?.assets?.heroPhoto;
 
   return (
-    <section
-      className="hero"
-      id="about"
-      style={{ flexDirection: isReversed ? 'row-reverse' : 'row' }}
-    >
+    <section className="hero" id="about">
       <div className="hero-grid" />
-      <NetworkCanvas />
+      {showNetworkCanvas && <NetworkCanvas />}
 
-      <div className="hero-left" style={{ flex: 1, width: '50%' }}>
+      <div className="hero-left">
         {/* ✅ medium au lieu de heroTag */}
         <div className="hero-tag">
           <DecryptedText text={t.tag} duration={anims.medium} />
@@ -44,7 +41,7 @@ export default function Hero({ language, data, skin }) {
           <span>Tenxyte</span>{' — '}
           <DecryptedText text={t.framework}   duration={anims.medium} /><br /><br />
           <DecryptedText text={t.desc}        duration={anims.long} />{' '}
-          <span style={{ color: 'var(--accent2)' }}>
+          <span className="hero-leadership">
             <DecryptedText text={t.leadership} duration={anims.medium} />
           </span>.
         </p>
@@ -67,7 +64,7 @@ export default function Hero({ language, data, skin }) {
         </div>
       </div>
 
-      <div className="hero-right" style={{ flex: 1, width: '50%' }}>
+      <div className="hero-right">
         <div className="hero-visual">
           <TerminalBackground data={data} />
           <div className="data-ring data-ring-1"><div className="data-packet" /></div>
@@ -82,7 +79,7 @@ export default function Hero({ language, data, skin }) {
         </div>
       </div>
 
-      <a href="#tenxyte" className="hero-scroll" style={{ textDecoration: 'none' }}>
+      <a href="#tenxyte" className="hero-scroll">
         <DecryptedText text={t.scroll} duration={anims.short} />
       </a>
     </section>

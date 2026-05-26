@@ -1,3 +1,4 @@
+import './Formation.css';
 import DecryptedText from './DecryptedText';
 
 export default function Formation({ language, data, skin }) {
@@ -5,11 +6,11 @@ export default function Formation({ language, data, skin }) {
   const anims = skin?.animations?.decryptedText || {};
 
   return (
-    <section id="formation" style={{borderTop: '1px solid var(--border)'}}>
+    <section id="formation">
       <div className="section-label" data-num={t.sectionNum}><DecryptedText text={t.sectionLabel} /></div>
       <h2 className="section-title">
         <DecryptedText text={t.title1} /><br />
-        <em style={{fontFamily: 'var(--font-heading)', color: 'var(--accent3)'}}><DecryptedText text={t.title2} /></em>
+        <em className="formation-title-em"><DecryptedText text={t.title2} /></em>
       </h2>
 
       <div className="two-col">
@@ -29,7 +30,7 @@ export default function Formation({ language, data, skin }) {
                     ))}
                   </div>
                 </div>
-                <span className="feature-tag" style={{color: 'var(--accent3)', borderColor: 'rgba(255,209,102,0.2)'}}>
+                <span className="feature-tag feature-tag--accent3">
                   <DecryptedText text={feat.tag} />
                 </span>
               </div>
@@ -37,7 +38,7 @@ export default function Formation({ language, data, skin }) {
           </div>
         </div>
         <div>
-          <p style={{fontSize: '12px', color: 'var(--muted)', marginBottom: '24px', letterSpacing: '1px', lineHeight: '1.8'}}>
+          <p className="formation-intro-text">
             <DecryptedText text={t.p1} duration={anims.formationP1 || 1500} />
           </p>
           <div className="tenxyte-features">

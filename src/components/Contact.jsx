@@ -1,3 +1,4 @@
+import './Contact.css';
 import DecryptedText from './DecryptedText';
 
 export default function Contact({ language, data, skin }) {
@@ -49,7 +50,7 @@ export default function Contact({ language, data, skin }) {
         </div>
       </div>
       <div className="contact-cv-dl">
-        <a href={meta.contact.cv} download className="btn btn-primary" style={{display: 'inline-block'}}>
+        <a href={meta.contact.cv} download className="btn btn-primary">
           <DecryptedText text={t.dlText} />
         </a>
       </div>

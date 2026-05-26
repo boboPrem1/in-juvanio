@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { getCssVarRgba } from '../lib/getCssVar';
 
 export default function NetworkCanvas() {
   const canvasRef = useRef(null);
@@ -60,12 +61,13 @@ export default function NetworkCanvas() {
       draw(ctx) {
         const x = this.from.x + (this.to.x - this.from.x) * this.progress;
         const y = this.from.y + (this.to.y - this.from.y) * this.progress;
+        // ✅ Couleur depuis CSS var — lue à chaque draw pour réagir au thème
+        const packetColor = getCssVarRgba('--canvas-accent2-base', 1);
         ctx.beginPath();
         ctx.arc(x, y, 2, 0, Math.PI * 2);
-        ctx.fillStyle = '#ff4d6d';
-        ctx.fill();
-        ctx.shadowBlur = 8;
-        ctx.shadowColor = '#ff4d6d';
+        ctx.fillStyle   = packetColor;
+        ctx.shadowBlur  = 8;
+        ctx.shadowColor = packetColor;
         ctx.fill();
         ctx.shadowBlur = 0;
       }
@@ -91,7 +93,8 @@ export default function NetworkCanvas() {
             ctx.beginPath();
             ctx.moveTo(nodes[i].x, nodes[i].y);
             ctx.lineTo(nodes[j].x, nodes[j].y);
-            ctx.strokeStyle = `rgba(0, 229, 195, ${alpha})`;
+            // ✅ Couleur depuis CSS var
+            ctx.strokeStyle = getCssVarRgba('--canvas-accent-base', alpha);
             ctx.lineWidth = 0.5;
             ctx.stroke();
           }
@@ -106,7 +109,8 @@ export default function NetworkCanvas() {
           const alpha = (1 - dist / MOUSE_RADIUS) * 0.4;
           ctx.beginPath();
           ctx.arc(n.x, n.y, n.radius + 2, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(0, 229, 195, ${alpha})`;
+          // ✅ Couleur depuis CSS var
+          ctx.fillStyle = getCssVarRgba('--canvas-accent-base', alpha);
           ctx.fill();
         }
       }
@@ -114,7 +118,8 @@ export default function NetworkCanvas() {
       for (const n of nodes) {
         ctx.beginPath();
         ctx.arc(n.x, n.y, n.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(0, 229, 195, ${n.baseAlpha})`;
+        // ✅ Couleur depuis CSS var
+        ctx.fillStyle = getCssVarRgba('--canvas-accent-base', n.baseAlpha);
         ctx.fill();
       }
 

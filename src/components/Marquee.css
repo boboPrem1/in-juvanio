@@ -1,0 +1,35 @@
+/* src/components/Marquee.css */
+
+.marquee-section {
+  overflow: hidden;
+  padding: var(--space-lg, 24px) 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.marquee-track {
+  display: flex;
+  gap: 0;
+  animation: marqueeScroll 25s linear infinite;
+  white-space: nowrap;
+  will-change: transform;
+}
+
+.marquee-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg, 24px);
+  padding: 0 var(--space-8, 40px);
+  font-size: var(--text-md, 14px);
+  letter-spacing: var(--tracking-widest, 0.15em);
+  text-transform: uppercase;
+  color: var(--muted);
+  flex-shrink: 0;
+}
+
+.marquee-item::after {
+  content: '✦';
+  color: var(--accent);
+  font-size: var(--text-sm, 12px);
+}

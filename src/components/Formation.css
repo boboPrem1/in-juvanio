@@ -1,0 +1,29 @@
+/* src/components/Formation.css */
+
+#formation {
+  padding: var(--section-padding-y, 96px) var(--section-padding-x, 64px);
+  border-top: 1px solid var(--border);
+}
+
+/* ── Titre em — accent3 ──────────────────────────────────────── */
+.formation-title-em {
+  font-family: var(--font-heading);
+  font-style: italic;
+  color: var(--accent3);
+}
+
+/* ── Texte intro ─────────────────────────────────────────────── */
+.formation-intro-text {
+  font-size: var(--text-sm, 12px);
+  color: var(--muted);
+  margin-bottom: var(--space-lg, 24px);
+  letter-spacing: var(--tracking-wide, 0.05em);
+  line-height: var(--leading-loose, 1.8);
+}
+
+/* ── feature-tag variante accent3 ───────────────────────────── */
+.feature-tag--accent3 {
+  color: var(--accent3);
+  border-color: var(--accent3-border, rgba(255, 209, 102, 0.2));
+  background: var(--accent3-subtle, rgba(255, 209, 102, 0.05));
+}

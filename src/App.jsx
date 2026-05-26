@@ -1,5 +1,6 @@
 import { useState, useEffect, useLayoutEffect } from 'react';
 import { usePortfolioData, resolveSlugFromHostname } from './hooks/usePortfolioData';
+import { injectCssVariables } from './lib/injectCssVariables';
 import BootSequence         from './components/BootSequence';
 import CustomCursor         from './components/CustomCursor';
 import Navbar               from './components/Navbar';
@@ -15,24 +16,6 @@ import DecryptedText        from './components/DecryptedText';
 import FooterBugs           from './components/FooterBugs';
 import AppSkeleton          from './components/skeletons/AppSkeleton';
 import AppErrorScreen       from './components/AppErrorScreen';
-
-// ─── Injection des CSS Custom Properties ─────────────────────────────────────
-// Injecte les clés "--" du skin dans :root (évite le flash de styles non-thémés)
-function injectCssVariables(skin, theme) {
-  if (!skin) return;
-  const tokens = {
-    ...(skin.theme?.[theme] || {}),
-    ...(skin.typography     || {}),
-    ...(skin.effects        || {}),
-    // layout : seulement les clés CSS (pas heroReversed, skillsColumns)
-    ...(Object.fromEntries(
-      Object.entries(skin.layout || {}).filter(([k]) => k.startsWith('--'))
-    )),
-  };
-  Object.entries(tokens).forEach(([key, value]) => {
-    document.documentElement.style.setProperty(key, value);
-  });
-}
 
 // ─── Thème par défaut ─────────────────────────────────────────────────────────
 function getDefaultTheme() {
@@ -105,14 +88,15 @@ function App() {
   }
 
   // ── Rendu principal ───────────────────────────────────────────────────────
-  const footer         = data.footer[language] || data.footer.fr;
-  const isCustomCursor = skin?.cursor?.type === 'custom' ||
-                         skin?.addons?.customCursor === true;
+  const footer   = data.footer[language] || data.footer.fr;
+  const addons   = skin?.addons ?? {};
+  const isCustomCursor    = addons.customCursor !== false && skin?.cursor?.type === 'custom';
+  const showNetworkCanvas = addons.networkCanvas !== false;
 
   return (
     <>
       {/* Add-ons conditionnels (contrôlés par skin.addons) */}
-      {skin?.addons?.bootSequence !== false && (
+      {addons.bootSequence !== false && (
         <BootSequence data={data} skin={skin} />
       )}
       {isCustomCursor && (
@@ -133,7 +117,7 @@ function App() {
 
       <div className={`ui-view ${apiMode ? 'hidden' : ''}`} id="uiView">
         <main>
-          <Hero       language={language} data={data} skin={skin} />
+          <Hero       language={language} data={data} skin={skin} showNetworkCanvas={showNetworkCanvas} />
           <Marquee    data={data} />
           <TenxyteArchitecture language={language} data={data} skin={skin} />
           <Skills     language={language} data={data} skin={skin} />

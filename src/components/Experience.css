@@ -1,0 +1,78 @@
+/* src/components/Experience.css */
+
+.experience {
+  padding: var(--section-padding-y, 96px) var(--section-padding-x, 64px);
+  border-top: 1px solid var(--border);
+}
+
+/* ── Titre em — accent ───────────────────────────────────────── */
+.experience-title-em {
+  font-family: var(--font-heading);
+  font-style: italic;
+  color: var(--accent);
+}
+
+/* ── Timeline git ────────────────────────────────────────────── */
+.git-timeline {
+  position: relative;
+  padding-left: var(--space-3xl, 64px);
+}
+.git-timeline::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--border);
+}
+
+.git-commit {
+  position: relative;
+  margin-bottom: var(--space-3xl, 64px);
+  opacity: 0;
+  transform: translateX(-16px);
+  transition:
+    opacity var(--transition-base),
+    transform var(--transition-base);
+}
+.git-commit.visible { opacity: 1; transform: translateX(0); }
+
+.git-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md, 16px);
+  margin-bottom: var(--space-sm, 8px);
+}
+.git-hash    { font-size: var(--text-xs); color: var(--accent); font-family: var(--font-mono); }
+.git-date    { font-size: var(--text-xs); color: var(--muted); }
+.git-company { font-size: var(--text-xs); color: var(--text); }
+
+.git-role {
+  font-size: var(--text-md, 14px);
+  color: var(--text);
+  margin-bottom: var(--space-sm, 8px);
+}
+.git-role-badge {
+  font-size: var(--text-2xs);
+  letter-spacing: var(--tracking-widest);
+  padding: var(--space-1) var(--space-3);
+  border: 1px solid var(--accent);
+  border-radius: var(--radius-sm);
+  color: var(--accent);
+  margin-left: var(--space-sm, 8px); /* ← était marginLeft: '10px' inline */
+}
+
+.git-desc {
+  font-size: var(--text-sm);
+  color: var(--muted);
+  line-height: var(--leading-loose);
+  margin-bottom: var(--space-md, 16px);
+}
+
+.git-changes { display: flex; flex-direction: column; gap: var(--space-2, 4px); }
+.git-change  { font-size: var(--text-xs); display: flex; gap: var(--space-sm); }
+.git-change-prefix       { font-weight: 700; }
+.git-change-prefix.add   { color: var(--accent); }
+.git-change-prefix.mod   { color: var(--accent3); }
+.git-change-prefix.del   { color: var(--accent2); }

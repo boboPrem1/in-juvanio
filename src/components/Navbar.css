@@ -1,0 +1,134 @@
+/* src/components/Navbar.css */
+
+nav {
+  position: fixed;
+  top: 0; right: 0;
+  z-index: var(--z-navbar, 100);
+  padding: var(--space-lg, 24px) var(--space-9, 48px);
+  display: flex;
+  gap: var(--space-7, 32px);
+  align-items: center;
+}
+
+@media (min-width: 901px) {
+  nav {
+    left: 0;
+    justify-content: flex-end;
+    background: linear-gradient(to bottom, var(--bg) 10%, transparent 100%);
+    padding-bottom: var(--space-8, 40px);
+    pointer-events: none;
+  }
+  nav > * { pointer-events: auto; }
+}
+
+nav a {
+  font-family: var(--font-mono, 'DM Mono', monospace);
+  font-size: var(--text-md, 14px);
+  letter-spacing: var(--tracking-wider, 0.1em);
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color var(--transition-base);
+  cursor: none;
+}
+nav a:hover { color: var(--accent); }
+
+/* ── Groupes de toggles ──────────────────────────────────────── */
+.nav-toggles {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md, 16px);
+  margin-left: var(--space-md, 16px);
+  padding-left: var(--space-5, 16px);
+  border-left: 1px solid var(--border);
+}
+
+.api-toggle {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3, 8px);
+}
+
+/* ── Theme toggle inline borderLeft → classe ─────────────────── */
+.api-toggle--no-border {
+  border-left: none;
+  padding-left: 0;
+  margin-left: 0;
+}
+
+.api-toggle-label {
+  font-size: var(--text-sm, 12px);
+  letter-spacing: var(--tracking-wider, 0.1em);
+  text-transform: uppercase;
+  color: var(--muted);
+  transition: color var(--transition-base);
+}
+.api-toggle-label.active { color: var(--accent); }
+
+.api-toggle-switch {
+  position: relative;
+  width: 36px; height: 18px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill, 9999px);
+  cursor: none;
+  transition: all var(--transition-base);
+}
+.api-toggle-switch::after {
+  content: '';
+  position: absolute;
+  top: 2px; left: 2px;
+  width: 12px; height: 12px;
+  border-radius: var(--radius-full, 50%);
+  background: var(--muted);
+  transition: all var(--transition-base);
+}
+.api-toggle-switch.active {
+  background: var(--accent-subtle, rgba(0, 229, 195, 0.15));
+  border-color: var(--accent);
+}
+.api-toggle-switch.active::after {
+  left: 20px;
+  background: var(--accent);
+  box-shadow: 0 0 8px var(--glow);
+}
+
+/* ── Hamburger mobile ────────────────────────────────────────── */
+.nav-toggle {
+  display: none;
+  position: fixed;
+  top: var(--space-6, 24px);
+  right: var(--space-6, 24px);
+  z-index: calc(var(--z-navbar, 100) + 1);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: var(--space-sm, 8px);
+  flex-direction: column;
+  gap: var(--space-2, 4px);
+}
+.nav-toggle span {
+  display: block;
+  width: 24px; height: 2px;
+  background: var(--text);
+  transition: transform var(--transition-base), opacity var(--transition-base);
+}
+@media (max-width: 900px) {
+  .nav-toggle { display: flex; }
+  nav {
+    position: fixed;
+    inset: 0;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-7, 32px);
+    background: var(--bg);
+    transform: translateX(100%);
+    transition: transform var(--transition-base);
+    padding: var(--space-5xl, 128px) var(--space-lg, 24px);
+  }
+  nav.open { transform: translateX(0); pointer-events: auto; }
+  nav > * { pointer-events: auto; }
+  nav a { font-size: var(--text-lg, 16px); }
+  .nav-toggles { flex-direction: column; border-left: none; padding: 0; margin: 0; }
+}

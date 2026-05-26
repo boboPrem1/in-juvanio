@@ -1,0 +1,143 @@
+/* src/styles/utilities.css */
+
+/* ── Boutons ─────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: 14px 28px;
+  font-family: var(--font-mono, 'DM Mono', monospace);
+  font-size: var(--text-sm, 12px);
+  letter-spacing: var(--tracking-widest, 0.15em);
+  text-transform: uppercase;
+  text-decoration: none;
+  border: none;
+  cursor: none;
+  transition:
+    background-color var(--transition-fast),
+    color var(--transition-fast),
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: var(--bg);
+  font-weight: 500;
+}
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--accent2);
+  transform: translateX(-100%);
+  transition: transform var(--transition-base);
+  z-index: -1;
+}
+.btn-primary:hover::after {
+  transform: translateX(0);
+}
+.btn-primary:hover {
+  color: white;
+  box-shadow: 0 0 16px var(--glow);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+.btn-ghost:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* ── Layout deux colonnes ────────────────────────────────────── */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3xl, 64px);
+  align-items: start;
+}
+@media (max-width: 768px) {
+  .two-col { grid-template-columns: 1fr; }
+}
+
+/* ── Étiquette de section ────────────────────────────────────── */
+.section-label {
+  font-size: var(--text-2xs, 10px);
+  letter-spacing: var(--tracking-widest, 0.15em);
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: var(--space-lg, 24px);
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm, 8px);
+}
+.section-label::before {
+  content: attr(data-num);
+  color: var(--accent);
+  font-size: var(--text-xs, 11px);
+}
+
+/* ── Titre de section ────────────────────────────────────────── */
+.section-title {
+  font-family: var(--font-heading, 'Fraunces', serif);
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 600;
+  line-height: var(--leading-tight, 1.2);
+  margin-bottom: var(--space-3xl, 64px);
+  color: var(--text);
+}
+.section-title em {
+  font-style: italic;
+  color: var(--accent);
+}
+
+/* ── UI / API view ───────────────────────────────────────────── */
+.ui-view { display: block; }
+.ui-view.hidden { display: none; }
+.api-view { display: none; }
+.api-view.visible { display: block; }
+
+/* ── Skeleton block ──────────────────────────────────────────── */
+.skeleton-block {
+  background: linear-gradient(
+    90deg,
+    var(--surface2, #121820) 25%,
+    var(--surface,  #0d1017) 50%,
+    var(--surface2, #121820) 75%
+  );
+  background-size: 1200px 100%;
+  animation: skeleton-shimmer 1.6s infinite linear;
+  border-radius: var(--radius-base, 4px);
+}
+
+/* ── JSON syntax highlighting (ApiView) ─────────────────────── */
+.json-key    { color: var(--accent2); }
+.json-string { color: var(--accent3); }
+.json-number { color: var(--accent); }
+.json-bool   { color: #c792ea; }
+.json-null   { color: var(--muted); }
+.json-bracket{ color: var(--muted); }
+
+/* ── Footer ──────────────────────────────────────────────────── */
+footer {
+  position: relative;
+  overflow: hidden;
+  border-top: 1px solid var(--border);
+  padding: var(--space-lg, 24px) var(--space-3xl, 64px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: var(--text-sm, 12px);
+  color: var(--muted);
+  letter-spacing: var(--tracking-wide, 0.05em);
+}
+footer a {
+  color: var(--muted);
+  text-decoration: none;
+}
+footer a:hover { color: var(--accent); }

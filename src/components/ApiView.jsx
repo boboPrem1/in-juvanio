@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import './ApiView.css';
 
 export default function ApiView({ apiMode, language, data, slug }) {
   const [copyText, setCopyText] = useState('');

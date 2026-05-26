@@ -1,0 +1,126 @@
+/* src/components/Skills.css */
+
+#skills {
+  padding: var(--section-padding-y, 96px) var(--section-padding-x, 64px);
+  border-top: 1px solid var(--border);
+}
+
+/* ── Grille de racks ─────────────────────────────────────────── */
+/* --skills-cols injecté dynamiquement depuis skin.layout.skillsColumns */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--skills-cols, 4), 1fr);
+  gap: var(--space-md, 16px);
+}
+@media (max-width: 1024px) { .skills-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px)  { .skills-grid { grid-template-columns: 1fr; } }
+
+/* ── Carte de compétence ─────────────────────────────────────── */
+.skill-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-base, 4px);
+  padding: var(--space-lg, 24px);
+  transition:
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+.skill-card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 12px var(--glow);
+}
+
+/* ── Carte langues : span configurable via CSS var ───────────── */
+/* --lang-card-span injecté depuis skin.layout.langCardSpan */
+.skill-card--wide {
+  grid-column: span var(--lang-card-span, 2);
+}
+
+/* ── En-tête du rack ─────────────────────────────────────────── */
+.skill-rack-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-md, 16px);
+}
+.skill-rack-id {
+  font-size: var(--text-2xs, 10px);
+  letter-spacing: var(--tracking-widest, 0.15em);
+  color: var(--muted);
+}
+
+/* ── LEDs ────────────────────────────────────────────────────── */
+.skill-rack-leds { display: flex; gap: var(--space-2, 4px); }
+.led { width: 8px; height: 8px; border-radius: var(--radius-full, 50%); }
+.led-green  { background: #22c55e; box-shadow: 0 0 6px rgba(34,197,94,0.4); }
+.led-yellow { background: var(--accent3); box-shadow: 0 0 6px var(--accent3-subtle); }
+.led-red    { background: var(--accent2); box-shadow: 0 0 6px var(--accent2-subtle); }
+.led-off    { background: var(--surface2); }
+
+/* ── Icône & titre ───────────────────────────────────────────── */
+.skill-card-icon  { font-size: 28px; display: block; margin-bottom: var(--space-sm, 8px); }
+.skill-card-title {
+  font-size: var(--text-sm, 12px);
+  letter-spacing: var(--tracking-wider, 0.1em);
+  text-transform: uppercase;
+  color: var(--text);
+  margin-bottom: var(--space-md, 16px);
+}
+
+/* ── Tags ────────────────────────────────────────────────────── */
+.skill-tags { display: flex; flex-wrap: wrap; gap: var(--space-2, 4px); }
+.skill-tag {
+  font-size: var(--text-2xs, 10px);
+  padding: var(--space-1, 2px) var(--space-3, 8px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm, 2px);
+  color: var(--muted);
+  transition:
+    border-color var(--transition-fast),
+    color var(--transition-fast);
+}
+.skill-tag:hover { border-color: var(--accent); color: var(--accent); }
+
+/* ── Section langues (footer de la carte wide) ───────────────── */
+.skill-card__langs-footer {
+  margin-top: var(--space-xl, 32px);
+  border-top: 1px solid var(--border);
+  padding-top: var(--space-lg, 24px);
+}
+.skill-card__section-label {
+  font-size: var(--text-2xs, 10px);
+  letter-spacing: var(--tracking-widest, 0.15em);
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: var(--space-md, 16px);
+}
+
+/* ── Barres de langue ────────────────────────────────────────── */
+.lang-item {
+  display: grid;
+  grid-template-columns: 120px 1fr 80px;
+  align-items: center;
+  gap: var(--space-md, 16px);
+  margin-bottom: var(--space-sm, 8px);
+  opacity: 0;
+  transform: translateX(-12px);
+  transition:
+    opacity var(--transition-base),
+    transform var(--transition-base);
+}
+.lang-item.visible { opacity: 1; transform: translateX(0); }
+
+.lang-bar {
+  height: 3px;
+  background: var(--surface2);
+  border-radius: var(--radius-pill, 9999px);
+  overflow: hidden;
+}
+.lang-fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: var(--radius-pill, 9999px);
+  transition: width var(--transition-slow);
+}
+.lang-name  { font-size: var(--text-xs, 11px); color: var(--text); }
+.lang-level { font-size: var(--text-2xs, 10px); color: var(--muted); text-align: right; }

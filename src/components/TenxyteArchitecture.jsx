@@ -1,3 +1,4 @@
+import './TenxyteArchitecture.css';
 import DecryptedText from './DecryptedText';
 
 export default function TenxyteArchitecture({ language, data, skin }) {
@@ -72,7 +73,7 @@ export default function TenxyteArchitecture({ language, data, skin }) {
             <div className="arch-block-label"><DecryptedText text={t.layer1.airsLabel} /></div>
             <div className="arch-block-name"><DecryptedText text={t.layer1.airsName} /></div>
             <div className="arch-block-desc"><DecryptedText text={t.layer1.airsDesc} duration={anims.archLayerDesc || 1000} /></div>
-            <span className="arch-block-tag" style={{color: 'var(--accent2)', borderColor: 'rgba(255,77,109,0.3)', background: 'rgba(255,77,109,0.08)'}}>AI-READY</span>
+            <span className="arch-block-tag arch-block-tag--airs">AI-READY</span>
           </div>
           <div className="arch-block">
             <div className="arch-block-label"><DecryptedText text={t.layer1.secLabel} /></div>

@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { getCssVar } from '../lib/getCssVar';
 
 export default function FooterBugs() {
   const canvasRef = useRef(null);
@@ -38,24 +39,21 @@ export default function FooterBugs() {
     let animationId;
 
     const draw = () => {
-      const isLight = document.body.classList.contains('light-mode');
-
-      // Clear with trail effect
+      // ✅ Fond depuis --bg (pas de hardcode dark/light)
       ctx.globalAlpha = 0.15;
-      ctx.fillStyle = isLight ? '#f8fafc' : '#080a0f'; // Solid background color
+      ctx.fillStyle = getCssVar('--bg');
       ctx.fillRect(0, 0, canvas.width, canvas.height);
       ctx.globalAlpha = 1.0;
 
-      // Draw subtle CRT scanlines
-      ctx.fillStyle = isLight ? 'rgba(0,0,0,0.03)' : 'rgba(0,0,0,0.3)';
+      // ✅ Scanlines — opacité depuis --noise-opacity (approximation)
+      const noiseOpacity = parseFloat(getCssVar('--noise-opacity') || '0.05');
+      ctx.fillStyle = `rgba(0, 0, 0, ${Math.min(noiseOpacity * 6, 0.3)})`;
       for (let y = 0; y < canvas.height; y += 4) {
         ctx.fillRect(0, y, canvas.width, 1);
       }
 
-      ctx.font = `bold ${fontSize}px 'JetBrains Mono', monospace`;
-
-      // Bloom effect for text
-      ctx.shadowBlur = isLight ? 4 : 10;
+      ctx.font = `bold ${fontSize}px var(--font-mono, 'JetBrains Mono', monospace)`;
+      ctx.shadowBlur = 8;
 
       const bugY = Math.floor(canvas.height / fontSize) - 1;
 
@@ -63,40 +61,36 @@ export default function FooterBugs() {
         // Draw bug
         if (bugs[i]) {
           if (bugs[i].active) {
-            ctx.shadowColor = isLight ? '#be123c' : '#ff4d6d';
-            ctx.fillStyle = isLight ? '#be123c' : '#ff4d6d';
+            // ✅ accent2 depuis CSS var
+            ctx.shadowColor = getCssVar('--accent2');
+            ctx.fillStyle   = getCssVar('--accent2');
             ctx.fillText(bugs[i].char, i * fontSize, bugY * fontSize);
           } else if (bugs[i].timer > 0) {
-            ctx.shadowColor = isLight ? '#be123c' : '#ff4d6d';
-            ctx.fillStyle = isLight ? '#be123c' : '#ff4d6d';
-            // Glitch effect text
-            const glitchChars = '!<>-_\\\\/[]{}—=+*^?#_';
-            const randomChar = glitchChars[Math.floor(Math.random() * glitchChars.length)];
-            ctx.fillText(randomChar, i * fontSize, bugY * fontSize);
+            // ✅ accent2 depuis CSS var
+            ctx.shadowColor = getCssVar('--accent2');
+            ctx.fillStyle   = getCssVar('--accent2');
+            const glitchChars = '!<>-_\\/[]{}—=+*^?#_';
+            ctx.fillText(glitchChars[Math.floor(Math.random() * glitchChars.length)], i * fontSize, bugY * fontSize);
             bugs[i].timer--;
             if (bugs[i].timer <= 0) {
-              if (Math.random() > 0.5) {
-                bugs[i] = { active: true, char: Math.random() > 0.5 ? '🐛' : '🐞', timer: 0 };
-              } else {
-                bugs[i] = null;
-              }
+              bugs[i] = Math.random() > 0.5
+                ? { active: true, char: Math.random() > 0.5 ? '🐛' : '🐞', timer: 0 }
+                : null;
             }
           }
         }
 
-        // Draw binary drop
+        // ✅ Pluie binaire — couleur depuis --accent
         const text = Math.random() > 0.5 ? '1' : '0';
-        ctx.shadowColor = isLight ? '#0b7a6f' : '#00e5c3';
-        ctx.fillStyle = isLight ? '#0b7a6f' : '#00e5c3';
+        ctx.shadowColor = getCssVar('--accent');
+        ctx.fillStyle   = getCssVar('--accent');
         ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-
-        // Reset shadow to avoid affecting other draws
         ctx.shadowBlur = 0;
 
         // Collision logic
         if (bugs[i] && bugs[i].active && Math.floor(drops[i]) === bugY) {
           bugs[i].active = false;
-          bugs[i].timer = 25; // Longer glitch frames
+          bugs[i].timer = 25;
         }
 
         // Reset drop
@@ -107,7 +101,6 @@ export default function FooterBugs() {
           }
         }
 
-        // Slower speed!
         drops[i] += 0.25;
       }
 
@@ -127,13 +120,11 @@ export default function FooterBugs() {
       ref={canvasRef}
       style={{
         position: 'absolute',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100%',
+        top: 0, left: 0,
+        width: '100%', height: '100%',
         zIndex: 0,
         pointerEvents: 'none',
-        opacity: 0.05
+        opacity: 0.05,
       }}
     />
   );

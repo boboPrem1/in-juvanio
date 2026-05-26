@@ -1,0 +1,53 @@
+/* src/components/CustomCursor.css */
+
+.cursor {
+  position: fixed;
+  width: 12px;
+  height: 12px;
+  background: var(--accent);
+  border-radius: var(--radius-full, 50%);
+  pointer-events: none;
+  z-index: var(--z-cursor, 9999);
+  transform: translate(-50%, -50%);
+  transition:
+    transform var(--transition-fast),
+    width var(--transition-base),
+    height var(--transition-base),
+    background var(--transition-base);
+  mix-blend-mode: difference;
+}
+
+.cursor-ring {
+  position: fixed;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--accent-subtle, rgba(0, 229, 195, 0.5));
+  border-radius: var(--radius-full, 50%);
+  pointer-events: none;
+  z-index: calc(var(--z-cursor, 9999) - 1);
+  transform: translate(-50%, -50%);
+  transition:
+    transform var(--transition-fast),
+    width var(--transition-base),
+    height var(--transition-base);
+}
+
+.cursor.hover  { width: 20px; height: 20px; background: var(--accent2); }
+.cursor-ring.hover { width: 60px; height: 60px; border-color: var(--accent2); }
+
+/* Variante block (boot sequence) */
+.cursor.block {
+  width: 14px;
+  height: 24px;
+  border-radius: 0;
+  background: var(--accent);
+  animation: bootBlink 1s step-end infinite;
+  mix-blend-mode: normal;
+  opacity: var(--opacity-high, 0.8);
+}
+.cursor.block.hover { width: 24px; height: 24px; }
+
+/* Pointer coarse : masqué */
+@media (pointer: coarse) {
+  .cursor, .cursor-ring { display: none !important; }
+}

@@ -1,3 +1,5 @@
+import './Marquee.css';
+
 export default function Marquee({ data }) {
   // ✅ Items depuis data.marquee.items (pas de hardcode)
   const items = data?.marquee?.items || [];

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import './Navbar.css';
 
 export default function Navbar({ apiMode, toggleApiMode, language, toggleLanguage, theme, toggleTheme, navData }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -29,7 +30,7 @@ export default function Navbar({ apiMode, toggleApiMode, language, toggleLanguag
 
         <div className="nav-toggles">
           {/* Theme Toggle */}
-          <div className="api-toggle" style={{ borderLeft: 'none', paddingLeft: 0, marginLeft: 0 }}>
+          <div className="api-toggle api-toggle--no-border">
             <span className={`api-toggle-label ${theme === 'dark' ? 'active' : ''}`}>{t.dark || 'DARK'}</span>
             <div
               className={`api-toggle-switch ${theme === 'light' ? 'active' : ''}`}

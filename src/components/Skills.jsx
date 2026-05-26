@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import './Skills.css';
 import DecryptedText from './DecryptedText';
 
 export default function Skills({ language, data, skin }) {
@@ -38,12 +39,12 @@ export default function Skills({ language, data, skin }) {
       </div>
       <h2 className="section-title">
         <DecryptedText text={t.title1} /><br />
-        <em style={{fontFamily: 'var(--font-heading)', color: 'var(--accent)'}}>
+        <em>
           <DecryptedText text={t.title2} />
         </em>
       </h2>
 
-      <div className="skills-grid" style={{ gridTemplateColumns: `repeat(${skin?.layout?.skillsColumns || 4}, 1fr)` }}>
+      <div className="skills-grid">
         {rackOrder.map((key) => {
           const rack = racks[key];
           return (
@@ -67,8 +68,8 @@ export default function Skills({ language, data, skin }) {
           );
         })}
 
-        {/* Languages card — span 2 */}
-        <div className="skill-card" style={{gridColumn: 'span 2'}}>
+        {/* Languages card — span via CSS var --lang-card-span */}
+        <div className="skill-card skill-card--wide">
           <div className="skill-rack-header">
             <div className="skill-rack-leds">
               {racks.lang.leds.map((color, i) => (
@@ -90,8 +91,8 @@ export default function Skills({ language, data, skin }) {
             ))}
           </div>
 
-          <div style={{marginTop: '32px', borderTop: '1px solid var(--border)', paddingTop: '24px'}}>
-            <div className="skill-card-title" style={{fontSize: '11px', letterSpacing: '2px', textTransform: 'uppercase', color: 'var(--muted)', marginBottom: '16px'}}>
+          <div className="skill-card__langs-footer">
+            <div className="skill-card__section-label">
               <DecryptedText text={racks.hobbies.title} />
             </div>
             <div className="skill-tags">

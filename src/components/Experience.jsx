@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import './Experience.css';
 import DecryptedText from './DecryptedText';
 
 export default function Experience({ language, data, skin }) {
@@ -34,7 +35,7 @@ export default function Experience({ language, data, skin }) {
       </div>
       <h2 className="section-title">
         <DecryptedText text={t.title1} /><br />
-        <em style={{fontFamily: 'var(--font-heading)', color: 'var(--accent)'}}>
+        <em className="experience-title-em">
           <DecryptedText text={t.title2} />
         </em>
       </h2>
@@ -60,7 +61,7 @@ export default function Experience({ language, data, skin }) {
                 ) : (
                   <DecryptedText text={job.role} />
                 )}
-                {job.badge && <span className="git-role-badge" style={{ marginLeft: '10px' }}><DecryptedText text={job.badge} /></span>}
+                {job.badge && <span className="git-role-badge"><DecryptedText text={job.badge} /></span>}
               </div>
 
               {job.desc && (

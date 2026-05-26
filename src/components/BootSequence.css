@@ -1,0 +1,66 @@
+/* src/components/BootSequence.css */
+
+.boot-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--bg);
+  z-index: var(--z-boot, 10000);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 5vw;
+  font-family: var(--font-mono, 'DM Mono', monospace);
+  font-size: clamp(12px, 2.5vw, 16px);
+  color: var(--accent);
+}
+
+@media (min-width: 768px) {
+  .boot-overlay {
+    align-items: flex-start;
+    text-align: left;
+    padding: 10vw;
+  }
+}
+
+.boot-line {
+  margin-bottom: var(--space-3, 8px);
+  line-height: var(--leading-base, 1.5);
+  white-space: pre-wrap;
+  word-break: break-word;
+  /* opacity & transform gérés inline (valeurs dynamiques par index) */
+}
+
+.boot-line .ok   { color: var(--accent); }
+.boot-line .warn { color: var(--accent3); }
+.boot-line .dim  { color: var(--muted); }
+.boot-line .fail { color: var(--accent2); }
+
+.boot-cursor {
+  display: inline-block;
+  width: 8px;
+  height: 16px;
+  background: var(--accent);
+  animation: bootBlink 0.5s step-end infinite;
+  vertical-align: text-bottom;
+  margin-left: var(--space-2, 4px);
+}
+
+.boot-progress {
+  width: 300px;
+  max-width: 60vw;
+  height: 2px;
+  background: var(--surface2);
+  margin-top: var(--space-7, 32px);
+  border-radius: var(--radius-pill, 9999px);
+  overflow: hidden;
+}
+
+.boot-progress-fill {
+  height: 100%;
+  background: var(--accent);
+  box-shadow: 0 0 8px var(--glow);
+  border-radius: var(--radius-pill, 9999px);
+  /* transition: width gérée inline (valeur dynamique) */
+}

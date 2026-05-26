@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import './BootSequence.css';
 
 // Mapping type → className CSS
 const TYPE_CLASS = {
@@ -98,7 +99,7 @@ export default function BootSequence({ data, skin }) {
           style={{
             opacity:   index <= currentLine ? 1 : 0,
             transform: index <= currentLine ? 'translateX(0)' : 'translateX(-20px)',
-            transition: 'opacity 0.15s, transform 0.15s',
+            transition: 'opacity var(--transition-fast), transform var(--transition-fast)',
           }}
         >
           {line.content}
@@ -106,11 +107,11 @@ export default function BootSequence({ data, skin }) {
       ))}
       <div
         className="boot-progress"
-        style={{ opacity: currentLine >= 0 ? 1 : 0, transition: 'opacity 0.3s' }}
+        style={{ opacity: currentLine >= 0 ? 1 : 0, transition: 'opacity var(--transition-base)' }}
       >
         <div
           className="boot-progress-fill"
-          style={{ width: `${progressWidth}%`, transition: 'width 0.2s' }}
+          style={{ width: `${progressWidth}%`, transition: 'width var(--transition-fast)' }}
         />
       </div>
     </div>

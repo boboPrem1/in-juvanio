@@ -1,0 +1,55 @@
+/* src/styles/animations.css */
+/* Centralisé ici — ne jamais dupliquer dans les fichiers composant */
+
+/* ── Fade in up ──────────────────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Fade in ─────────────────────────────────────────────────── */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ── Float (photo hero) ──────────────────────────────────────── */
+@keyframes float {
+  0%, 100% { transform: translate(-50%, -52%); }
+  50%       { transform: translate(-50%, -48%); }
+}
+
+/* ── Grid pulse (hero background) ───────────────────────────── */
+@keyframes gridPulse {
+  0%, 100% { opacity: var(--grid-opacity, 0.6); }
+  50%       { opacity: 1; }
+}
+
+/* ── Data rings (Hero) ───────────────────────────────────────── */
+@keyframes dataOrbit {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to   { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* ── Marquee ─────────────────────────────────────────────────── */
+@keyframes marqueeScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ── Blink cursor ────────────────────────────────────────────── */
+@keyframes bootBlink {
+  50% { opacity: 0; }
+}
+
+/* ── Skeleton shimmer ────────────────────────────────────────── */
+@keyframes skeleton-shimmer {
+  0%   { background-position: -600px 0; }
+  100% { background-position:  600px 0; }
+}
+
+/* ── Glow pulse ──────────────────────────────────────────────── */
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 0 8px var(--glow); }
+  50%       { box-shadow: 0 0 24px var(--glow); }
+}
