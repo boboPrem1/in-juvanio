@@ -1,30 +1,19 @@
 // src/components/skills/SkillsServerRack.jsx
-// Renommé depuis components/Skills.jsx — imports ajustés
-import { useEffect, useRef } from 'react';
+// Migré Phase 4 — useStaggerReveal + durées sémantiques depuis skin.animations.durations
+import { useStaggerReveal } from '../../hooks/useStaggerReveal';
 import '../Skills.css';
 import DecryptedText from '../shared/DecryptedText';
 
 export default function SkillsServerRack({ language, data, skin }) {
-  const langsRef = useRef(null);
   const t = data.skills[language] || data.skills.fr;
   const racks = t.racks;
-  const anims = skin?.animations?.decryptedText || {};
-  const staggerDelay = skin?.animations?.stagger?.skillsDelay || 150;
+  const d = skin?.animations?.durations || {};
+  const staggerDelay = skin?.animations?.stagger?.loose ?? 150;
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.querySelectorAll('.lang-item').forEach((item, i) => {
-            setTimeout(() => item.classList.add('visible'), i * staggerDelay);
-          });
-        }
-      });
-    }, { threshold: 0.3 });
-
-    if (langsRef.current) observer.observe(langsRef.current);
-    return () => observer.disconnect();
-  }, []);
+  const { containerRef: langsRef } = useStaggerReveal('.lang-item', {
+    staggerDelay,
+    threshold: 0.3, // Skills utilise un threshold plus élevé
+  });
 
   const SPECIAL_RACKS = ['lang', 'hobbies'];
   const rackOrder = Object.keys(racks).filter(k => !SPECIAL_RACKS.includes(k));
@@ -57,7 +46,7 @@ export default function SkillsServerRack({ language, data, skin }) {
               <div className="skill-tags">
                 {rack.tags.map(tag => (
                   <span key={tag} className="skill-tag">
-                    <DecryptedText text={tag} duration={anims.skillsTag || 600} />
+                    <DecryptedText text={tag} duration={d.short ?? 400} />
                   </span>
                 ))}
               </div>
@@ -95,7 +84,7 @@ export default function SkillsServerRack({ language, data, skin }) {
             <div className="skill-tags">
               {racks.hobbies.tags.map(tag => (
                 <span key={tag} className="skill-tag">
-                  <DecryptedText text={tag} duration={anims.skillsTag || 600} />
+                  <DecryptedText text={tag} duration={d.short ?? 400} />
                 </span>
               ))}
             </div>

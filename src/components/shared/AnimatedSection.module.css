@@ -1,0 +1,32 @@
+/* src/components/shared/AnimatedSection.module.css */
+
+.base {
+  transition:
+    opacity  var(--duration-medium, 500ms) ease,
+    transform var(--duration-medium, 500ms) ease;
+}
+
+/* fadeUp */
+.fadeUp         { opacity: 0; transform: translateY(24px); }
+.fadeUp.visible { opacity: 1; transform: translateY(0); }
+
+/* fadeIn */
+.fadeIn         { opacity: 0; }
+.fadeIn.visible { opacity: 1; }
+
+/* slideLeft */
+.slideLeft         { opacity: 0; transform: translateX(-24px); }
+.slideLeft.visible { opacity: 1; transform: translateX(0); }
+
+/* prefers-reduced-motion : tout visible sans transition */
+@media (prefers-reduced-motion: reduce) {
+  .base {
+    transition: none !important;
+  }
+  .fadeUp,
+  .fadeIn,
+  .slideLeft {
+    opacity: 1;
+    transform: none;
+  }
+}

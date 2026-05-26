@@ -47,34 +47,53 @@
 
     "animations": {
       "type": "object",
-      "description": "Paramètres globaux d'animation.",
+      "description": "Paramètres globaux d'animation (Phase 4 — tokens sémantiques génériques).",
       "properties": {
-        "parallaxFactor": {
-          "type": "number",
-          "minimum": 0,
-          "maximum": 1,
-          "default": 0.3,
-          "description": "Intensité de l'effet parallax. 0 = désactivé."
-        },
-        "stagger": {
+        "durations": {
           "type": "object",
-          "description": "Délais d'apparition en cascade (ms).",
+          "description": "Durées de référence en ms, consommées par tous les composants.",
           "properties": {
-            "skillsDelay":     { "type": "integer", "minimum": 0, "maximum": 1000, "default": 150 },
-            "experienceDelay": { "type": "integer", "minimum": 0, "maximum": 1000, "default": 100 }
+            "short":  { "type": "number", "minimum": 0, "default": 400 },
+            "medium": { "type": "number", "minimum": 0, "default": 800 },
+            "long":   { "type": "number", "minimum": 0, "default": 1200 },
+            "xlong":  { "type": "number", "minimum": 0, "default": 1800 }
           },
           "additionalProperties": false
         },
-        "decryptedText": {
+        "stagger": {
           "type": "object",
-          "description": "Durées de l'animation de déchiffrement de texte (ms). Générique: short/medium/long/xlong.",
+          "description": "Délais d'apparition en cascade (ms). default/dense/loose remplacent skillsDelay/experienceDelay.",
           "properties": {
-            "short":  { "type": "integer", "minimum": 0, "default": 400 },
-            "medium": { "type": "integer", "minimum": 0, "default": 600 },
-            "long":   { "type": "integer", "minimum": 0, "default": 900 },
-            "xlong":  { "type": "integer", "minimum": 0, "default": 1200 }
+            "default": { "type": "number", "minimum": 0, "default": 80 },
+            "dense":   { "type": "number", "minimum": 0, "default": 40 },
+            "loose":   { "type": "number", "minimum": 0, "default": 150 }
           },
-          "additionalProperties": true
+          "additionalProperties": false
+        },
+        "parallax": {
+          "type": "object",
+          "description": "Facteurs parallax par élément. Remplace l'unique parallaxFactor global.",
+          "properties": {
+            "heroGrid":  { "type": "number", "minimum": 0, "maximum": 1, "default": 0.15 },
+            "heroPhoto": { "type": "number", "minimum": 0, "maximum": 1, "default": 0.08 }
+          },
+          "additionalProperties": { "type": "number" }
+        },
+        "intersectionThreshold": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "default": 0.15,
+          "description": "Fraction visible d'un élément pour déclencher son animation d'entrée."
+        },
+        "glitch": {
+          "type": "object",
+          "description": "Paramètres de l'effet glitch on-hover (useGlitchText).",
+          "properties": {
+            "intensity": { "type": "number", "minimum": 0, "maximum": 1, "default": 0.4 },
+            "frequency": { "type": "number", "minimum": 0, "default": 200 }
+          },
+          "additionalProperties": false
         }
       },
       "additionalProperties": false

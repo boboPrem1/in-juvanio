@@ -26,9 +26,17 @@ function App() {
   });
   const [language,  setLanguage]  = useState(null);
 
-  // ── Injection CSS vars depuis skin ────────────────────────────────────────
+  // ── Injection CSS vars depuis skin (+ durées d'animation Phase 4) ─────────
   useLayoutEffect(() => {
     injectCssVariables(skin, theme);
+    // Injection des tokens --duration-* pour les CSS modules d'animation
+    if (skin?.animations?.durations) {
+      const { short = 400, medium = 800, long = 1200, xlong = 1800 } = skin.animations.durations;
+      document.documentElement.style.setProperty('--duration-short',  `${short}ms`);
+      document.documentElement.style.setProperty('--duration-medium', `${medium}ms`);
+      document.documentElement.style.setProperty('--duration-long',   `${long}ms`);
+      document.documentElement.style.setProperty('--duration-xlong',  `${xlong}ms`);
+    }
   }, [theme, skin]);
 
   useEffect(() => {
@@ -47,18 +55,7 @@ function App() {
     if (apiMode) window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [apiMode]);
 
-  // ── Parallax hero-grid ────────────────────────────────────────────────────
-  useEffect(() => {
-    if (!skin) return;
-    const factor = skin.animations?.parallaxFactor ?? 0.3;
-    if (factor === 0) return;
-    const handleScroll = () => {
-      const heroGrid = document.querySelector('.hero-grid');
-      if (heroGrid) heroGrid.style.transform = `translateY(${window.scrollY * factor}px)`;
-    };
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [skin]);
+  // ── Parallax hero-grid supprimé (Phase 4) — géré dans HeroTerminal via useParallax ──
 
   // ── États de chargement / erreur ──────────────────────────────────────────
   if (isLoading || status === 'loading' || language === null) {

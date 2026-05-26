@@ -1,21 +1,30 @@
 // src/components/addons/CustomCursorAddon.jsx
-// Renommé depuis components/CustomCursor.jsx — imports ajustés
+// Migré Phase 4 — respect de prefers-reduced-motion (désactive le curseur custom)
 import { useEffect, useRef } from 'react';
+import { prefersReducedMotion } from '../../hooks/utils/prefersReducedMotion';
 import '../CustomCursor.css';
 
-export default function CustomCursorAddon({ cursorData = { type: 'custom' } }) {
+export default function CustomCursorAddon({ skin, cursorData }) {
   const cursorRef = useRef(null);
   const ringRef   = useRef(null);
   const pos = useRef({ cx: 0, cy: 0, mx: 0, my: 0, rx: 0, ry: 0 });
 
-  const type = cursorData.type || 'custom';
+  // Support skin.cursor.type ou l'ancienne prop cursorData
+  const type = skin?.cursor?.type || cursorData?.type || 'custom';
 
+  // Pas de curseur custom si reduced motion ou type 'default'/'none'
+  if (type === 'default' || type === 'none' || prefersReducedMotion()) {
+    return null;
+  }
+
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
     const handleMouseMove = (e) => {
       pos.current.mx = e.clientX;
       pos.current.my = e.clientY;
     };
 
+    let animId;
     const animateRing = () => {
       pos.current.cx += (pos.current.mx - pos.current.cx) * 0.5;
       pos.current.cy += (pos.current.my - pos.current.cy) * 0.5;
@@ -29,11 +38,11 @@ export default function CustomCursorAddon({ cursorData = { type: 'custom' } }) {
         ringRef.current.style.left = pos.current.rx + 'px';
         ringRef.current.style.top  = pos.current.ry + 'px';
       }
-      requestAnimationFrame(animateRing);
+      animId = requestAnimationFrame(animateRing);
     };
 
     document.addEventListener('mousemove', handleMouseMove);
-    const animId = requestAnimationFrame(animateRing);
+    animId = requestAnimationFrame(animateRing);
 
     const handleMouseEnter = () => {
       cursorRef.current?.classList.add('hover');
@@ -63,8 +72,6 @@ export default function CustomCursorAddon({ cursorData = { type: 'custom' } }) {
       cancelAnimationFrame(animId);
     };
   }, []);
-
-  if (type === 'default' || type === 'none') return null;
 
   return (
     <>

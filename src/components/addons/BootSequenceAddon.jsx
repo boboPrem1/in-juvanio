@@ -1,6 +1,7 @@
 // src/components/addons/BootSequenceAddon.jsx
-// Renommé depuis components/BootSequence.jsx — imports ajustés
+// Migré Phase 4 — respect de prefers-reduced-motion (skip immédiat si activé)
 import { useEffect, useState } from 'react';
+import { prefersReducedMotion } from '../../hooks/utils/prefersReducedMotion';
 import '../BootSequence.css';
 
 const TYPE_CLASS = { info: 'ok', ok: 'ok', warn: 'warn', pass: 'ok', dim: 'dim' };
@@ -23,7 +24,8 @@ function formatTimestamp() {
 }
 
 export default function BootSequenceAddon({ data, skin }) {
-  const [isDone, setIsDone]           = useState(false);
+  // Si reduced motion : skip l'animation immédiatement (isDone = true d'emblée)
+  const [isDone, setIsDone]           = useState(() => prefersReducedMotion());
   const [currentLine, setCurrentLine] = useState(-1);
 
   const bootData            = data?.boot;
@@ -60,6 +62,12 @@ export default function BootSequenceAddon({ data, skin }) {
   ];
 
   useEffect(() => {
+    // Si reduced motion : ne pas lancer la séquence du tout
+    if (prefersReducedMotion()) {
+      setIsDone(true);
+      return;
+    }
+
     let timeoutId;
     const playSequence = (index) => {
       if (index >= lines.length) {

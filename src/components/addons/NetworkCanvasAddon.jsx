@@ -1,12 +1,17 @@
 // src/components/addons/NetworkCanvasAddon.jsx
-// Renommé depuis components/NetworkCanvas.jsx — imports ajustés
+// Migré Phase 4 — respect de prefers-reduced-motion (canvas non rendu si activé)
 import { useEffect, useRef } from 'react';
+import { prefersReducedMotion } from '../../hooks/utils/prefersReducedMotion';
 import { getCssVarRgba } from '../../lib/getCssVar';
 
 export default function NetworkCanvasAddon() {
   const canvasRef = useRef(null);
   const mousePos = useRef({ x: -1000, y: -1000 });
 
+  // Si reduced motion : ne pas rendre le canvas du tout
+  if (prefersReducedMotion()) return null;
+
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
